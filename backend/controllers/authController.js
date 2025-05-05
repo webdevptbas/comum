@@ -91,3 +91,8 @@ exports.getCurrentUser = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
+// POST /api/auth/logout
+exports.logout = async (req, res) => {
+  res.status(200).json({ message: "Logout successful" });
+};

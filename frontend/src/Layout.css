@@ -1,0 +1,9 @@
+/* * {
+    cursor: default;
+} */
+
+.content {
+    min-height: min-content;
+    background-color: #FFFFFF;
+    /* height: 100vh; */
+}

@@ -1,0 +1,132 @@
+.header {
+    position: fixed;
+    top: 0;
+    z-index: 5;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #000;
+    background-color: rgba(255, 255, 255, .0);
+    /* backdrop-filter: blur(10px); */
+    align-content: center;
+}
+
+.info {
+    background-color: #ffffff;
+    color: #0A0A0A;
+    font-size: 12px;
+    font-weight: 400;
+    z-index: 10;
+    text-align: center;
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.ant-layout-header {
+  padding: 0 60px
+}
+
+.header.scrolled {
+    background-color: #FFFFFF;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+
+    .ant-menu-title-content{
+        color: #000 !important;
+    }
+
+    .ant-menu-title-content:hover{
+        color: #3267E3 !important;
+    }
+  }
+
+.menu-container {
+    width: 35vw;
+    margin: 0 0 0 30px;
+}
+
+.logo-container, .utilities {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.utilities {
+    justify-content: space-between;
+    width: 9vw;
+}
+
+.ant-menu-overflow {
+    /* background-color: #344EAD; */
+    background-color: rgba(52, 78, 173, .01);
+    flex: 5;
+    min-width: 0;
+    color: #ffffff;
+}
+
+.ant-menu-dark.ant-menu-horizontal > .ant-menu-item-selected {
+  color: #3267E3 !important; /* Your desired highlight color */
+  background-color: transparent !important; /* Remove blue background */
+
+  .ant-menu-title-content{
+    color: #3267E3 !important;
+  }
+}
+
+/* submenu styling */
+/* Mega menu container (Shop dropdown) */
+.ant-menu-submenu-popup {
+    background-color: transparent !important;
+    transform: translateX(-70%);
+    min-width: 1000px;
+    max-width: 1200px;
+  }
+  
+  /* Make dropdown menu layout horizontal */
+  .ant-menu-submenu .ant-menu {
+    display: flex !important;
+    justify-content: space-between;
+    background: transparent;
+    padding: 0;
+    background-color: #ffffff !important;
+    width: 90vw;
+    border-radius: 0;
+  }
+  
+  /* Each group column */
+  .ant-menu-item-group-title {
+    font-weight: 600;
+    font-size: 14px;
+    color: #000 !important;
+    margin-bottom: 12px;
+  }
+  
+  /* Group titles like "Men's Apparel" */
+  .ant-menu-item-group-title {
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 12px;
+    text-transform: none;
+  }
+  
+  /* Menu items */
+  .ant-menu-item-group .ant-menu-item {
+    font-size: 13px;
+    font-weight: 400;
+    color: #1a1a1a !important;
+    padding: 6px 0;
+    background-color: transparent !important;
+    margin: 0 !important;
+  }
+  
+  /* Hover effect */
+  .ant-menu-item-group .ant-menu-item:hover {
+    background-color: transparent !important;
+    /* color: #1677ff !important; */
+  }
+
+  /* end submenu styling */

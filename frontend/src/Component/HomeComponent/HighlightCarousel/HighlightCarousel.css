@@ -1,0 +1,67 @@
+.highlight-wrapper {
+    display: flex;
+    min-height: 600px;
+    background-color: #010101;
+  }
+  
+  .highlight-text {
+    flex: 1;
+    padding: 60px;
+    background-image: url("../../../Images/Background/bg-blue-comum\ 1.svg");
+    background-color: #344EAD;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .highlight-sale-label {
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  
+  .highlight-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 12px;
+  }
+  
+  .highlight-description {
+    max-width: 400px;
+    margin-bottom: 16px;
+  }
+  
+  .highlight-price-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+  
+  .highlight-price {
+    font-size: 18px;
+    font-weight: 700;
+  }
+  
+  .highlight-original {
+    color: #ccc;
+  }
+  
+  .highlight-cta {
+    background-color: #52c41a;
+    border-color: #52c41a;
+    color: white;
+  }
+  
+  .highlight-carousel {
+    width: 50%;
+  }
+  
+  .carousel-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  

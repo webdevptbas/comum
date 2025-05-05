@@ -1,0 +1,25 @@
+.address-container {
+    padding: 60px;
+    /* height: 500px; */
+    background-image: url("../../Images/Background/bg-blue-comum\ 1.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #344EAD;
+    color: white;
+}
+
+.get-direction-btn {
+    margin-top: 16px;
+    padding: 10px 18px;
+    background-color: #43946C;
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .get-direction-btn:hover {
+    background-color: #387B5A;
+  }
+  

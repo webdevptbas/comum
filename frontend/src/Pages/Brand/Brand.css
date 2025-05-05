@@ -1,0 +1,24 @@
+.brand-page-container {
+    min-height: 90vh;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    grid-template-columns: repeat(5, 1fr);
+    padding: 8vh 40px 10vh 40px;
+    gap: 40px;
+}
+
+.brand-page-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    height: 250px;
+    border: 1px solid #EDEDED;
+}
+
+.brand-page-item {
+    width: 200px;
+    height: auto;
+    filter: invert(100%);
+}

@@ -1,0 +1,34 @@
+/* Base styling for all tags */
+.tag-container {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 14.52px;
+    color: #ffffff;
+    /* border-radius: 10px; */
+    width: fit-content;
+    padding: 8px 14px;
+  }
+  
+  /* Modifier classes for specific types */
+  .tag-new {
+    background-color: #43946c; /* Green */
+  }
+  
+  .tag-discount {
+    color: #CB3A31;
+    background-color: #F5D8D6; /* red */
+  }
+  
+  .tag-popular {
+    background-color: #1e90ff; /* Blue */
+  }
+  
+  .tag-limited {
+    background-color: #ffbf47; /* Orange */
+  }
+  
+  /* Add new tag types here */
+  .tag-sale {
+    background-color: #ffd700; /* Gold */
+  }
+  

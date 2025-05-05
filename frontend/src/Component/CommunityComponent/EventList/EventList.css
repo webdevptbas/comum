@@ -1,0 +1,26 @@
+  .eventlist-event-card {
+    display: flex;
+    flex-direction: row;
+    margin: 60px 0;
+    gap: 20px;
+  }
+
+  .eventlist-event-date {
+    font-weight: bold;
+    color: #344EAD;
+    font-size: 24px;
+    margin: 0;
+  }
+
+  .eventlist-event-title {
+    font-weight: bold;
+    color: #0a0a0a;
+    font-size: 34px;
+    margin: 5px 0;
+  }
+
+  .eventlist-event-description {
+    color: #0a0a0a;
+    font-size: 16px;
+    margin: 0;
+  }

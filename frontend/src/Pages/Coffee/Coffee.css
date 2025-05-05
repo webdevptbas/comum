@@ -1,0 +1,80 @@
+.coffee-container {
+    padding: 6vh 60px 60px 60px;
+}
+
+.coffee-title {
+    color: #0a0a0a;
+}
+
+.grid-parent {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 52px;
+    margin-top: 24px;
+}
+
+.grid-parent > div {
+    overflow: hidden;
+}
+
+.grid-parent img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* If you want a larger first image spanning two columns like in your original idea */
+.grid-div1 {
+    grid-column: span 2;
+    grid-row: span 1;
+}
+
+.menu-address-container {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 32px;
+    margin: 52px 0;
+  }
+  
+  .menu {
+    display: flex;
+    max-width: 48%;
+  }
+  
+  .menu img {
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    display: block;
+  }
+  
+  .map-and-info {
+    /* flex: 1; */
+    max-width: 48%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .address-wrapper {
+    flex-grow: 1;
+    display: flex;
+    align-items: flex-start; /* or center/end depending on your design */
+    margin: 52px 0 0 0;
+  }  
+
+.footer-photo {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 52px;
+    margin: 52px 0 0 0;
+}
+
+.footer-photo img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
