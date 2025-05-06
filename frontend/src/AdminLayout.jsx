@@ -1,5 +1,5 @@
 import React from "react";
-import { Layout, Menu } from "antd";
+import { Layout, Menu, message } from "antd";
 import { Outlet, useLocation, useNavigate } from "react-router";
 import { useAuth } from "./Util/AuthContext";
 import api from "./Util/apiHandler";
@@ -7,7 +7,7 @@ import api from "./Util/apiHandler";
 const { Header, Sider, Content } = Layout;
 
 const AdminLayout = () => {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
