@@ -113,7 +113,7 @@ const MainFooter = () => {
                 Jl. Panglima Polim IX No.4, RT./RW/RW.: 1, 7, Melawai, Kec. Kby.
                 Baru, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta.
               </p>
-              <p className="footer-subtitle">comum@gmail.com</p>
+              <p className="footer-subtitle">comumbikeandcoffee@gmail.com</p>
             </div>
             <div>
               <h3 className="title footer-title">Follow Us!</h3>

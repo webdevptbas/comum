@@ -80,7 +80,7 @@ const MainHeader = () => {
               navigate("/");
             }}
           >
-            <ComumHomeBlue />
+            <ComumHomeBlue height="31" width="auto" />
           </div>
           <div className="menu-container">
             <Menu

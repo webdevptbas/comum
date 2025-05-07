@@ -84,7 +84,7 @@
   justify-content: space-between;
   margin: 0;
   gap: 0;
-  cursor: pointer;
+  /* cursor: pointer; */
 }
 
 .icon {

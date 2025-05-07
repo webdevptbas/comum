@@ -8,7 +8,9 @@ const sftpClient = require("ssh2-sftp-client");
 
 exports.createProduct = async (req, res) => {
   try {
-    const imageUrls = await uploadFilesToSynology(req.files || []);
+    const imageUrls = (req.files || []).map((file) => {
+      return `${req.protocol}://${req.get("host")}/uploads/${file.filename}`;
+    });
 
     const {
       productName,
@@ -82,35 +84,22 @@ exports.updateProduct = async (req, res) => {
   try {
     const updateData = { ...req.body };
 
-    // 1. Delete removed images from Synology
+    // 1. Delete removed images from local storage
     if (req.body.deletedImages && Array.isArray(req.body.deletedImages)) {
-      const sftp = new sftpClient();
-      await sftp.connect(SFTP_CONFIG);
-
       for (const url of req.body.deletedImages) {
         const filename = decodeURIComponent(url.split("/").pop());
-        const remotePath = `${process.env.SFTP_REMOTE_PATH}${filename}`;
-
-        try {
-          await sftp.delete(remotePath);
-        } catch (err) {
-          console.warn(`Failed to delete ${filename}:`, err.message);
+        const filePath = path.join(__dirname, "..", "uploads", filename);
+        if (fs.existsSync(filePath)) {
+          fs.unlinkSync(filePath);
         }
       }
-
-      await sftp.end();
     }
 
-    // 2. Upload new images
+    // 2. Upload new images (already stored by multer)
     if (req.files && req.files.length > 0) {
-      const imageUrls = [];
-
-      for (const file of req.files) {
-        await uploadFileToSynology(file.path, file.filename);
-        imageUrls.push(getPublicImageUrl(file.filename));
-        fs.unlinkSync(file.path); // cleanup temp
-      }
-
+      const imageUrls = req.files.map((file) => {
+        return `${req.protocol}://${req.get("host")}/uploads/${file.filename}`;
+      });
       updateData.imageUrl = imageUrls;
     }
 
@@ -160,26 +149,17 @@ exports.deleteProduct = async (req, res) => {
       return res.status(404).json({ message: "Product not found" });
     }
 
-    // Remove images from Synology
+    // Delete all local image files
     if (product.imageUrl && Array.isArray(product.imageUrl)) {
-      const sftp = new sftpClient();
-      await sftp.connect(SFTP_CONFIG);
-
       for (const url of product.imageUrl) {
         const filename = decodeURIComponent(url.split("/").pop());
-        const remotePath = `${process.env.SFTP_REMOTE_PATH}${filename}`;
-
-        try {
-          await sftp.delete(remotePath);
-        } catch (deleteErr) {
-          console.warn(`Failed to delete ${filename}:`, deleteErr.message);
+        const filePath = path.join(__dirname, "..", "uploads", filename);
+        if (fs.existsSync(filePath)) {
+          fs.unlinkSync(filePath);
         }
       }
-
-      await sftp.end();
     }
 
-    // Remove product from DB
     await Product.findByIdAndDelete(req.params.id);
 
     res.status(200).json({ message: "Product and images deleted" });

@@ -31,13 +31,13 @@ import MucOFF from "../../Icons/Brand/Muc-OFF.png";
 import Guee from "../../Icons/Brand/Guee.png";
 
 const slides = [
-  {
-    src: slide1,
-    title: "MET HELMET NEW COLOR",
-    subtitle: "Met Helmet New Color - Motion Blur",
-    tagType: "new",
-    tagText: "New",
-  },
+  // {
+  //   src: slide1,
+  //   title: "MET HELMET NEW COLOR",
+  //   subtitle: "Met Helmet New Color - Motion Blur",
+  //   tagType: "new",
+  //   tagText: "New",
+  // },
   {
     src: slide2,
     title: "MET HELMET NEW COLOR",
@@ -48,16 +48,16 @@ const slides = [
   {
     src: slide3,
     title: "Castelli Prologo 3",
-    subtitle: "Discount Special New Year 2025",
-    tagType: "discount",
-    tagText: "Discount up to 50%",
+    // subtitle: "Discount Special New Year 2025",
+    // tagType: "discount",
+    // tagText: "Discount up to 50%",
   },
   {
     src: slide4,
     title: "Bont vaypors",
-    subtitle: "Discount Special New Year 2025",
-    tagType: "discount",
-    tagText: "Discount up to 50%",
+    // subtitle: "Discount Special New Year 2025",
+    // tagType: "discount",
+    // tagText: "Discount up to 50%",
   },
   {
     src: slide5,

@@ -57,6 +57,10 @@ const productSchema = new mongoose.Schema(
       },
     },
     discountPrice: Number,
+    saleHighlight: {
+      type: Boolean,
+      default: false,
+    },
     details: String,
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,

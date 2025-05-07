@@ -16,6 +16,12 @@ const HomePage = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
 
+  const isLatest = (createdAt) => {
+    const oneMonthAgo = new Date();
+    oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
+    return new Date(createdAt) >= oneMonthAgo;
+  };
+
   useEffect(() => {
     const loadProducts = async () => {
       try {
@@ -28,8 +34,6 @@ const HomePage = () => {
 
     loadProducts();
   }, []);
-
-  console.log({ products });
 
   return (
     <>
@@ -64,10 +68,10 @@ const HomePage = () => {
             </div>
           ))}
         </div>
-        <div className="shop-container">
+        {/* <div className="shop-container">
           <div className="title shop-title">Explore Our Latest Product</div>
           <div className="products">
-            {products.slice(0, 14).map((product) => (
+            {products.map((product) => (
               <ProductCard
                 key={product._id}
                 title={product.productName}
@@ -83,7 +87,7 @@ const HomePage = () => {
             ))}
           </div>
           <div className="button top-picks-button">View More</div>
-        </div>
+        </div> */}
         <div className="brand-container">
           <div className="brand-title title">Our Partner Brands</div>
           <div className="brand-grid">
@@ -104,7 +108,7 @@ const HomePage = () => {
             </div>
           </div>
         </div>
-        <HighlightCarousel />
+        {/* <HighlightCarousel /> */}
         <Motto />
         <Event />
       </div>
