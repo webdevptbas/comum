@@ -9,11 +9,13 @@ import AdminLayout from "./AdminLayout";
 import AdminLogin from "./Pages/Login/Login";
 import Dashboard from "./Pages/AdminPage/Dashboard/Dashboard";
 import PrivateRoute from "./Util/PrivateRoute";
+import ErrorPage from "./Pages/ErrorPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "",

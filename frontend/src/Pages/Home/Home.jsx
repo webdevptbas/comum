@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Home.css";
 import "../../index.css";
 import { Carousel } from "antd";
@@ -10,9 +10,27 @@ import { useNavigate } from "react-router";
 import HighlightCarousel from "../../Component/HomeComponent/HighlightCarousel/HighlightCarousel";
 import Motto from "../../Component/HomeComponent/Motto/Motto";
 import Event from "../../Component/HomeComponent/Event/Event";
+import { fetchAllProducts } from "../../Util/productApi";
 
 const HomePage = () => {
   const navigate = useNavigate();
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const loadProducts = async () => {
+      try {
+        const data = await fetchAllProducts();
+        setProducts(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    loadProducts();
+  }, []);
+
+  console.log({ products });
+
   return (
     <>
       <div className="home-container">
@@ -49,16 +67,18 @@ const HomePage = () => {
         <div className="shop-container">
           <div className="title shop-title">Explore Our Latest Product</div>
           <div className="products">
-            {Array.from({ length: 6 }).map((_, index) => (
+            {products.slice(0, 14).map((product) => (
               <ProductCard
-                key={index}
-                title={`Product ${index + 1}`}
-                price={3000000 + index * 112000}
-                src={productDummy}
-                type={"discount"}
-                text={"20%"}
-                isDiscount={true}
-                finalPrice={(3000000 + index * 112000) * 0.8}
+                key={product._id}
+                title={product.productName}
+                price={product.price}
+                src={
+                  "https://basgroup.quickconnect.to/d/s/13BlbuAcZPG5UhLaVQZxzS5quafIglat/vCAufnZ8xsyQz16ziBR_4FHPIiaDL6Jc-2bhAQPfLQQw"
+                }
+                type={product.isDiscount ? "discount" : "-"}
+                text={`${product.discount}%`}
+                isDiscount={product.isDiscount}
+                finalPrice={product.discountPrice}
               />
             ))}
           </div>
