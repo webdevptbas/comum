@@ -9,7 +9,7 @@ const Event = () => {
       <div className="event-container">
         <div className="event-header">
           <div className="title">LATEST EVENT</div>
-          <div className="link">More Event</div>
+          {/* <div className="link">More Event</div> */}
         </div>
         <div className="event-body">
           <div className="text-container">
@@ -25,7 +25,7 @@ const Event = () => {
               vibes were unbeatable.
             </div>
             <div className="link">
-              Event Details <LinkArrow />
+              See more <LinkArrow />
             </div>
           </div>
           <div className="event-video-container">

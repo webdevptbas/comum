@@ -3,7 +3,7 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import timeGridPlugin from "@fullcalendar/timegrid";
-import { Card, Modal, Spin } from "antd";
+import { Modal } from "antd";
 import "./Calendar.css"; // You can style this to match your mockup
 import { fetchAllEvent, fetchEventById } from "../../../Util/apiService";
 
@@ -53,11 +53,12 @@ const CommunityCalendar = () => {
     } catch (err) {
       console.error(err);
     } finally {
-      setLoading(false);
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
     }
   };
 
-  console.log({ eventDetails });
   const handleDatesSet = (arg) => {
     setCurrentView(arg.view.type);
   };
@@ -69,7 +70,7 @@ const CommunityCalendar = () => {
       return (
         <div className="custom-calendar-event">
           <div className="calendar-event-time">
-            {new Date(eventInfo.event.start).toLocaleTimeString("en-US", {
+            {new Date(eventInfo.event.start).toLocaleDateString("en-GB", {
               hour: "numeric",
               minute: "2-digit",
             })}
@@ -116,45 +117,59 @@ const CommunityCalendar = () => {
       />
 
       <Modal
-        title={eventDetails?.title || "Loading..."}
+        title={null}
         open={modalVisible}
         onCancel={() => {
           setModalVisible(false);
           setEventDetails(null);
         }}
-        footer={null}
+        footer={
+          null
+          // <div className="event-actions">
+          //   <button className="join-btn">Join Event</button>
+          //   <button className="details-btn">Event Details</button>
+          // </div>
+        }
+        width={"70%"}
+        centered
+        loading={loading}
+        className="custom-event-modal"
       >
-        {loading ? (
-          <Spin />
-        ) : eventDetails ? (
-          <div>
-            <img
-              src={eventDetails.imageUrl}
-              alt={eventDetails.title}
-              style={{ width: "100%", marginBottom: "1rem" }}
-            />
-            <p>
-              <strong>Date:</strong>{" "}
-              {new Date(eventDetails.createdAt).toLocaleString()}
-            </p>
-            <p>
-              <strong>Location:</strong> {eventDetails.location}
-            </p>
-            <p>
-              <strong>Address:</strong> {eventDetails.address}
-            </p>
-            <p>
-              <strong>Description:</strong>
-            </p>
-            <p>{eventDetails.description}</p>
-            {eventDetails.additionalDetail && (
-              <>
-                <p>
-                  <strong>Additional Info:</strong>
+        {eventDetails ? (
+          <div className="event-modal-content">
+            <div className="event-modal-grid">
+              <img
+                src={
+                  eventDetails.imageUrl || "https://via.placeholder.com/800x400"
+                }
+                alt={eventDetails.title}
+                className="event-image"
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = "https://via.placeholder.com/800x400";
+                }}
+              />
+              <div className="event-details">
+                <p className="event-date">
+                  {new Date(eventDetails.date).toLocaleDateString("en-GB", {
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric",
+                  })}
+                  , {eventDetails.startTime}
                 </p>
-                <p>{eventDetails.additionalDetail}</p>
-              </>
-            )}
+                <h2 className="event-title">{eventDetails.title}</h2>
+                <p className="event-location">
+                  📍 <strong>{eventDetails.location}</strong>
+                </p>
+                <p className="event-description">{eventDetails.description}</p>
+                {eventDetails.additionalDetail && (
+                  <p className="event-additional">
+                    {eventDetails.additionalDetail}
+                  </p>
+                )}
+              </div>
+            </div>
           </div>
         ) : (
           <p>There's no event this day.</p>

@@ -111,3 +111,96 @@
   font-weight: bold;
   text-decoration: none;
 }
+
+/* ------------- */
+/* MODAL STYLING */
+/* ------------- */
+.custom-event-modal .ant-modal-content {
+  padding: 0;
+  border-radius: 0px;
+  overflow: hidden;
+}
+
+.event-modal-content {
+  padding: 3rem 3rem 0 3rem;
+  padding-bottom: 3rem !important;
+}
+
+.event-modal-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.event-image {
+  flex: 1 1 40%;
+  max-width: 500px;
+  width: 100%;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.event-details {
+  flex: 1 1 55%;
+}
+
+.event-date {
+  color: #344EAD;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.event-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.event-location {
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.event-description,
+.event-additional {
+  margin-bottom: 1.25rem;
+  line-height: 1.6;
+}
+
+/* .event-additional {
+  background-color: #6284ff;
+  color: #ffffff;
+  padding: 0.5rem;
+} */
+
+.ant-modal-footer {
+  margin-top: 0px !important;
+}
+
+.event-actions {
+  display: flex;
+  gap: 0.5rem;
+  padding: 1rem 3rem 3rem 3rem;
+}
+
+.join-btn {
+  background-color: #3267E3;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.join-btn:hover {
+  background-color: #344EAD;
+}
+
+.details-btn {
+  background-color: #f1f1f1;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+}
