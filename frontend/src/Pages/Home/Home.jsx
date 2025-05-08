@@ -10,7 +10,7 @@ import { useNavigate } from "react-router";
 import HighlightCarousel from "../../Component/HomeComponent/HighlightCarousel/HighlightCarousel";
 import Motto from "../../Component/HomeComponent/Motto/Motto";
 import Event from "../../Component/HomeComponent/Event/Event";
-import { fetchAllProducts } from "../../Util/productApi";
+import { fetchAllProducts } from "../../Util/apiService";
 
 const HomePage = () => {
   const navigate = useNavigate();
