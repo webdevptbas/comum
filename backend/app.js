@@ -16,7 +16,7 @@ connectDB();
 app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:3000", // replace with your frontend origin
+    origin: process.env.FRONTEND_ORIGIN, // replace with your frontend origin
     credentials: true, // optional: allow cookies and headers like Authorization
   })
 );
