@@ -2,29 +2,34 @@ import React from "react";
 import "./Event.css";
 import eventVid from "../../../Videos/eventVid.mp4";
 import { LinkArrow } from "../../../Icons";
+import { useNavigate } from "react-router";
 
 const Event = () => {
+  const navigate = useNavigate();
   return (
     <>
       <div className="event-container">
         <div className="event-header">
-          <div className="title">LATEST EVENT</div>
+          <div className="title">OUR COMMUNITY</div>
           {/* <div className="link">More Event</div> */}
         </div>
         <div className="event-body">
           <div className="text-container">
             <div className="title event-title">
-              Pedal, Coffee, & Good Vibes: Comum x Seppi.cc Urban Cycling Ride
+              Ride Together, Grow Together
             </div>
             <div className="subtitle event-subtitle">
-              On January 25th, Comum teamed up with @seppi.cc for an
-              unforgettable urban cycling event! Riders gathered for an epic
-              ride through the city, embracing the thrill of the road, strong
-              camaraderie, and, of course, a well-deserved coffee break at the
-              finish line. The energy was high, the legs were strong, and the
-              vibes were unbeatable.
+              Join our exciting community events—group rides and local meetups
+              that bring cycling enthusiasts together. Whether you're a casual
+              rider or a seasoned cyclist, there's always a place for you in our
+              next adventure.
             </div>
-            <div className="link">
+            <div
+              className="link"
+              onClick={() => {
+                navigate("community");
+              }}
+            >
               See more <LinkArrow />
             </div>
           </div>

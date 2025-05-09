@@ -118,8 +118,20 @@ const MainFooter = () => {
             <div>
               <h3 className="title footer-title">Follow Us!</h3>
               <div className="socmed-container">
-                <InstagramIcon className="clickable" />
-                <WhatsappIcon className="clickable" />
+                <a
+                  href="https://www.instagram.com/comumbike/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <InstagramIcon width="45" height="45" className="clickable" />
+                </a>
+                <a
+                  href="https://wa.me/628998074643?text=Hello%2C%20I%20would%20like%20to%20know%20more%20about%20Comum"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <WhatsappIcon width="45" height="45" className="clickable" />
+                </a>
               </div>
             </div>
           </div>
