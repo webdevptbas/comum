@@ -1,10 +1,5 @@
 // controllers/productController.js
 const Product = require("../models/Product");
-const {
-  uploadFilesToSynology,
-  getPublicImageUrl,
-} = require("../services/sftpService");
-const sftpClient = require("ssh2-sftp-client");
 
 exports.createProduct = async (req, res) => {
   try {

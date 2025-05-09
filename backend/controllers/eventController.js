@@ -1,9 +1,24 @@
 const Event = require("../models/Event");
+const path = require("path");
+const fs = require("fs");
+
+const deleteFile = (filePath) => {
+  fs.unlink(filePath, (err) => {
+    if (err) console.error("Failed to delete file:", err);
+  });
+};
 
 // CREATE a new event
 exports.createEvent = async (req, res) => {
   try {
-    const newEvent = new Event(req.body);
+    const image = req.files?.[0];
+    const imageUrl = image ? `/uploads/${image.filename}` : null;
+
+    const newEvent = new Event({
+      ...req.body,
+      imageUrl: imageUrl,
+    });
+
     const savedEvent = await newEvent.save();
     res.status(201).json(savedEvent);
   } catch (err) {
@@ -32,32 +47,58 @@ exports.getEventById = async (req, res) => {
   }
 };
 
-// UPDATE an event
+// UPDATE an event with image replacement
 exports.updateEvent = async (req, res) => {
   try {
+    const event = await Event.findById(req.params.id);
+    if (!event) return res.status(404).json({ error: "Event not found" });
+
+    let updatedData = { ...req.body };
+
+    if (req.files?.[0]) {
+      // Delete the old image file
+      if (event.imageUrl) {
+        const oldImagePath = path.join(__dirname, "..", event.imageUrl);
+        deleteFile(oldImagePath);
+      }
+
+      // Replace with new uploaded image
+      updatedData.imageUrl = `/uploads/${req.files[0].filename}`;
+    }
+
     const updatedEvent = await Event.findByIdAndUpdate(
       req.params.id,
-      req.body,
+      updatedData,
       {
         new: true,
         runValidators: true,
       }
     );
-    if (!updatedEvent)
-      return res.status(404).json({ error: "Event not found" });
+
     res.status(200).json(updatedEvent);
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
 };
 
-// DELETE an event
+// DELETE an event and its image
 exports.deleteEvent = async (req, res) => {
   try {
-    const deletedEvent = await Event.findByIdAndDelete(req.params.id);
-    if (!deletedEvent)
-      return res.status(404).json({ error: "Event not found" });
-    res.status(200).json({ message: "Event deleted successfully" });
+    const event = await Event.findById(req.params.id);
+    if (!event) return res.status(404).json({ error: "Event not found" });
+
+    // Delete the image file if it exists
+    if (event.imageUrl) {
+      const imagePath = path.join(__dirname, "..", event.imageUrl);
+      fs.unlink(imagePath, (err) => {
+        if (err) console.error("Failed to delete image:", err);
+      });
+    }
+
+    // Delete the event from DB
+    await Event.findByIdAndDelete(req.params.id);
+
+    res.status(200).json({ message: "Event and image deleted successfully" });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
