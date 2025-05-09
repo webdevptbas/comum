@@ -11,12 +11,13 @@ const deleteFile = (filePath) => {
 // CREATE a new event
 exports.createEvent = async (req, res) => {
   try {
-    const image = req.files?.[0];
-    const imageUrl = image ? `/uploads/${image.filename}` : null;
+    const backendBaseUrl = `${req.protocol}://${req.get("host")}`; // e.g., http://localhost:5000
+    const imagePath = req.files?.[0]?.path.replace(/\\/g, "/") || "";
+    const imageUrl = `${backendBaseUrl}/${imagePath}`;
 
     const newEvent = new Event({
       ...req.body,
-      imageUrl: imageUrl,
+      imageUrl,
     });
 
     const savedEvent = await newEvent.save();

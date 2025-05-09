@@ -123,14 +123,9 @@ const CommunityCalendar = () => {
           setModalVisible(false);
           setEventDetails(null);
         }}
-        footer={
-          null
-          // <div className="event-actions">
-          //   <button className="join-btn">Join Event</button>
-          //   <button className="details-btn">Event Details</button>
-          // </div>
-        }
-        width={"70%"}
+        footer={null}
+        width={"840px"}
+        height={"480px"}
         centered
         loading={loading}
         className="custom-event-modal"
@@ -139,9 +134,7 @@ const CommunityCalendar = () => {
           <div className="event-modal-content">
             <div className="event-modal-grid">
               <img
-                src={
-                  eventDetails.imageUrl || "https://via.placeholder.com/800x400"
-                }
+                src={eventDetails.imageUrl}
                 alt={eventDetails.title}
                 className="event-image"
                 onError={(e) => {
@@ -160,14 +153,37 @@ const CommunityCalendar = () => {
                 </p>
                 <h2 className="event-title">{eventDetails.title}</h2>
                 <p className="event-location">
-                  📍 <strong>{eventDetails.location}</strong>
+                  📍{" "}
+                  <strong>
+                    {eventDetails.location}, {eventDetails.address}
+                  </strong>
                 </p>
-                <p className="event-description">{eventDetails.description}</p>
-                {eventDetails.additionalDetail && (
-                  <p className="event-additional">
-                    {eventDetails.additionalDetail}
-                  </p>
-                )}
+              </div>
+              <p className="event-description">{eventDetails.shortDesc}</p>
+              {eventDetails.additionalDetail && (
+                <p className="event-additional">
+                  {eventDetails.additionalDetail}
+                </p>
+              )}
+              <div className="event-actions">
+                <a
+                  href={`https://wa.me/${
+                    eventDetails.contactInfo
+                  }?text=Hello%2C%20I%20would%20like%20to%20know%20more%20about%20${encodeURIComponent(
+                    eventDetails.title
+                  )}%20on%20${encodeURIComponent(
+                    new Date(eventDetails.date).toLocaleDateString("en-GB", {
+                      day: "numeric",
+                      month: "long",
+                      year: "numeric",
+                    })
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <button className="join-btn">Join Event</button>
+                </a>
+                {/* <button className="details-btn">Event Details</button> */}
               </div>
             </div>
           </div>

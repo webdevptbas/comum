@@ -126,7 +126,7 @@ const MainFooter = () => {
                   <InstagramIcon width="45" height="45" className="clickable" />
                 </a>
                 <a
-                  href="https://wa.me/628998074643?text=Hello%2C%20I%20would%20like%20to%20know%20more%20about%20Comum"
+                  href="https://wa.me/6282211110837?text=Hello%2C%20I%20would%20like%20to%20know%20more%20about%20Comum"
                   target="_blank"
                   rel="noopener noreferrer"
                 >

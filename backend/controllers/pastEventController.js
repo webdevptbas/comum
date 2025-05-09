@@ -13,6 +13,7 @@ exports.createPastEvent = async (req, res) => {
     const pastEvent = new PastEvent({
       ...req.body,
       thumbnail: thumbnailPath,
+      author: req.user.name, // ✅ Auto-set from token
     });
 
     const saved = await pastEvent.save();

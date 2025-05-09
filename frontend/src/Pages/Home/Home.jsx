@@ -93,7 +93,22 @@ const HomePage = () => {
           <div className="brand-grid">
             {brands.slice(0, 14).map((brand, index) => (
               <div className="brand-card" key={index}>
-                <img className="brand-logo" src={brand.src} alt={brand.alt} />
+                {brand.igUrl ? (
+                  <a
+                    href={brand.igUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="brand-link"
+                  >
+                    <img
+                      className="brand-logo"
+                      src={brand.src}
+                      alt={brand.alt}
+                    />
+                  </a>
+                ) : (
+                  <img className="brand-logo" src={brand.src} alt={brand.alt} />
+                )}
               </div>
             ))}
 
