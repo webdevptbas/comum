@@ -5,15 +5,21 @@ const path = require("path");
 // ✅ CREATE PastEvent
 exports.createPastEvent = async (req, res) => {
   try {
-    let thumbnailPath = "";
-    if (req.files && req.files.length > 0) {
-      thumbnailPath = req.files[0].path.replace(/\\/g, "/"); // Normalize Windows slashes
+    const event = await Event.findById(eventId);
+    const backendBaseUrl = `${req.protocol}://${req.get("host")}`;
+    const thumbnailPath = req.file?.path.replace(/\\/g, "/") || "";
+    const thumbnailUrl = thumbnailPath
+      ? `${backendBaseUrl}/${thumbnailPath}`
+      : `${event.imageUrl}`;
+
+    if (typeof req.body.articleSections === "string") {
+      req.body.articleSections = JSON.parse(req.body.articleSections);
     }
 
     const pastEvent = new PastEvent({
       ...req.body,
-      thumbnail: thumbnailPath,
-      author: req.user.name, // ✅ Auto-set from token
+      thumbnail: thumbnailUrl,
+      author: req.user.name,
     });
 
     const saved = await pastEvent.save();
@@ -48,20 +54,27 @@ exports.getPastEventById = async (req, res) => {
 exports.updatePastEvent = async (req, res) => {
   try {
     const existing = await PastEvent.findById(req.params.id);
-    if (!existing) return res.status(404).json({ error: "PastEvent not found" });
+    if (!existing)
+      return res.status(404).json({ error: "PastEvent not found" });
 
-    // If a new thumbnail is uploaded, delete old file
+    const backendBaseUrl = `${req.protocol}://${req.get("host")}`;
     let newThumbnail = existing.thumbnail;
-    if (req.files && req.files.length > 0) {
-      // Remove the old image if exists
+
+    if (req.file) {
+      // Delete old thumbnail if exists
       if (existing.thumbnail) {
-        const oldPath = path.join(__dirname, "..", existing.thumbnail);
+        const oldPath = path.join(
+          __dirname,
+          "..",
+          existing.thumbnail.replace(`${backendBaseUrl}/`, "")
+        );
         fs.unlink(oldPath, (err) => {
           if (err) console.error("Failed to delete old thumbnail:", err);
         });
       }
 
-      newThumbnail = req.files[0].path.replace(/\\/g, "/");
+      const thumbnailPath = req.file.path.replace(/\\/g, "/");
+      newThumbnail = `${backendBaseUrl}/${thumbnailPath}`;
     }
 
     const updated = await PastEvent.findByIdAndUpdate(
@@ -80,16 +93,18 @@ exports.updatePastEvent = async (req, res) => {
 exports.deletePastEvent = async (req, res) => {
   try {
     const pastEvent = await PastEvent.findById(req.params.id);
-    if (!pastEvent) {
+    if (!pastEvent)
       return res.status(404).json({ error: "PastEvent not found" });
-    }
 
     if (pastEvent.thumbnail) {
-      const imagePath = path.join(__dirname, "..", pastEvent.thumbnail);
+      const backendBaseUrl = `${req.protocol}://${req.get("host")}`;
+      const relativePath = pastEvent.thumbnail.replace(
+        `${backendBaseUrl}/`,
+        ""
+      );
+      const imagePath = path.join(__dirname, "..", relativePath);
       fs.unlink(imagePath, (err) => {
-        if (err) {
-          console.error("Failed to delete thumbnail:", err);
-        }
+        if (err) console.error("Failed to delete thumbnail:", err);
       });
     }
 

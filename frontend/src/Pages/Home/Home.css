@@ -2,6 +2,10 @@
   font-family: "Zuume Soft";
   src: url('../../Fonts/Zuume\ Soft\ Medium.ttf') format('truetype');
 }
+@font-face {
+  font-family: "Clash Grotesk";
+  src: url('../../Fonts/ClashGrotesk/ClashGrotesk-Variable.ttf') format('truetype');
+}
 
 .home-container {
   /* height: 100vh; */
@@ -42,13 +46,14 @@
 }
 
 .text-overlay .title {
-  font-size: 96px;
-  font-weight: 400;
+  font-size: 52px;
+  font-weight: 600;
   line-height: normal;
 }
 
 .text-overlay .subtitle {
   font-size: 16px;
+  font-weight: 500;
   padding: 0;
 }
 

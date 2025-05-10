@@ -25,8 +25,16 @@ const fileFilter = (req, file, cb) => {
 
 const upload = multer({
   storage,
-  limits: { files: 5 }, // Max 5 files
+  limits: { files: 5 },
   fileFilter,
-});
+}).array("images", 5);
 
-module.exports = upload.array("images", 5);
+const uploadThumbnail = multer({
+  storage,
+  fileFilter,
+}).single("thumbnail");
+
+module.exports = {
+  upload,
+  uploadThumbnail,
+};

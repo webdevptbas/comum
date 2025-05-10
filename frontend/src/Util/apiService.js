@@ -56,7 +56,7 @@ export const fetchEventById = async (id) => {
 //get all journal
 export const fetchAllArticle = async () => {
   try {
-    const response = await api.get("/articles");
+    const response = await api.get("/past-events");
     return response.data;
   } catch (error) {
     console.error("Error fetching products:", error);

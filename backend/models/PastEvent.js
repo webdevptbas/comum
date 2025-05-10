@@ -4,7 +4,7 @@ const pastEventSchema = new mongoose.Schema(
   {
     title: { type: String, required: true },
     shortDesc: { type: String }, // One-liner for list views
-    thumbnail: { type: String, required: true },
+    thumbnail: { type: String },
     videoUrl: { type: String }, // Optional video
     location: { type: String, required: true },
     address: { type: String, required: true },

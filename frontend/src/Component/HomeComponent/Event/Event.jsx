@@ -10,7 +10,7 @@ const Event = () => {
     <>
       <div className="event-container">
         <div className="event-header">
-          <div className="title">OUR COMMUNITY</div>
+          <div className="title event-header-title">OUR COMMUNITY</div>
           {/* <div className="link">More Event</div> */}
         </div>
         <div className="event-body">

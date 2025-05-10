@@ -9,7 +9,7 @@ const {
 } = require("../controllers/productController");
 
 const { protect, roleCheck } = require("../middleware/authMiddleware");
-const upload = require("../middleware/uploadMiddleware");
+const { upload } = require("../middleware/uploadMiddleware");
 
 // Public routes
 router.get("/", getAllProducts);

@@ -1,23 +1,21 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Inter'
-    sans-serif;
+  font-family: "Clash Grotesk";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
+/* code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
-}
+} */
 
 /* BASE STYLING */
 .title {
   font-weight: 400;
   font-size: 42px;
   line-height: 44px;
-  font-family: 'Zuume Soft';
+  font-family: 'Clash Grotesk';
   color: #ffffff;
   cursor: default;
 }

@@ -54,26 +54,30 @@ exports.updateEvent = async (req, res) => {
     const event = await Event.findById(req.params.id);
     if (!event) return res.status(404).json({ error: "Event not found" });
 
+    const backendBaseUrl = `${req.protocol}://${req.get("host")}`;
     let updatedData = { ...req.body };
 
-    if (req.files?.[0]) {
+    if (req.file) {
       // Delete the old image file
       if (event.imageUrl) {
-        const oldImagePath = path.join(__dirname, "..", event.imageUrl);
-        deleteFile(oldImagePath);
+        const oldRelativePath = event.imageUrl.replace(
+          `${backendBaseUrl}/`,
+          ""
+        );
+        const oldImagePath = path.join(__dirname, "..", oldRelativePath);
+        fs.unlink(oldImagePath, (err) => {
+          if (err) console.error("Failed to delete old image:", err);
+        });
       }
 
-      // Replace with new uploaded image
-      updatedData.imageUrl = `/uploads/${req.files[0].filename}`;
+      const newImagePath = req.file.path.replace(/\\/g, "/");
+      updatedData.imageUrl = `${backendBaseUrl}/${newImagePath}`;
     }
 
     const updatedEvent = await Event.findByIdAndUpdate(
       req.params.id,
       updatedData,
-      {
-        new: true,
-        runValidators: true,
-      }
+      { new: true, runValidators: true }
     );
 
     res.status(200).json(updatedEvent);
@@ -88,17 +92,16 @@ exports.deleteEvent = async (req, res) => {
     const event = await Event.findById(req.params.id);
     if (!event) return res.status(404).json({ error: "Event not found" });
 
-    // Delete the image file if it exists
     if (event.imageUrl) {
-      const imagePath = path.join(__dirname, "..", event.imageUrl);
+      const backendBaseUrl = `${req.protocol}://${req.get("host")}`;
+      const relativePath = event.imageUrl.replace(`${backendBaseUrl}/`, "");
+      const imagePath = path.join(__dirname, "..", relativePath);
       fs.unlink(imagePath, (err) => {
         if (err) console.error("Failed to delete image:", err);
       });
     }
 
-    // Delete the event from DB
     await Event.findByIdAndDelete(req.params.id);
-
     res.status(200).json({ message: "Event and image deleted successfully" });
   } catch (err) {
     res.status(500).json({ error: err.message });

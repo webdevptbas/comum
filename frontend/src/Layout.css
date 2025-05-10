@@ -7,3 +7,7 @@
     background-color: #FFFFFF;
     /* height: 100vh; */
 }
+
+.ant-layout, .ant-carousel {
+    font-family: "Clash Grotesk";
+}
