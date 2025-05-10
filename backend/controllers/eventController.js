@@ -11,7 +11,7 @@ const deleteFile = (filePath) => {
 // CREATE a new event
 exports.createEvent = async (req, res) => {
   try {
-    const backendBaseUrl = `${req.protocol}://${req.get("host")}`; // e.g., http://localhost:5000
+    const backendBaseUrl = `${process.env.PROTOCOL}://${process.env.HOST}`; // e.g., http://localhost:5000
     const imagePath = req.files?.[0]?.path.replace(/\\/g, "/") || "";
     const imageUrl = `${backendBaseUrl}/${imagePath}`;
 
@@ -54,7 +54,7 @@ exports.updateEvent = async (req, res) => {
     const event = await Event.findById(req.params.id);
     if (!event) return res.status(404).json({ error: "Event not found" });
 
-    const backendBaseUrl = `${req.protocol}://${req.get("host")}`;
+    const backendBaseUrl = `${process.env.PROTOCOL}://${process.env.HOST}`;
     let updatedData = { ...req.body };
 
     if (req.file) {
@@ -93,7 +93,7 @@ exports.deleteEvent = async (req, res) => {
     if (!event) return res.status(404).json({ error: "Event not found" });
 
     if (event.imageUrl) {
-      const backendBaseUrl = `${req.protocol}://${req.get("host")}`;
+      const backendBaseUrl = `${process.env.PROTOCOL}://${process.env.HOST}`;
       const relativePath = event.imageUrl.replace(`${backendBaseUrl}/`, "");
       const imagePath = path.join(__dirname, "..", relativePath);
       fs.unlink(imagePath, (err) => {

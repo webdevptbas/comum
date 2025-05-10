@@ -6,7 +6,7 @@ const path = require("path");
 exports.createPastEvent = async (req, res) => {
   try {
     const event = await Event.findById(eventId);
-    const backendBaseUrl = `${req.protocol}://${req.get("host")}`;
+    const backendBaseUrl = `${process.env.PROTOCOL}://${process.env.HOST}`;
     const thumbnailPath = req.file?.path.replace(/\\/g, "/") || "";
     const thumbnailUrl = thumbnailPath
       ? `${backendBaseUrl}/${thumbnailPath}`
@@ -57,7 +57,7 @@ exports.updatePastEvent = async (req, res) => {
     if (!existing)
       return res.status(404).json({ error: "PastEvent not found" });
 
-    const backendBaseUrl = `${req.protocol}://${req.get("host")}`;
+    const backendBaseUrl = `${process.env.PROTOCOL}://${process.env.HOST}`;
     let newThumbnail = existing.thumbnail;
 
     if (req.file) {
@@ -97,7 +97,7 @@ exports.deletePastEvent = async (req, res) => {
       return res.status(404).json({ error: "PastEvent not found" });
 
     if (pastEvent.thumbnail) {
-      const backendBaseUrl = `${req.protocol}://${req.get("host")}`;
+      const backendBaseUrl = `${process.env.PROTOCOL}://${process.env.HOST}`;
       const relativePath = pastEvent.thumbnail.replace(
         `${backendBaseUrl}/`,
         ""
