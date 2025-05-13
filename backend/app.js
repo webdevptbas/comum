@@ -14,7 +14,7 @@ const app = express();
 dotenv.config();
 connectDB();
 
-app.use(express.json({ limit: "50mb" }));
+app.use(express.json({ limit: "2mb" }));
 app.use(
   cors({
     origin: process.env.FRONTEND_ORIGIN, // replace with your frontend origin

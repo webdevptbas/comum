@@ -1,0 +1,15 @@
+.articlelist-page-container {
+    padding: 6vh 60px;
+  }
+  
+  .articlelist-page-title {
+    font-size: 48px;
+    margin-bottom: 0;
+    color: #0a0a0a;
+  }
+  
+  .articlelist-page-content {
+    display: flex;
+    flex-direction: column;
+  }
+  

@@ -16,13 +16,28 @@ const Event = () => {
         <div className="event-body">
           <div className="text-container">
             <div className="title event-title">
-              Ride Together, Grow Together
+              Move Together, Grow Together
             </div>
             <div className="subtitle event-subtitle">
-              Join our exciting community events—group rides and local meetups
-              that bring cycling enthusiasts together. Whether you're a casual
-              rider or a seasoned cyclist, there's always a place for you in our
-              next adventure.
+              This is more than just a cycling or running club—this is a space
+              where passion, movement, and connection come together. Whether
+              you're hitting your first 5K run, training for a long-distance
+              ride, or simply enjoying the fresh air with friends, you're
+              welcome here.
+              <br /> <br />
+              Our community brings together runners and cyclists of all levels
+              through group rides, local runs, casual meetups, and shared
+              stories. It’s a place to stay motivated, discover new routes,
+              exchange tips, and push each other forward—because every step or
+              pedal stroke is better when shared.
+              <br /> <br />
+              Here, it's not about how fast or far you go—it’s about showing up,
+              moving together, and growing alongside people who cheer you on.
+              <br /> <br />
+              So if you're looking for a crew to move with, laugh with, and grow
+              with, you're in the right place.
+              <br /> <br />
+              Let’s go further, together.
             </div>
             <div
               className="link"

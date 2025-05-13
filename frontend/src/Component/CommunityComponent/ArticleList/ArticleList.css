@@ -1,30 +1,29 @@
-  .articlelist-event-card {
+.articlelist-event-card {
     display: flex;
     flex-direction: row;
     align-items: stretch;
     margin: 60px 0;
     gap: 20px;
   }
-
-  .articlelist-event-date {
-    font-weight: bold;
-    color: #344EAD;
-    font-size: 24px;
-    margin: 0;
-  }
-
+ 
   .articlelist-event-title {
     color: #0a0a0a;
     font-weight: bold;
     font-size: 34px;
-    margin: 5px 0;
-    /* cursor: pointer; */
+    margin:0;
+    cursor: pointer;
   }
-
+  
+  .articlelist-event-date {
+    color: #888;
+    font-size: 16px;
+    margin: 0;
+  }
+ 
   .articlelist-event-description {
     color: #0a0a0a;
     font-size: 16px;
-    margin: 0;
+    margin: 20px 0;
     width: 90%;
     text-align: justify;
   }

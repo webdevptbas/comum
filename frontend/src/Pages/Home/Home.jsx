@@ -5,7 +5,6 @@ import { Carousel } from "antd";
 import Tag from "../../Component/Tag/Tag";
 import { brands, categories, slides } from "./item";
 import { ProductCard } from "../../Component/Card/Card";
-import productDummy from "../../Images/Background/image 1.png";
 import { useNavigate } from "react-router";
 import HighlightCarousel from "../../Component/HomeComponent/HighlightCarousel/HighlightCarousel";
 import Motto from "../../Component/HomeComponent/Motto/Motto";

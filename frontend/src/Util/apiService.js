@@ -63,3 +63,13 @@ export const fetchAllArticle = async () => {
     throw error;
   }
 };
+
+export const fetchArticleById = async (id) => {
+  try {
+    const response = await api.get(`/past-events/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error(`Error fetching product with ID ${id}:`, error);
+    throw error;
+  }
+};

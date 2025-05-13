@@ -10,6 +10,8 @@ import AdminLogin from "./Pages/Login/Login";
 import Dashboard from "./Pages/AdminPage/Dashboard/Dashboard";
 import PrivateRoute from "./Util/PrivateRoute";
 import ErrorPage from "./Pages/ErrorPage";
+import ArticleDetails from "./Component/CommunityComponent/ArticleList/ArticleDetail";
+import ArticleListPage from "./Pages/ArticleListPage/ArticleListPage";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +34,14 @@ const router = createBrowserRouter([
       {
         path: "/community",
         element: <CommunityPage />,
+      },
+      {
+        path: "/community/article",
+        element: <ArticleListPage />,
+      },
+      {
+        path: "/community/article/:slug",
+        element: <ArticleDetails />,
       },
       {
         path: "/coffee",

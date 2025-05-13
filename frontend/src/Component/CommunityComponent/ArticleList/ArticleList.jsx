@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./ArticleList.css";
 import { fetchAllArticle } from "../../../Util/apiService";
+import { useNavigate } from "react-router";
+import generateSlug from "../../../Util/GenerateSlug";
 
 const ArticleList = () => {
   const [article, setArticle] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const loadArticle = async () => {
@@ -18,11 +21,22 @@ const ArticleList = () => {
     loadArticle();
   }, []);
 
+  const handleClick = (event) => {
+    const slug = generateSlug(event.title, event._id);
+    navigate(`/community/article/${slug}`, { state: event });
+  };
+
   return (
     <>
       {article.map((event) => (
         <div key={event.id} className="articlelist-event-card">
           <div className="articlelist-event-info">
+            <h3
+              className="articlelist-event-title title"
+              onClick={() => handleClick(event)}
+            >
+              {event.title}
+            </h3>
             <p className="articlelist-event-date">
               {new Date(event.createdAt).toLocaleDateString("en-GB", {
                 day: "numeric",
@@ -32,7 +46,6 @@ const ArticleList = () => {
                 minute: "numeric",
               })}
             </p>
-            <h3 className="articlelist-event-title title">{event.title}</h3>
             <p className="articlelist-event-description">{event.shortDesc}</p>
           </div>
           <img
