@@ -18,18 +18,18 @@ router.get("/:id", getEventById);
 //create event
 router.post(
   "/",
+  uploadThumbnail,
   protect,
   roleCheck("AdminEvent"),
-  uploadThumbnail,
   createEvent
 );
 
 //update an event
 router.put(
   "/:id",
+  uploadThumbnail,
   protect,
   roleCheck("AdminEvent"),
-  uploadThumbnail,
   updateEvent
 );
 

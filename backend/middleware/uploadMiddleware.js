@@ -1,6 +1,11 @@
 // middleware/uploadMiddleware.js
 const multer = require("multer");
 const path = require("path");
+const fs = require("fs");
+const uploadDir = path.join(__dirname, "../uploads");
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir);
+}
 
 // Configure storage (optional if you don't need to store locally)
 const storage = multer.diskStorage({
