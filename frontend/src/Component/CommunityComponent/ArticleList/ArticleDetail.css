@@ -1,0 +1,46 @@
+.past-event-details-container {
+    max-width: 800px;
+    margin: 60px auto;
+    padding: 0 20px;
+  }
+  
+  .event-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  
+  .event-datetime {
+    color: #888;
+    margin-bottom: 30px;
+    font-weight: 500;
+  }
+  
+  .event-thumbnail {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    object-fit: cover;
+  }
+  
+  .event-short-desc {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    line-height: 1.6;
+  }
+  
+  .event-article-section {
+    margin-bottom: 40px;
+  
+    h2 {
+      font-size: 1.5rem;
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+  
+    p {
+      font-size: 1.1rem;
+      line-height: 1.7;
+    }
+  }
+  

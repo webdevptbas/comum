@@ -12,7 +12,10 @@ const deleteFile = (filePath) => {
 exports.createEvent = async (req, res) => {
   try {
     const backendBaseUrl = `${process.env.PROTOCOL}://${process.env.HOST}`; // e.g., http://localhost:5000
-    const imagePath = req.files?.[0]?.path.replace(/\\/g, "/") || "";
+    const imagePath = req.file?.path?.replace(/\\/g, "/");
+    if (!imagePath) {
+      return res.status(400).json({ error: "Image upload failed" });
+    }
     const imageUrl = `${backendBaseUrl}/${imagePath}`;
 
     const newEvent = new Event({

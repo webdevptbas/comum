@@ -1,5 +1,6 @@
 import React from "react";
 import { useParams } from "react-router";
+import "./ArticleDetail.css";
 
 const ArticleDetails = ({ pastEvent }) => {
   const formattedDate = dayjs(pastEvent.date).format("D MMMM YYYY");
