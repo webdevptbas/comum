@@ -136,7 +136,7 @@ exports.deletePastEvent = async (req, res) => {
     }
 
     await PastEvent.findByIdAndDelete(req.params.id);
-    res.status(200).json({ message: "PastEvent and thumbnail deleted" });
+    res.status(200).json({ message: "PastEvent deleted" });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

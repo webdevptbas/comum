@@ -105,7 +105,7 @@ exports.deleteEvent = async (req, res) => {
     }
 
     await Event.findByIdAndDelete(req.params.id);
-    res.status(200).json({ message: "Event and image deleted successfully" });
+    res.status(200).json({ message: "Event deleted successfully" });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
