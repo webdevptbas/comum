@@ -8,10 +8,12 @@ const eventSchema = new mongoose.Schema(
     description: { type: String, required: false },
     shortDesc: { type: String, required: true },
     imageUrl: { type: String, required: true },
-    location: { type: String, required: true },
-    address: { type: String, required: true },
+    location: { type: String, required: true }, //start
+    address: { type: String, required: true }, //finish place
     date: { type: Date, required: true }, // base date (yyyy-mm-dd)
     startTime: { type: String, required: true }, // e.g., "05:30"
+    paceMin: { type: Number, required: true },
+    paceMax: { type: Number, required: true },
     durationMinutes: { type: Number, required: true },
     additionalDetail: { type: String },
 
