@@ -136,36 +136,45 @@ const CommunityCalendar = () => {
               <img
                 src={eventDetails.imageUrl}
                 alt={eventDetails.title}
-                className="event-image"
+                className="event-modal-image"
                 onError={(e) => {
                   e.target.onerror = null;
                   e.target.src = "https://via.placeholder.com/800x400";
                 }}
               />
-              <div className="event-details">
-                <p className="event-date">
+              <div className="event-modal-details">
+                <h2 className="event-modal-title">{eventDetails.title}</h2>
+                <p className="event-modal-date">
                   {new Date(eventDetails.date).toLocaleDateString("en-GB", {
                     day: "numeric",
                     month: "long",
                     year: "numeric",
                   })}
-                  , {eventDetails.startTime}
                 </p>
-                <h2 className="event-title">{eventDetails.title}</h2>
-                <p className="event-location">
+                <p className="event-modal-time">⏰ {eventDetails.startTime}</p>
+                <p className="event-modal-location">
                   📍{" "}
                   <strong>
-                    {eventDetails.location}, {eventDetails.address}
+                    {eventDetails.location} ➡️ {eventDetails.address}
                   </strong>
                 </p>
+                <p className="event-modal-pace">
+                  💨 {eventDetails.paceMin}
+                  {eventDetails.paceMax === eventDetails.paceMin
+                    ? ""
+                    : `- ${eventDetails.paceMax}`}{" "}
+                  kph
+                </p>
               </div>
-              <p className="event-description">{eventDetails.shortDesc}</p>
+              <p className="event-modal-description">
+                {eventDetails.shortDesc}
+              </p>
               {eventDetails.additionalDetail && (
-                <p className="event-additional">
+                <p className="event-modal-additional">
                   {eventDetails.additionalDetail}
                 </p>
               )}
-              <div className="event-actions">
+              <div className="event-modal-actions">
                 <a
                   href={`https://wa.me/${
                     eventDetails.contactInfo

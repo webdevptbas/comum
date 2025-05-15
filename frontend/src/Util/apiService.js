@@ -3,7 +3,6 @@ import api from "./apiHandler";
 //----------------------
 //-----PRODUCTS API-----
 //----------------------
-// Get all products
 export const fetchAllProducts = async () => {
   try {
     const response = await api.get("/products");
@@ -14,7 +13,6 @@ export const fetchAllProducts = async () => {
   }
 };
 
-// Get single product by ID
 export const fetchProductById = async (id) => {
   try {
     const response = await api.get(`/products/${id}`);
@@ -28,7 +26,6 @@ export const fetchProductById = async (id) => {
 //------------------------
 //-----EVENT LIST API-----
 //------------------------
-//get all event
 export const fetchAllEvent = async () => {
   try {
     const response = await api.get("/events");
@@ -39,7 +36,6 @@ export const fetchAllEvent = async () => {
   }
 };
 
-//get event by ID
 export const fetchEventById = async (id) => {
   try {
     const response = await api.get(`/events/${id}`);
@@ -53,7 +49,6 @@ export const fetchEventById = async (id) => {
 //---------------------
 //-----JOURNAL API-----
 //---------------------
-//get all journal
 export const fetchAllArticle = async () => {
   try {
     const response = await api.get("/past-events");
