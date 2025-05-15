@@ -21,7 +21,7 @@ const AdminLayout = () => {
 
       logout(); // clear from context + localStorage
       message.success("You have been logged out.");
-      navigate("/admin/login");
+      navigate("/login");
     } catch (err) {
       console.error(err);
       message.error("Logout failed");
@@ -30,20 +30,24 @@ const AdminLayout = () => {
 
   const menuItems = [
     {
-      key: "/admin/dashboard",
+      key: "/dashboard",
       label: "Dashboard",
     },
     ...(isProductAdmin
       ? [
           {
-            key: "/admin/products",
+            key: "/products",
             label: "Manage Products",
           },
         ]
       : isEventAdmin
       ? [
           {
-            key: "/admin/articles",
+            key: "/events",
+            label: "Manage Events",
+          },
+          {
+            key: "/articles",
             label: "Manage Articles",
           },
         ]
@@ -73,7 +77,9 @@ const AdminLayout = () => {
       </Sider>
       <Layout>
         <Header style={{ background: "#fff", padding: 0 }} />
-        <Content style={{ margin: "24px 16px", background: "#fff" }}>
+        <Content
+          style={{ margin: "24px", background: "#fff", padding: "24px" }}
+        >
           <Outlet />
         </Content>
       </Layout>

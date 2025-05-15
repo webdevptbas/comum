@@ -3,7 +3,6 @@ import api from "./apiHandler";
 //----------------------
 //-----PRODUCTS API-----
 //----------------------
-// Get all products
 export const fetchAllProducts = async () => {
   try {
     const response = await api.get("/products");
@@ -14,7 +13,6 @@ export const fetchAllProducts = async () => {
   }
 };
 
-// Get single product by ID
 export const fetchProductById = async (id) => {
   try {
     const response = await api.get(`/products/${id}`);
@@ -28,24 +26,32 @@ export const fetchProductById = async (id) => {
 //------------------------
 //-----EVENT LIST API-----
 //------------------------
-//get all event
 export const fetchAllEvent = async () => {
   try {
     const response = await api.get("/events");
     return response.data;
   } catch (error) {
-    console.error("Error fetching products:", error);
+    console.error("Error fetching events:", error);
     throw error;
   }
 };
 
-//get event by ID
 export const fetchEventById = async (id) => {
   try {
     const response = await api.get(`/events/${id}`);
     return response.data;
   } catch (error) {
-    console.error(`Error fetching product with ID ${id}:`, error);
+    console.error(`Error fetching event with ID ${id}:`, error);
+    throw error;
+  }
+};
+
+export const createEvent = async (id) => {
+  try {
+    const response = await api.post(`/events/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error(`Error creating event with ID ${id}:`, error);
     throw error;
   }
 };
@@ -53,13 +59,12 @@ export const fetchEventById = async (id) => {
 //---------------------
 //-----JOURNAL API-----
 //---------------------
-//get all journal
 export const fetchAllArticle = async () => {
   try {
     const response = await api.get("/past-events");
     return response.data;
   } catch (error) {
-    console.error("Error fetching products:", error);
+    console.error("Error fetching articles:", error);
     throw error;
   }
 };
@@ -69,7 +74,7 @@ export const fetchArticleById = async (id) => {
     const response = await api.get(`/past-events/${id}`);
     return response.data;
   } catch (error) {
-    console.error(`Error fetching product with ID ${id}:`, error);
+    console.error(`Error fetching articles with ID ${id}:`, error);
     throw error;
   }
 };
