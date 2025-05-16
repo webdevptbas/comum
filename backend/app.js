@@ -21,6 +21,12 @@ app.use(
     credentials: true, // optional: allow cookies and headers like Authorization
   })
 );
+app.use(
+  cors({
+    origin: process.env.ADMIN_ORIGIN, // replace with your frontend origin
+    credentials: true, // optional: allow cookies and headers like Authorization
+  })
+);
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.use("/api/auth", authRoutes);
