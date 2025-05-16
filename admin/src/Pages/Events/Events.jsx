@@ -85,16 +85,32 @@ const EventsAdminPage = () => {
 
   const handleCreate = async (values) => {
     try {
-      const payload = {
-        ...values,
-        date: values.date.format("YYYY-MM-DD"),
-        startTime: values.startTime.format("HH:mm"),
-      };
-      await createEvent(payload); // <- You must implement this in apiService.js
+      const formData = new FormData();
+
+      formData.append("title", values.title);
+      formData.append("contactPerson", values.contactPerson);
+      formData.append("contactInfo", values.contactInfo);
+      formData.append("shortDesc", values.shortDesc);
+      formData.append("description", values.description || "");
+      formData.append("location", values.location);
+      formData.append("address", values.address);
+      formData.append("date", values.date.format("YYYY-MM-DD"));
+      formData.append("startTime", values.startTime.format("HH:mm"));
+      formData.append("durationMinutes", values.durationMinutes);
+      formData.append("paceMin", values.paceMin);
+      formData.append("paceMax", values.paceMax);
+      formData.append("additionalDetail", values.additionalDetail || "");
+
+      const imageFile = values.image?.[0]?.originFileObj;
+      if (imageFile) {
+        formData.append("thumbnail", imageFile); // <- this is what multer expects
+      }
+
+      await createEvent(formData); // from apiService.js
       message.success("Event created successfully");
       setCreateModalVisible(false);
       form.resetFields();
-      window.location.reload(); // Or re-fetch the events manually
+      window.location.reload(); // Or call a refetch method
     } catch (err) {
       message.error("Failed to create event");
     }

@@ -46,12 +46,16 @@ export const fetchEventById = async (id) => {
   }
 };
 
-export const createEvent = async (id) => {
+export const createEvent = async (formData) => {
   try {
-    const response = await api.post(`/events/${id}`);
+    const response = await api.post(`/events`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
     return response.data;
   } catch (error) {
-    console.error(`Error creating event with ID ${id}:`, error);
+    console.error(`Error creating event:`, error);
     throw error;
   }
 };
