@@ -165,6 +165,9 @@ const CommunityCalendar = () => {
                     : `- ${eventDetails.paceMax}`}{" "}
                   kph
                 </p>
+                <p className="event-modal-time">
+                  👤 {eventDetails.contactPerson}
+                </p>
               </div>
               <p className="event-modal-description">
                 {eventDetails.shortDesc}
@@ -190,7 +193,7 @@ const CommunityCalendar = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <button className="join-btn">Join Event</button>
+                  <button className="join-btn">Contact Person</button>
                 </a>
                 {/* <button className="details-btn">Event Details</button> */}
               </div>
