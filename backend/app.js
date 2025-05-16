@@ -15,18 +15,23 @@ dotenv.config();
 connectDB();
 
 app.use(express.json({ limit: "2mb" }));
+const allowedOrigins = [process.env.FRONTEND_ORIGIN, process.env.ADMIN_ORIGIN];
+
 app.use(
   cors({
-    origin: process.env.FRONTEND_ORIGIN, // replace with your frontend origin
-    credentials: true, // optional: allow cookies and headers like Authorization
+    origin: function (origin, callback) {
+      // Allow requests with no origin (like mobile apps or curl)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      } else {
+        return callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
   })
 );
-app.use(
-  cors({
-    origin: process.env.ADMIN_ORIGIN, // replace with your frontend origin
-    credentials: true, // optional: allow cookies and headers like Authorization
-  })
-);
+
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.use("/api/auth", authRoutes);
