@@ -60,6 +60,30 @@ export const createEvent = async (formData) => {
   }
 };
 
+export const updateEvent = async (id, formData) => {
+  try {
+    const response = await api.put(`/events/${id}`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error updating event:", error);
+    throw error;
+  }
+};
+
+export const deleteEvent = async (id) => {
+  try {
+    const response = await api.delete(`/events/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error deleting event:", error);
+    throw error;
+  }
+};
+
 //---------------------
 //-----JOURNAL API-----
 //---------------------
