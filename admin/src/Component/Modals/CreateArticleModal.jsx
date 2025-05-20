@@ -9,7 +9,6 @@ import {
   Space,
   Tag,
 } from "antd";
-import moment from "moment";
 
 const { TextArea } = Input;
 
