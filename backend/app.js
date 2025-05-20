@@ -15,7 +15,11 @@ dotenv.config();
 connectDB();
 
 app.use(express.json({ limit: "2mb" }));
-const allowedOrigins = [process.env.FRONTEND_ORIGIN, process.env.ADMIN_ORIGIN];
+const allowedOrigins = [
+  process.env.FRONTEND_ORIGIN,
+  process.env.ADMIN_ORIGIN,
+  "https://www.comumspace.com",
+];
 
 app.use(
   cors({

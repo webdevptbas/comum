@@ -4,13 +4,19 @@ const User = require("../models/User");
 
 // Generate JWT token
 const generateToken = (user) => {
+  let expiresIn = "7d";
+
+  if (user.role === "AdminEvent" || user.role === "AdminProduct") {
+    expiresIn = "24h";
+  }
+
   return jwt.sign(
     {
       id: user._id,
       role: user.role,
     },
     process.env.JWT_SECRET,
-    { expiresIn: "7d" }
+    { expiresIn }
   );
 };
 
