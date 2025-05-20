@@ -1,4 +1,5 @@
 import React from "react";
+import "./index.css";
 import { Layout, Menu, message } from "antd";
 import { Outlet, useLocation, useNavigate } from "react-router";
 import { useAuth } from "./Util/AuthContext";

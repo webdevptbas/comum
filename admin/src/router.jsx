@@ -4,6 +4,7 @@ import PrivateRoute from "./Util/PrivateRoute";
 import AdminLogin from "./Pages/Login/Login";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import EventsAdminPage from "./Pages/Events/Events";
+import ArticlesAdminPage from "./Pages/Articles/Articles";
 
 const router = createBrowserRouter([
   {
@@ -44,7 +45,7 @@ const router = createBrowserRouter([
             path: "articles",
             element: (
               <PrivateRoute allowedRoles={["AdminEvent"]}>
-                <Dashboard />
+                <ArticlesAdminPage />
               </PrivateRoute>
             ),
           },

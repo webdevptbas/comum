@@ -41,12 +41,16 @@ const CreateEventModal = ({ open, onCancel, onCreate, form }) => {
         </Form.Item>
         <Form.Item
           name="location"
-          label="Location"
+          label="Start Point"
           rules={[{ required: true }]}
         >
           <Input />
         </Form.Item>
-        <Form.Item name="address" label="Address" rules={[{ required: true }]}>
+        <Form.Item
+          name="address"
+          label="Finish Point"
+          rules={[{ required: true }]}
+        >
           <Input />
         </Form.Item>
         <Form.Item name="date" label="Date" rules={[{ required: true }]}>

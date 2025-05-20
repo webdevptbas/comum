@@ -3,9 +3,9 @@ import { Modal } from "antd";
 import "../../Pages/Events/Events.css";
 
 const EventViewModal = ({
-  visible,
+  open,
   loading,
-  onClose,
+  onCancel,
   eventDetails,
   onEdit,
   onDelete,
@@ -13,8 +13,8 @@ const EventViewModal = ({
   return (
     <Modal
       title={null}
-      open={visible}
-      onCancel={onClose}
+      open={open}
+      onCancel={onCancel}
       footer={null}
       width="840px"
       centered

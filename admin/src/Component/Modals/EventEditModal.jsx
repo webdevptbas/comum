@@ -14,9 +14,9 @@ import dayjs from "dayjs";
 import { UploadOutlined } from "@ant-design/icons";
 
 const EventEditModal = ({
-  visible,
+  open,
   loading,
-  onClose,
+  onCancel,
   eventDetails,
   onFinish,
 }) => {
@@ -37,8 +37,8 @@ const EventEditModal = ({
   return (
     <Modal
       title="Edit Event"
-      open={visible}
-      onCancel={onClose}
+      open={open}
+      onCancel={onCancel}
       okText="Save Changes"
       onOk={() => {
         form

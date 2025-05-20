@@ -20,13 +20,11 @@ import EventEditModal from "../../Component/Modals/EventEditModal";
 const EventsAdminPage = () => {
   const [currentView, setCurrentView] = useState("dayGridMonth");
   const [events, setEvents] = useState([]);
-  const [editingEvent, setEditingEvent] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [createModalVisible, setCreateModalVisible] = useState(false);
   const [editModalVisible, setEditModalVisible] = useState(false);
   const [eventDetails, setEventDetails] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [calendarLoading, setCalendarLoading] = useState(false);
   const [createForm] = Form.useForm();
 
   useEffect(() => {
@@ -35,7 +33,7 @@ const EventsAdminPage = () => {
 
   const fetchEvents = async () => {
     try {
-      setCalendarLoading(true);
+      setLoading(true);
       const data = await fetchAllEvent();
       const formattedEvents = data.map((event) => ({
         id: event._id,
@@ -46,7 +44,7 @@ const EventsAdminPage = () => {
     } catch (error) {
       console.error("Failed to fetch events:", error);
     } finally {
-      setCalendarLoading(false);
+      setLoading(false);
     }
   };
 
@@ -105,7 +103,6 @@ const EventsAdminPage = () => {
   };
 
   const handleUpdate = (eventData) => {
-    setEditingEvent(eventData);
     setEditModalVisible(true); // open the form modal
   };
 
@@ -208,10 +205,10 @@ const EventsAdminPage = () => {
         />
 
         <EventViewModal
-          visible={modalVisible}
+          open={modalVisible}
           loading={loading}
           eventDetails={eventDetails}
-          onClose={() => {
+          onCancel={() => {
             setModalVisible(false);
             setEventDetails(null);
           }}
@@ -229,9 +226,9 @@ const EventsAdminPage = () => {
 
         {/* Edit Event Modal */}
         <EventEditModal
-          visible={editModalVisible}
+          open={editModalVisible}
           loading={loading}
-          onClose={() => setEditModalVisible(false)}
+          onCancel={() => setEditModalVisible(false)}
           eventDetails={eventDetails}
           onFinish={(values) => handleEditSubmit(values)}
         />
