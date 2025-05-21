@@ -70,7 +70,11 @@ const CreateEventModal = ({ open, onCancel, onCreate, form }) => {
         >
           <Input type="number" />
         </Form.Item>
-        <Form.Item name="paceMin" label="Minimum Pace (km/h)">
+        <Form.Item
+          name="paceMin"
+          label="Minimum Pace (km/h)"
+          rules={[{ required: true }]}
+        >
           <Input type="number" />
         </Form.Item>
         <Form.Item name="paceMax" label="Maximum Pace (km/h)">
@@ -88,7 +92,7 @@ const CreateEventModal = ({ open, onCancel, onCreate, form }) => {
         </Form.Item>
         <Form.Item
           name="image"
-          label="Upload Image"
+          label="Upload Image (less than 2Mb)"
           valuePropName="fileList"
           getValueFromEvent={(e) => (Array.isArray(e) ? e : e?.fileList)}
           rules={[{ required: true, message: "Please upload an image" }]}

@@ -1,14 +1,6 @@
 import React, { useState } from "react";
-import {
-  Modal,
-  Form,
-  Input,
-  DatePicker,
-  TimePicker,
-  Button,
-  Space,
-  Tag,
-} from "antd";
+import "../../Pages/Articles/Articles.css";
+import { Modal, Form, Input, Button, Space, Tag } from "antd";
 
 const { TextArea } = Input;
 
@@ -84,36 +76,6 @@ const CreateArticleModal = ({ open, onCancel, onCreate }) => {
         >
           <Input />
         </Form.Item>
-        <Form.Item
-          name="location"
-          label="Location"
-          rules={[{ required: true }]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item name="address" label="Address" rules={[{ required: true }]}>
-          <Input />
-        </Form.Item>
-        <Form.Item name="date" label="Date" rules={[{ required: true }]}>
-          <DatePicker style={{ width: "100%" }} />
-        </Form.Item>
-        <Form.Item
-          name="startTime"
-          label="Start Time"
-          rules={[{ required: true }]}
-        >
-          <TimePicker format="HH:mm" style={{ width: "100%" }} />
-        </Form.Item>
-        <Form.Item
-          name="durationMinutes"
-          label="Duration (minutes)"
-          rules={[{ required: true }]}
-        >
-          <Input type="number" />
-        </Form.Item>
-        <Form.Item name="author" label="Author" rules={[{ required: true }]}>
-          <Input />
-        </Form.Item>
 
         <div>
           <h4>Article Sections</h4>
@@ -140,7 +102,7 @@ const CreateArticleModal = ({ open, onCancel, onCreate }) => {
           <Button onClick={addSection}>+ Add Section</Button>
         </div>
 
-        <div style={{ marginTop: "1rem" }}>
+        <div style={{ marginTop: "1rem", marginBottom: "1rem" }}>
           <h4>Tags</h4>
           <Space wrap>
             {tags.map((tag, index) => (

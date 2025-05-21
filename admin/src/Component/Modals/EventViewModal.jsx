@@ -50,7 +50,7 @@ const EventViewModal = ({
                   </strong>
                 </p>
                 <p className="event-modal-pace">
-                  💨 {eventDetails.paceMin}
+                  🚲 {eventDetails.paceMin}
                   {eventDetails.paceMax === eventDetails.paceMin
                     ? ""
                     : `–${eventDetails.paceMax}`}{" "}

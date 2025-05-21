@@ -1,28 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Input, Table, Space, Image } from "antd";
 import { PlusOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import "./Articles.css";
 import CreateArticleModal from "../../Component/Modals/CreateArticleModal";
-
-const dummyArticles = [
-  {
-    id: "1",
-    title: "Jakarta Sunday Ride Recap",
-    date: "2025-05-11",
-    author: "Aris",
-    thumbnail: "/images/pastevent1.jpg",
-  },
-  {
-    id: "2",
-    title: "Fun Ride to Puncak",
-    date: "2025-05-05",
-    author: "Aris",
-    thumbnail: "/images/pastevent2.jpg",
-  },
-];
+import { fetchAllArticle } from "../../Util/apiService";
 
 const ArticlesAdminPage = () => {
   const [modalOpen, setModalOpen] = useState(false);
+  const [articles, setArticles] = useState([]);
+  const [loading, setLoading] = useState(false);
   const columns = [
     {
       title: "Thumbnail",
@@ -37,8 +23,21 @@ const ArticlesAdminPage = () => {
     },
     {
       title: "Date",
-      dataIndex: "date",
-      key: "date",
+      dataIndex: "createdAt",
+      key: "createdAt",
+      render: (createdAt) => {
+        const date = new Date(createdAt);
+        const formatted = date.toLocaleString("en-GB", {
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: false,
+          timeZone: "Asia/Jakarta", // optional for correct local time
+        });
+        return <div>{formatted.replace(",", " at")}</div>;
+      },
     },
     {
       title: "Author",
@@ -64,6 +63,22 @@ const ArticlesAdminPage = () => {
       ),
     },
   ];
+
+  const fetchArticles = async () => {
+    try {
+      setLoading(true);
+      const data = await fetchAllArticle();
+      setArticles(data);
+    } catch (error) {
+      console.error("Failed to fetch events:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchArticles();
+  }, []);
 
   const handleCreate = () => {
     setModalOpen(true);
@@ -101,7 +116,7 @@ const ArticlesAdminPage = () => {
       />
 
       <Table
-        dataSource={dummyArticles}
+        dataSource={articles}
         columns={columns}
         rowKey="id"
         pagination={{ pageSize: 5 }}
