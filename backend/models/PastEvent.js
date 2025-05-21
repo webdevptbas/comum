@@ -3,14 +3,14 @@ const mongoose = require("mongoose");
 const pastEventSchema = new mongoose.Schema(
   {
     title: { type: String, required: true },
-    shortDesc: { type: String }, // One-liner for list views
+    shortDesc: { type: String, required: true }, // One-liner for list views
     thumbnail: { type: String },
     videoUrl: { type: String }, // Optional video
-    location: { type: String, required: true },
-    address: { type: String, required: true },
-    date: { type: Date, required: true },
-    startTime: { type: String, required: true },
-    durationMinutes: { type: Number, required: true },
+    location: { type: String },
+    address: { type: String },
+    date: { type: Date },
+    startTime: { type: String },
+    durationMinutes: { type: Number },
     additionalDetail: { type: String },
 
     // ✍️ Article-specific fields
