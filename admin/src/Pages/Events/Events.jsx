@@ -3,7 +3,7 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import timeGridPlugin from "@fullcalendar/timegrid";
-import { message, Form } from "antd";
+import { message, Form, Modal } from "antd";
 import {
   createEvent,
   deleteEvent,
@@ -16,6 +16,8 @@ import dayjs from "dayjs";
 import CreateEventModal from "../../Component/Modals/EventCreateModal";
 import EventViewModal from "../../Component/Modals/EventViewModal";
 import EventEditModal from "../../Component/Modals/EventEditModal";
+
+const { confirm } = Modal;
 
 const EventsAdminPage = () => {
   const [currentView, setCurrentView] = useState("dayGridMonth");
@@ -83,8 +85,10 @@ const EventsAdminPage = () => {
       formData.append("date", values.date.format("YYYY-MM-DD"));
       formData.append("startTime", values.startTime.format("HH:mm"));
       formData.append("durationMinutes", values.durationMinutes);
-      formData.append("paceMin", values.paceMin);
-      formData.append("paceMax", values.paceMax);
+      formData.append("paceMin", Number(values.paceMin));
+      if (values.paceMax !== undefined && values.paceMax !== "") {
+        formData.append("paceMax", Number(values.paceMax));
+      }
       formData.append("additionalDetail", values.additionalDetail || "");
 
       const imageFile = values.image?.[0]?.originFileObj;
@@ -114,7 +118,14 @@ const EventsAdminPage = () => {
         ...formData,
         date: formData.date.format("YYYY-MM-DD"),
         startTime: formData.startTime.format("HH:mm"),
+        paceMin: Number(formData.paceMin),
       };
+
+      if (formData.paceMax !== undefined && formData.paceMax !== "") {
+        updatedEvent.paceMax = Number(formData.paceMax);
+      } else {
+        delete updatedEvent.paceMax; // prevent sending undefined
+      }
 
       await updateEvent(eventDetails._id, updatedEvent);
       message.success("Event updated successfully!");
@@ -142,6 +153,22 @@ const EventsAdminPage = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const showDeleteConfirm = (eventId) => {
+    confirm({
+      title: "Are you sure you want to delete this event?",
+      content: "This action cannot be undone.",
+      okText: "Yes, delete it",
+      okType: "danger",
+      cancelText: "Cancel",
+      onOk() {
+        return handleDelete(eventId);
+      },
+      onCancel() {
+        console.log("Deletion cancelled");
+      },
+    });
   };
 
   const handleDatesSet = (arg) => {
@@ -213,7 +240,7 @@ const EventsAdminPage = () => {
             setEventDetails(null);
           }}
           onEdit={(eventData) => handleUpdate(eventData)}
-          onDelete={(id) => handleDelete(id)}
+          onDelete={(id) => showDeleteConfirm(id)}
         />
 
         {/* Create Event Modal */}

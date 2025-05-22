@@ -106,3 +106,41 @@ export const fetchArticleById = async (id) => {
     throw error;
   }
 };
+
+export const createArticle = async (formData) => {
+  try {
+    const response = await api.post(`/past-events`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error(`Error creating article:`, error);
+    throw error;
+  }
+};
+
+export const updateArticle = async (id, formData) => {
+  try {
+    const response = await api.put(`/past-events/${id}`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error updating event:", error);
+    throw error;
+  }
+};
+
+export const deleteArticle = async (id) => {
+  try {
+    const response = await api.delete(`/past-events/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error deleting article:", error);
+    throw error;
+  }
+};

@@ -1,14 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { Button, Input, Table, Space, Image } from "antd";
+import {
+  Button,
+  Input,
+  Table,
+  Space,
+  Image,
+  Form,
+  Popconfirm,
+  message,
+} from "antd";
 import { PlusOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import "./Articles.css";
 import CreateArticleModal from "../../Component/Modals/CreateArticleModal";
-import { fetchAllArticle } from "../../Util/apiService";
+import { deleteArticle, fetchAllArticle } from "../../Util/apiService";
+import EditArticleModal from "../../Component/Modals/EditArticleModal";
 
 const ArticlesAdminPage = () => {
   const [modalOpen, setModalOpen] = useState(false);
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const [selectedArticle, setSelectedArticle] = useState(null);
   const [articles, setArticles] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [createForm] = Form.useForm();
+  const [editForm] = Form.useForm();
   const columns = [
     {
       title: "Thumbnail",
@@ -22,7 +35,7 @@ const ArticlesAdminPage = () => {
       key: "title",
     },
     {
-      title: "Date",
+      title: "Created at",
       dataIndex: "createdAt",
       key: "createdAt",
       render: (createdAt) => {
@@ -49,16 +62,22 @@ const ArticlesAdminPage = () => {
       key: "actions",
       render: (_, record) => (
         <Space>
-          <Button icon={<EditOutlined />} onClick={() => handleEdit(record)}>
+          <Button
+            icon={<EditOutlined />}
+            onClick={() => handleEdit(record._id)}
+          >
             Edit
           </Button>
-          <Button
-            icon={<DeleteOutlined />}
-            danger
-            onClick={() => handleDelete(record.id)}
+          <Popconfirm
+            title="Are you sure you want to delete this article?"
+            onConfirm={() => handleDelete(record._id)}
+            okText="Yes"
+            cancelText="No"
           >
-            Delete
-          </Button>
+            <Button icon={<DeleteOutlined />} danger>
+              Delete
+            </Button>
+          </Popconfirm>
         </Space>
       ),
     },
@@ -66,13 +85,13 @@ const ArticlesAdminPage = () => {
 
   const fetchArticles = async () => {
     try {
-      setLoading(true);
       const data = await fetchAllArticle();
-      setArticles(data);
-    } catch (error) {
-      console.error("Failed to fetch events:", error);
-    } finally {
-      setLoading(false);
+      const sortedData = data.sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      );
+      setArticles(sortedData);
+    } catch (err) {
+      console.error(err);
     }
   };
 
@@ -82,17 +101,22 @@ const ArticlesAdminPage = () => {
 
   const handleCreate = () => {
     setModalOpen(true);
-    // open modal to create
   };
 
   const handleEdit = (article) => {
-    console.log("Edit article:", article);
-    // open modal to edit
+    setSelectedArticle(article);
+    setEditModalOpen(true);
   };
 
-  const handleDelete = (id) => {
-    console.log("Delete article with id:", id);
-    // confirmation + delete
+  const handleDelete = async (id) => {
+    try {
+      await deleteArticle(id); // assuming you have this in your apiService.js
+      message.success("Article deleted successfully!");
+      fetchArticles(); // refresh your table data
+    } catch (error) {
+      console.error("Failed to delete article:", error);
+      message.error("Failed to delete article.");
+    }
   };
 
   return (
@@ -105,6 +129,7 @@ const ArticlesAdminPage = () => {
         <CreateArticleModal
           open={modalOpen}
           onCancel={() => setModalOpen(false)}
+          form={createForm}
         />
       </div>
 
@@ -120,6 +145,13 @@ const ArticlesAdminPage = () => {
         columns={columns}
         rowKey="id"
         pagination={{ pageSize: 5 }}
+      />
+
+      <EditArticleModal
+        open={editModalOpen}
+        onCancel={() => setEditModalOpen(false)}
+        article={selectedArticle}
+        form={editForm}
       />
     </div>
   );

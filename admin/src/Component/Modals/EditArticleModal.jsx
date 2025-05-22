@@ -1,14 +1,24 @@
-import React, { useState } from "react";
-import "../../Pages/Articles/Articles.css";
-import { Modal, Form, Input, Button, Space, Tag, Upload, message } from "antd";
+import { Modal, Form, Input, Upload, Button, Space, Tag, message } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
-import { createArticle } from "../../Util/apiService";
+import { useEffect, useState } from "react";
+import TextArea from "antd/es/input/TextArea";
+import { updateArticle } from "../../Util/apiService";
 
-const { TextArea } = Input;
-
-const CreateArticleModal = ({ open, onCancel, onCreate, form }) => {
-  const [sections, setSections] = useState([{ heading: "", body: "" }]);
+const EditArticleModal = ({ open, onCancel, form, article }) => {
+  const [sections, setSections] = useState([]);
   const [tags, setTags] = useState([]);
+
+  useEffect(() => {
+    if (article) {
+      form.setFieldsValue({
+        title: article.title,
+        shortDesc: article.shortDesc,
+        thumbnail: [], // empty so user uploads if they want to change
+      });
+      setSections(article.articleSections || []);
+      setTags(article.tags || []);
+    }
+  }, [article, form]);
 
   const addSection = () => {
     setSections([...sections, { heading: "", body: "" }]);
@@ -36,38 +46,35 @@ const CreateArticleModal = ({ open, onCancel, onCreate, form }) => {
       const formData = new FormData();
       formData.append("title", values.title);
       formData.append("shortDesc", values.shortDesc);
-      formData.append("thumbnail", values.thumbnail[0].originFileObj);
       formData.append("articleSections", JSON.stringify(sections));
       formData.append("tags", JSON.stringify(tags));
 
-      await createArticle(formData); // from apiService.js
-      message.success("Event created successfully");
+      if (values.thumbnail?.[0]?.originFileObj) {
+        formData.append("thumbnail", values.thumbnail[0].originFileObj);
+      }
+
+      await updateArticle(article._id, formData);
+      message.success("Article updated successfully");
       onCancel();
       form.resetFields();
-      setSections([{ heading: "", body: "" }]);
-      setTags([]);
-      window.location.reload();
     } catch (err) {
-      message.error("Failed to create event");
+      console.error("Edit error:", err);
+      message.error("Failed to update article");
     }
   };
 
   return (
     <Modal
-      title="Create Article"
+      title="Edit Article"
       open={open}
       onCancel={onCancel}
       onOk={() => {
         form
           .validateFields()
-          .then((values) => {
-            handleSubmit(values);
-          })
-          .catch((err) => {
-            console.log("Form validation failed:", err);
-          });
+          .then((values) => handleSubmit(values))
+          .catch((err) => console.log("Form validation failed:", err));
       }}
-      okText="Create"
+      okText="Update"
       width={800}
     >
       <Form form={form} layout="vertical">
@@ -83,10 +90,9 @@ const CreateArticleModal = ({ open, onCancel, onCreate, form }) => {
         </Form.Item>
         <Form.Item
           name="thumbnail"
-          label="Upload Image (less than 2MB)"
+          label="Upload New Image (optional)"
           valuePropName="fileList"
           getValueFromEvent={(e) => (Array.isArray(e) ? e : e?.fileList)}
-          rules={[{ required: true, message: "Please upload an image" }]}
         >
           <Upload listType="picture" maxCount={1} beforeUpload={() => false}>
             <Button icon={<UploadOutlined />}>Select Image</Button>
@@ -138,4 +144,4 @@ const CreateArticleModal = ({ open, onCancel, onCreate, form }) => {
   );
 };
 
-export default CreateArticleModal;
+export default EditArticleModal;

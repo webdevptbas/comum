@@ -77,9 +77,28 @@ const CreateEventModal = ({ open, onCancel, onCreate, form }) => {
         >
           <Input type="number" />
         </Form.Item>
-        <Form.Item name="paceMax" label="Maximum Pace (km/h)">
+        <Form.Item
+          name="paceMax"
+          label="Maximum Pace (km/h)"
+          rules={[
+            ({ getFieldValue }) => ({
+              validator(_, value) {
+                const paceMin = getFieldValue("paceMin");
+                if (!value || Number(value) >= Number(paceMin)) {
+                  return Promise.resolve();
+                }
+                return Promise.reject(
+                  new Error(
+                    "Maximum pace must be greater than or equal to minimum pace"
+                  )
+                );
+              },
+            }),
+          ]}
+        >
           <Input type="number" />
         </Form.Item>
+
         <Form.Item
           name="shortDesc"
           label="Short Description"
@@ -90,6 +109,7 @@ const CreateEventModal = ({ open, onCancel, onCreate, form }) => {
         <Form.Item name="description" label="Full Description">
           <Input.TextArea rows={4} />
         </Form.Item>
+
         <Form.Item
           name="image"
           label="Upload Image (less than 2Mb)"
@@ -101,6 +121,7 @@ const CreateEventModal = ({ open, onCancel, onCreate, form }) => {
             <Button icon={<UploadOutlined />}>Select Image</Button>
           </Upload>
         </Form.Item>
+
         <Form.Item name="additionalDetail" label="Additional Details">
           <Input.TextArea />
         </Form.Item>
