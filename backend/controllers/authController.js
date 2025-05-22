@@ -7,7 +7,7 @@ const generateToken = (user) => {
   let expiresIn = "7d";
 
   if (user.role === "AdminEvent" || user.role === "AdminProduct") {
-    expiresIn = "24h";
+    expiresIn = "12h";
   }
 
   return jwt.sign(

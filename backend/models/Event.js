@@ -13,7 +13,7 @@ const eventSchema = new mongoose.Schema(
     date: { type: Date, required: true }, // base date (yyyy-mm-dd)
     startTime: { type: String, required: true }, // e.g., "05:30"
     paceMin: { type: Number, required: true },
-    paceMax: { type: Number, required: true },
+    paceMax: { type: Number },
     durationMinutes: { type: Number, required: true },
     additionalDetail: { type: String },
 
