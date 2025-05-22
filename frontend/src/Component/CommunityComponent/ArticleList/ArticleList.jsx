@@ -12,7 +12,10 @@ const ArticleList = () => {
     const loadArticle = async () => {
       try {
         const data = await fetchAllArticle();
-        setArticle(data);
+        const sortedData = data.sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        );
+        setArticle(sortedData);
       } catch (err) {
         console.error(err);
       }
