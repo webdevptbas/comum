@@ -24,7 +24,9 @@ exports.createEvent = async (req, res) => {
     });
 
     const savedEvent = await newEvent.save();
-    res.status(201).json(savedEvent);
+    res
+      .status(201)
+      .json({ savedEvent, message: "Event created successfully!" });
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
@@ -83,7 +85,10 @@ exports.updateEvent = async (req, res) => {
       { new: true, runValidators: true }
     );
 
-    res.status(200).json(updatedEvent);
+    res.status(200).json({
+      updatedEvent,
+      message: "Event updated successfully!",
+    });
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
@@ -105,7 +110,9 @@ exports.deleteEvent = async (req, res) => {
     }
 
     await Event.findByIdAndDelete(req.params.id);
-    res.status(200).json({ message: "Event deleted successfully" });
+    res
+      .status(200)
+      .json({ message: `Event "${event.title}" deleted successfully` });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

@@ -104,6 +104,17 @@ exports.updatePastEvent = async (req, res) => {
       newThumbnail = `${backendBaseUrl}/${thumbnailPath}`;
     }
 
+    // ✅ Parse articleSections if it's a string
+    if (typeof req.body.articleSections === "string") {
+      try {
+        req.body.articleSections = JSON.parse(req.body.articleSections);
+      } catch (err) {
+        return res
+          .status(400)
+          .json({ error: "Invalid articleSections format." });
+      }
+    }
+
     const updated = await PastEvent.findByIdAndUpdate(
       req.params.id,
       { ...req.body, thumbnail: newThumbnail },
