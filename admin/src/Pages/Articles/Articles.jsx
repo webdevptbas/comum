@@ -12,7 +12,11 @@ import {
 import { PlusOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import "./Articles.css";
 import CreateArticleModal from "../../Component/Modals/CreateArticleModal";
-import { deleteArticle, fetchAllArticle } from "../../Util/apiService";
+import {
+  deleteArticle,
+  fetchAllArticle,
+  fetchArticleById,
+} from "../../Util/apiService";
 import EditArticleModal from "../../Component/Modals/EditArticleModal";
 
 const ArticlesAdminPage = () => {
@@ -103,8 +107,14 @@ const ArticlesAdminPage = () => {
     setModalOpen(true);
   };
 
-  const handleEdit = (article) => {
-    setSelectedArticle(article);
+  const handleEdit = async (id) => {
+    try {
+      const data = await fetchArticleById(id); // Use event.id here
+      setSelectedArticle(data);
+    } catch (err) {
+      console.error(err);
+    }
+    console.log({ selectedArticle });
     setEditModalOpen(true);
   };
 

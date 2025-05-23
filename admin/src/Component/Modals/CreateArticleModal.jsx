@@ -46,7 +46,7 @@ const CreateArticleModal = ({ open, onCancel, onCreate, form }) => {
       form.resetFields();
       setSections([{ heading: "", body: "" }]);
       setTags([]);
-      window.location.reload();
+      // window.location.reload();
     } catch (err) {
       message.error("Failed to create event");
     }

@@ -11,6 +11,7 @@ import {
 } from "antd";
 import "../../Pages/Events/Events.css";
 import { UploadOutlined } from "@ant-design/icons";
+import { paceValidators } from "../../Util/paceValidators";
 
 const CreateEventModal = ({ open, onCancel, onCreate, form }) => {
   return (
@@ -73,28 +74,25 @@ const CreateEventModal = ({ open, onCancel, onCreate, form }) => {
         <Form.Item
           name="paceMin"
           label="Minimum Pace (km/h)"
-          rules={[{ required: true }]}
+          rules={[
+            { required: true, message: "Please enter minimum pace" },
+            {
+              validator: (_, value) => {
+                if (value === undefined || value === "")
+                  return Promise.resolve();
+                if (Number(value) < 0)
+                  return Promise.reject(new Error("Pace must not be negative"));
+                return Promise.resolve();
+              },
+            },
+          ]}
         >
           <Input type="number" />
         </Form.Item>
         <Form.Item
           name="paceMax"
           label="Maximum Pace (km/h)"
-          rules={[
-            ({ getFieldValue }) => ({
-              validator(_, value) {
-                const paceMin = getFieldValue("paceMin");
-                if (!value || Number(value) >= Number(paceMin)) {
-                  return Promise.resolve();
-                }
-                return Promise.reject(
-                  new Error(
-                    "Maximum pace must be greater than or equal to minimum pace"
-                  )
-                );
-              },
-            }),
-          ]}
+          rules={[({ getFieldValue }) => paceValidators(getFieldValue)]}
         >
           <Input type="number" />
         </Form.Item>
@@ -117,7 +115,12 @@ const CreateEventModal = ({ open, onCancel, onCreate, form }) => {
           getValueFromEvent={(e) => (Array.isArray(e) ? e : e?.fileList)}
           rules={[{ required: true, message: "Please upload an image" }]}
         >
-          <Upload listType="picture" maxCount={1} beforeUpload={() => false}>
+          <Upload
+            name="thumbnail" // ✅ This is what Multer looks for
+            listType="picture"
+            maxCount={1}
+            beforeUpload={() => false}
+          >
             <Button icon={<UploadOutlined />}>Select Image</Button>
           </Upload>
         </Form.Item>

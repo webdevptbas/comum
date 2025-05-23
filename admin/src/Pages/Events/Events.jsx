@@ -96,11 +96,12 @@ const EventsAdminPage = () => {
         formData.append("thumbnail", imageFile); // <- this is what multer expects
       }
 
-      await createEvent(formData); // from apiService.js
-      message.success("Event created successfully");
+      await createEvent(formData).then((res) => {
+        message.success(res.message);
+      }); // from apiService.js
       setCreateModalVisible(false);
       createForm.resetFields();
-      window.location.reload(); // Or call a refetch method
+      fetchEvents();
     } catch (err) {
       message.error("Failed to create event");
     }
@@ -113,22 +114,44 @@ const EventsAdminPage = () => {
   const handleEditSubmit = async (formData) => {
     try {
       setLoading(true);
-      const updatedEvent = {
-        ...eventDetails,
-        ...formData,
-        date: formData.date.format("YYYY-MM-DD"),
-        startTime: formData.startTime.format("HH:mm"),
-        paceMin: Number(formData.paceMin),
-      };
+
+      const formDataToSend = new FormData();
+
+      // Append basic fields
+      formDataToSend.append("title", formData.title);
+      formDataToSend.append("contactPerson", formData.contactPerson);
+      formDataToSend.append("contactInfo", formData.contactInfo);
+      formDataToSend.append("shortDesc", formData.shortDesc);
+      formDataToSend.append("description", formData.description || "");
+      formDataToSend.append("location", formData.location);
+      formDataToSend.append("address", formData.address);
+      formDataToSend.append("date", formData.date.format("YYYY-MM-DD"));
+      formDataToSend.append("startTime", formData.startTime.format("HH:mm"));
+      formDataToSend.append("durationMinutes", formData.durationMinutes);
+      formDataToSend.append("paceMin", Number(formData.paceMin));
 
       if (formData.paceMax !== undefined && formData.paceMax !== "") {
-        updatedEvent.paceMax = Number(formData.paceMax);
-      } else {
-        delete updatedEvent.paceMax; // prevent sending undefined
+        formDataToSend.append("paceMax", Number(formData.paceMax));
       }
 
-      await updateEvent(eventDetails._id, updatedEvent);
-      message.success("Event updated successfully!");
+      formDataToSend.append(
+        "additionalDetail",
+        formData.additionalDetail || ""
+      );
+
+      // Only append new file if user selected one
+      if (formData.image && formData.image[0]?.originFileObj) {
+        formDataToSend.append("thumbnail", formData.image[0].originFileObj);
+      }
+
+      await updateEvent(eventDetails._id, formDataToSend, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }).then((res) => {
+        message.success(res.message);
+      });
+
       setEditModalVisible(false);
       setModalVisible(false);
       fetchEvents(); // refresh calendar
@@ -143,13 +166,14 @@ const EventsAdminPage = () => {
   const handleDelete = async (eventId) => {
     try {
       setLoading(true);
-      await deleteEvent(eventId);
-      message.success("Event deleted successfully!");
+      await deleteEvent(eventId).then((res) => {
+        message.success(res.message);
+      });
       setModalVisible(false);
       fetchEvents(); // refresh event list
     } catch (error) {
       console.error("Delete failed:", error);
-      message.error("Failed to delete event.");
+      message.error(error?.response?.data?.error);
     } finally {
       setLoading(false);
     }
