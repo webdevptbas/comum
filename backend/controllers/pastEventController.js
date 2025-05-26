@@ -28,6 +28,14 @@ exports.createPastEvent = async (req, res) => {
       req.body.articleSections = JSON.parse(req.body.articleSections);
     }
 
+    if (typeof req.body.tags === "string") {
+      try {
+        req.body.tags = JSON.parse(req.body.tags);
+      } catch (err) {
+        return res.status(400).json({ error: "Invalid tags format." });
+      }
+    }
+
     const pastEvent = new PastEvent({
       ...(event
         ? {
@@ -112,6 +120,14 @@ exports.updatePastEvent = async (req, res) => {
         return res
           .status(400)
           .json({ error: "Invalid articleSections format." });
+      }
+    }
+
+    if (typeof req.body.tags === "string") {
+      try {
+        req.body.tags = JSON.parse(req.body.tags);
+      } catch (err) {
+        return res.status(400).json({ error: "Invalid tags format." });
       }
     }
 
