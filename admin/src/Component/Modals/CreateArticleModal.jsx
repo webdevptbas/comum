@@ -6,7 +6,7 @@ import { createArticle } from "../../Util/apiService";
 
 const { TextArea } = Input;
 
-const CreateArticleModal = ({ open, onCancel, onCreate, form }) => {
+const CreateArticleModal = ({ open, onCancel, form }) => {
   const [sections, setSections] = useState([{ heading: "", body: "" }]);
   const [tags, setTags] = useState([]);
 
@@ -46,7 +46,7 @@ const CreateArticleModal = ({ open, onCancel, onCreate, form }) => {
       form.resetFields();
       setSections([{ heading: "", body: "" }]);
       setTags([]);
-      // window.location.reload();
+      window.location.reload();
     } catch (err) {
       message.error("Failed to create event");
     }
