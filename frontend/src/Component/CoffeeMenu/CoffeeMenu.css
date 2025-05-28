@@ -1,0 +1,40 @@
+.menu-text {
+  background: #fff;
+  color: #333;
+  font-family: 'Inter', sans-serif;
+  width: 100%;
+}
+
+.menu-row {
+  display: flex;
+  flex-direction: row;
+  gap: 60px;
+  justify-content: space-around;
+}
+
+.menu-category {
+  flex: 1 1 300px;
+  background: #f9f9f9;
+  padding: 1rem;
+  min-width: 250px;
+}
+
+.menu-category h2 {
+  color: #1a1a1a;
+  border-bottom: 2px solid #ddd;
+  margin-bottom: 1rem;
+}
+
+.menu-subcategory h3 {
+  color: #444;
+  margin-top: 1rem;
+}
+
+.menu-category ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.menu-category li {
+  margin-bottom: 0.5rem;
+}

@@ -12,6 +12,7 @@ import latteArt from "../../Images/Background/coffee/latteArt.svg";
 import lycheeTea from "../../Images/Background/coffee/lycheeTea.svg";
 import threeDrinks from "../../Images/Background/coffee/threeDrinks.svg";
 import brownies from "../../Images/Background/coffee/brownies.svg";
+import CoffeeMenu from "../../Component/CoffeeMenu/CoffeeMenu";
 
 const CoffeePage = () => {
   return (
@@ -40,7 +41,7 @@ const CoffeePage = () => {
           </div>
           <div className="menu-address-container">
             <div className="menu">
-              <img src={coffeeMenu} alt="Coffee Menu" />
+              <CoffeeMenu />
             </div>
             <div className="map-and-info">
               <div className="maps-wrapper">

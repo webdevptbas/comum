@@ -32,38 +32,37 @@
 
 .menu-address-container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: stretch;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 32px;
+    gap: 60px;
     margin: 52px 0;
   }
   
   .menu {
     display: flex;
-    max-width: 48%;
-  }
-  
-  .menu img {
-    width: auto;
-    height: auto;
-    object-fit: contain;
-    display: block;
+    max-width: 100%;
+    justify-content: space-between;
+    overflow: auto;
   }
   
   .map-and-info {
     /* flex: 1; */
-    max-width: 48%;
+    max-width: 100%;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    gap: 60px;
+  }
+
+  .maps-wrapper {
+    width: 49%;
   }
 
   .address-wrapper {
     flex-grow: 1;
     display: flex;
     align-items: flex-start; /* or center/end depending on your design */
-    margin: 52px 0 0 0;
   }  
 
 .footer-photo {

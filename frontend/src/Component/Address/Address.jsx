@@ -6,7 +6,7 @@ const AddressComponent = () => {
     <>
       <div className="address-container">
         <h3 className="address-title">OPEN HOURS</h3>
-        <p>Mon - Sun, 7.00 AM - 6 PM</p>
+        <p>Mon - Sun, 7.00 AM - 6.00 PM</p>
         <h3 className="address-title">ADDRESS</h3>
         <p>
           Jl. Panglima Polim IX No.4, RT./RW/RW.: 1, 7, Melawi, Kec. Kby. Baru,
