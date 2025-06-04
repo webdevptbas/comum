@@ -9,6 +9,7 @@ const productRoutes = require("./routes/productRoutes");
 const articleRoutes = require("./routes/articleRoutes");
 const eventRoutes = require("./routes/eventRoutes");
 const pastEvent = require("./routes/pastEventRoutes");
+const subscriptionRoutes = require("./routes/subscriptionRoutes");
 
 const app = express();
 dotenv.config();
@@ -43,5 +44,6 @@ app.use("/api/products", productRoutes);
 app.use("/api/articles", articleRoutes);
 app.use("/api/events", eventRoutes);
 app.use("/api/past-events", pastEvent);
+app.use("/api/subscribe", subscriptionRoutes);
 
 module.exports = app;
