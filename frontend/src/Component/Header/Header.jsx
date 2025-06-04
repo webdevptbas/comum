@@ -31,45 +31,6 @@ const MainHeader = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // return (
-  //   <>
-  //     <Header className={`header ${isScrolled ? "scrolled" : ""}`}>
-  //       <div
-  //         className="logo-container"
-  //         onClick={() => {
-  //           navigate("/");
-  //         }}
-  //       >
-  //         {isScrolled ? <ComumHomeBlue /> : <ComumHome />}
-  //       </div>
-  //       <div className="menu-container">
-  //         <Menu
-  //           theme="dark"
-  //           mode="horizontal"
-  //           defaultSelectedKeys={[location.pathname]}
-  //           items={menuItems}
-  //           onClick={({ key }) => {
-  //             navigate(key);
-  //           }}
-  //         />
-  //       </div>
-  //       {isScrolled ? (
-  //         <div className="utilities">
-  //           <SearchBlack />
-  //           <AccountBlack />
-  //           <CartBlack />
-  //         </div>
-  //       ) : (
-  //         <div className="utilities">
-  //           <SearchIcon />
-  //           <AccountIcon />
-  //           <CartIcon />
-  //         </div>
-  //       )}
-  //     </Header>
-  //   </>
-  // );
-
   return (
     <>
       <Header className="header scrolled">

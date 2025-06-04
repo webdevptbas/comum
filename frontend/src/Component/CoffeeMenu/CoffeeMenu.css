@@ -1,33 +1,62 @@
 .menu-text {
   background: #fff;
   color: #333;
-  font-family: 'Inter', sans-serif;
   width: 100%;
+}
+
+.menu-item {
+  padding: 0.5rem 0;
+  border-bottom: 1px dashed #ccc;
+  font-size: 0.95rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
 .menu-row {
   display: flex;
-  flex-direction: row;
-  gap: 60px;
-  justify-content: space-around;
+  justify-content: space-between;
+  align-items: top;
+  gap: 30px;
+}
+
+.menu-name {
+  font-weight: 600;
+  margin: 0 0 0 0.5rem;
+  color: #1a1a1a;
+  font-size: 18px;
+}
+
+.menu-price {
+  color: #1a1a1a;
+  font-weight: 600;
+}
+
+.menu-description {
+  font-size: 14px;
+  color: #666;
+  margin: 0 0 0 1.5rem;
+  width: 70%;
+  text-align: justify;
 }
 
 .menu-category {
   flex: 1 1 300px;
   background: #f9f9f9;
   padding: 1rem;
-  min-width: 250px;
+  min-width: 40%;
 }
 
 .menu-category h2 {
-  color: #1a1a1a;
-  border-bottom: 2px solid #ddd;
-  margin-bottom: 1rem;
+  color: #344EAD;
+  margin: 2rem 0;
+  font-size: 24px;
 }
 
 .menu-subcategory h3 {
-  color: #444;
-  margin-top: 1rem;
+  color: #344EAD;
+  margin: 32px 0 16px 0;
+  font-size: 20px;
 }
 
 .menu-category ul {

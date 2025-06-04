@@ -9,6 +9,7 @@ import PrivateRoute from "./Util/PrivateRoute";
 import ErrorPage from "./Pages/ErrorPage";
 import ArticleDetails from "./Component/CommunityComponent/ArticleList/ArticleDetail";
 import ArticleListPage from "./Pages/ArticleListPage/ArticleListPage";
+import ServicePage from "./Pages/Service/Service";
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
       {
         path: "/coffee",
         element: <CoffeePage />,
+      },
+      {
+        path: "/service",
+        element: <ServicePage />,
       },
     ],
   },

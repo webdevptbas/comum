@@ -68,3 +68,16 @@ export const fetchArticleById = async (id) => {
     throw error;
   }
 };
+
+//---------------------
+//-----SUBSCRIBE API-----
+//---------------------
+export const subscribeEmail = async (email) => {
+  try {
+    const response = await api.post("/subscribe", { email });
+    return response.data;
+  } catch (error) {
+    console.error("Error subscribing email:", error);
+    throw error;
+  }
+};

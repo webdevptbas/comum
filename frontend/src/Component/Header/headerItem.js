@@ -96,6 +96,10 @@ const menuItems = [
     key: "/coffee",
     label: "Comum Coffee",
   },
+  {
+    key: "/service",
+    label: "Service",
+  },
 ];
 
 export default menuItems;

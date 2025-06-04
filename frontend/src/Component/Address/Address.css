@@ -1,11 +1,15 @@
 .address-container {
     padding: 60px;
-    /* height: 500px; */
+    height: 100%;
     background-image: url("../../Images/Background/bg-blue-comum\ 1.svg");
     background-repeat: no-repeat;
     background-size: cover;
     background-color: #344EAD;
     color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* align-items: center; */
 }
 
 .get-direction-btn {
@@ -17,6 +21,7 @@
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    width: fit-content;
   }
   
   .get-direction-btn:hover {

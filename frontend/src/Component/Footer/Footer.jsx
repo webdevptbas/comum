@@ -4,6 +4,7 @@ import "./Footer.css";
 import { useNavigate } from "react-router";
 import ComumFooter from "../../Icons/img/comumFooter.svg";
 import { FacebookIcon, InstagramIcon, WhatsappIcon } from "../../Icons";
+import { subscribeEmail } from "../../Util/apiService";
 
 const { Footer } = Layout;
 
@@ -39,16 +40,23 @@ const MainFooter = () => {
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!email.includes("@")) {
       setMessage("Please enter a valid email.");
       setTimeout(() => setMessage(""), 3000);
       return;
     }
-    setMessage("Thank you for subscribing!");
-    setEmail(""); // Clear the input field
-    console.log("Email received: ", { email });
+
+    try {
+      const res = await subscribeEmail(email); // ✅ Call backend
+      setMessage(res.message || "Thank you for subscribing!");
+      setEmail("");
+    } catch (err) {
+      const msg =
+        err.response?.data?.message || "Failed to subscribe. Please try again.";
+      setMessage(msg);
+    }
 
     setTimeout(() => setMessage(""), 3000);
   };
