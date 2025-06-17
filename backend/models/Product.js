@@ -5,7 +5,12 @@ const productSchema = new mongoose.Schema(
     imageUrl: {
       type: [String], // array of image URLs
       default: [],
+      required: false,
+    },
+    itemCode: {
+      type: String,
       required: true,
+      trim: true,
     },
     productName: {
       type: String,
@@ -22,16 +27,22 @@ const productSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-    sportCategory: [
+    subCategory: [
       {
         type: String,
         trim: true,
         required: true,
       },
     ],
-    price: {
-      type: Number,
+    brandType: {
+      type: String,
       required: true,
+      trim: true,
+    },
+    specification: {
+      type: String,
+      required: true,
+      trim: true,
     },
     variants: [
       {
@@ -41,7 +52,18 @@ const productSchema = new mongoose.Schema(
         sku: { type: String, required: true },
       },
     ],
+    productCode: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    arrivalYear: { type: Number },
+    seasonYear: { type: Number },
     gender: [{ type: String }],
+    price: {
+      type: Number,
+      required: true,
+    },
     isDiscount: {
       type: Boolean,
       required: true,
