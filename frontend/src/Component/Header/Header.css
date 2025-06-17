@@ -129,4 +129,22 @@
     /* color: #1677ff !important; */
   }
 
-  /* end submenu styling */
+/* -------------- */
+/* MOBILE STYLING */
+/* -------------- */
+
+.ant-drawer-body {
+  padding: 0 !important;
+}
+
+.mobile-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}

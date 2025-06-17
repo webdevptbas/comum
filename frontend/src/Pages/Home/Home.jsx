@@ -51,21 +51,20 @@ const HomePage = () => {
               />
               <div className="text-overlay">
                 <Tag type={slide.tagType} text={slide.tagText} />
-                <div className="title">{slide.title}</div>
+                <div className="heading1">{slide.title}</div>
                 <div className="subtitle">{slide.subtitle}</div>
               </div>
             </div>
           ))}
         </Carousel>
-        <div className="category-container">
-          {categories.map((category, index) => (
-            <div className={`${category.type}-container`} key={index + 1}>
-              <img className="icon" src={category.src} alt={category.alt} />
-              {/* <div className="title">{category.title}</div> */}
-              {/* <div className="subtitle">{category.subtitle}</div> */}
-              {/* <div className="button white-button">Discover {category.alt}</div> */}
-            </div>
-          ))}
+        <div className="category-scroll-wrapper">
+          <div className="category-container">
+            {categories.map((category, index) => (
+              <div className={`${category.type}-container`} key={index + 1}>
+                <img className="icon" src={category.src} alt={category.alt} />
+              </div>
+            ))}
+          </div>
         </div>
         {/* <div className="shop-container">
           <div className="title shop-title">Explore Our Latest Product</div>
@@ -88,7 +87,7 @@ const HomePage = () => {
           <div className="button top-picks-button">View More</div>
         </div> */}
         <div className="brand-container">
-          <div className="brand-title title">Our Partner Brands</div>
+          <div className="brand-title heading2">Our Partner Brands</div>
           <div className="brand-grid">
             {brands.slice(0, 14).map((brand, index) => (
               <div className="brand-card" key={index}>

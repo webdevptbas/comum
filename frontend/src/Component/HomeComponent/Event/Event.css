@@ -58,4 +58,23 @@
   pointer-events: none;
 }
 
+@media (max-width:768px){
+  .event-container {
+    padding: 60px 30px;
+  }
+
+  .event-body {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .text-container, .event-video-container {
+    width: 100%;
+  }
+
+  .event-video {
+    height: auto;
+  }
+}
+
   

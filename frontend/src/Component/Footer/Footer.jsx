@@ -68,7 +68,7 @@ const MainFooter = () => {
       </div>
       <div className="news-details">
         <div className="news-container">
-          <div className="title news-title">
+          <div className="heading4 news-title">
             Stay Ahead, Never Miss a Great Deal Again!
           </div>
           <p className="news-subtitle">
@@ -100,7 +100,7 @@ const MainFooter = () => {
 
         <div className="details-container">
           <div className="more-information">
-            <h3 className="title footer-title">More Information</h3>
+            <h3 className="heading5 footer-title">More Information</h3>
             <div className="footer-menu-container">
               {menuItems.map((menuItem, index) => (
                 <p
@@ -116,7 +116,7 @@ const MainFooter = () => {
 
           <div className="contact-container">
             <div>
-              <h3 className="title footer-title">Contact</h3>
+              <h3 className="heading5 footer-title">Contact</h3>
               <p className="footer-subtitle">
                 Jl. Panglima Polim IX No.4, RT./RW/RW.: 1, 7, Melawai, Kec. Kby.
                 Baru, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta.
@@ -124,7 +124,7 @@ const MainFooter = () => {
               <p className="footer-subtitle">comumbikeandcoffee@gmail.com</p>
             </div>
             <div>
-              <h3 className="title footer-title">Follow Us!</h3>
+              <h3 className="heading5 footer-title">Follow Us!</h3>
               <div className="socmed-container">
                 <a
                   href="https://www.instagram.com/comumbike/"

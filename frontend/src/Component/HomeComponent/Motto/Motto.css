@@ -27,3 +27,15 @@
     width: fit-content;
     margin: 40px 0 0 0;
   }
+
+  @media (max-width:768px){
+    .motto-container {
+      padding: 0;
+      height: 60vh;
+      background-position: bottom;
+    }
+
+    .motto-desc {
+      font-size: 72px;
+    }
+  }

@@ -12,18 +12,46 @@ body {
 
 /* BASE STYLING */
 .title {
-  font-weight: 400;
-  font-size: 42px;
   line-height: 44px;
   font-family: 'Clash Grotesk';
   color: #ffffff;
   cursor: default;
 }
 
+.heading1 {
+  font-weight: 600;
+  font-size: 52px;
+}
+.heading2 {
+  font-weight: 600;
+  font-size: 42px;
+}
+.heading3 {
+  font-weight: 600;
+  font-size: 34px;
+}
+.heading4 {
+  font-weight: 600;
+  font-size: 24px;
+}
+.heading5 {
+  font-weight: 600;
+  font-size: 19px;
+}
+.heading6 {
+  font-weight: 600;
+  font-size: 16px;
+}
+
 .subtitle {
   font-weight: 500;
   font-size: 12px;
   padding: 20px 40px;
+}
+
+.text-l-regular {
+  font-weight: 400;
+  font-size: 16px;
 }
 
 .button {
@@ -55,4 +83,35 @@ body {
   width: 1px;
   background-color: #252525; /* or black for darker line */
   margin: 2vw;
+}
+@media (max-width: 768px){
+  .title {
+    font-size: 24px;
+    font-weight: 600;
+  }
+
+  .heading1 {
+    font-weight: 600;
+    font-size: 42px;
+  }
+  .heading2 {
+    font-weight: 600;
+    font-size: 34px;
+  }
+  .heading3 {
+    font-weight: 600;
+    font-size: 28px;
+  }
+  .heading4 {
+    font-weight: 600;
+    font-size: 21px;
+  }
+  .heading5 {
+    font-weight: 600;
+    font-size: 18px;
+  }
+  .heading6 {
+    font-weight: 600;
+    font-size: 16px;
+  }
 }

@@ -1,0 +1,44 @@
+.mobile-menu-overlay {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    color: white;
+    background-color: #2e47bd;
+    height: 100%;
+    padding: 16px;
+    font-family: "Clash Grotesk";
+  }
+  
+  .menu-header {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 20px;
+  }
+  
+  .menu-search input {
+    border-radius: 4px;
+  }
+  
+  .menu-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .menu-item {
+    padding: 10px 0;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 500;
+  }
+  
+  .menu-footer {
+    margin-top: auto;
+    padding-top: 20px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  

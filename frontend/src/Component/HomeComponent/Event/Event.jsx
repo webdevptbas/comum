@@ -3,21 +3,81 @@ import "./Event.css";
 import eventVid from "../../../Videos/eventVid.mp4";
 import { LinkArrow } from "../../../Icons";
 import { useNavigate } from "react-router";
+import useMediaQuery from "../../../Util/useMediaQuery";
 
 const Event = () => {
   const navigate = useNavigate();
   const playerRef = useRef(null);
   const iframeRef = useRef(null);
   const observerRef = useRef(null);
+  const playerReadyRef = useRef(false);
+  const isMobile = useMediaQuery("(max-width: 768px)");
 
   useEffect(() => {
-    // Setup Intersection Observer first
+    const loadYouTubeAPI = () => {
+      if (!window.YT) {
+        const tag = document.createElement("script");
+        tag.src = "https://www.youtube.com/iframe_api";
+        document.body.appendChild(tag);
+      } else {
+        initializePlayer();
+      }
+
+      window.onYouTubeIframeAPIReady = () => {
+        initializePlayer();
+      };
+    };
+
+    const initializePlayer = () => {
+      if (playerRef.current) return; // Prevent multiple initializations
+
+      playerRef.current = new window.YT.Player("event-player", {
+        height: "100%",
+        width: "100%",
+        videoId: "5NGrMLzMZ4w",
+        playerVars: {
+          autoplay: 1,
+          mute: 1,
+          loop: 1,
+          playlist: "5NGrMLzMZ4w",
+          controls: 0,
+          playsinline: 1,
+        },
+        events: {
+          onReady: () => {
+            playerReadyRef.current = true;
+
+            const iframe = document
+              .getElementById("event-player")
+              .querySelector("iframe");
+
+            if (iframe && observerRef.current) {
+              observerRef.current.observe(iframe);
+            }
+
+            playerRef.current.playVideo();
+          },
+        },
+      });
+    };
+
+    // Create observer
     observerRef.current = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          playerRef.current?.playVideo();
+          if (
+            playerReadyRef.current &&
+            typeof playerRef.current?.playVideo === "function"
+          ) {
+            playerRef.current.playVideo();
+          }
         } else {
-          playerRef.current?.pauseVideo();
+          if (
+            playerReadyRef.current &&
+            typeof playerRef.current?.pauseVideo === "function"
+          ) {
+            playerRef.current.pauseVideo();
+          }
         }
       },
       {
@@ -25,43 +85,14 @@ const Event = () => {
       }
     );
 
-    // Load YouTube Iframe API if not already loaded
-    if (!window.YT) {
-      const tag = document.createElement("script");
-      tag.src = "https://www.youtube.com/iframe_api";
-      document.body.appendChild(tag);
-    } else {
-      initializePlayer();
-    }
-
-    // YouTube API callback
-    window.onYouTubeIframeAPIReady = () => {
-      initializePlayer();
-    };
-
-    function initializePlayer() {
-      playerRef.current = new window.YT.Player(iframeRef.current, {
-        events: {
-          onReady: (event) => {
-            setTimeout(() => {
-              observerRef.current.observe(iframeRef.current);
-              playerRef.current?.playVideo(); // Start it just in case it's in view
-            }, 500); // Small delay helps ensure playback
-          },
-        },
-        playerVars: {
-          autoplay: 1,
-          mute: 1,
-          loop: 1,
-          playlist: "5NGrMLzMZ4w",
-          controls: 0,
-          playsinline: 1, // this ensures autoplay works on iOS
-        },
-      });
-    }
+    loadYouTubeAPI();
 
     return () => {
+      // Cleanup on unmount
       observerRef.current?.disconnect();
+      playerRef.current?.destroy?.();
+      playerRef.current = null;
+      playerReadyRef.current = false;
     };
   }, []);
 
@@ -74,7 +105,7 @@ const Event = () => {
         </div>
         <div className="event-body">
           <div className="text-container">
-            <div className="title event-title">
+            <div className="heading2 event-title">
               Move Together, Grow Together
             </div>
             <div className="subtitle event-subtitle">
@@ -108,16 +139,7 @@ const Event = () => {
             </div>
           </div>
           <div className="event-video-container">
-            {/* <video
-              src="https://youtu.be/5NGrMLzMZ4w" // Use the imported video here
-              autoPlay
-              muted
-              loop
-              playsInline
-              // controls
-              className="event-video"
-            /> */}
-            <div id="player">
+            {/* <div id="player">
               <iframe
                 ref={iframeRef}
                 className="event-video"
@@ -127,7 +149,8 @@ const Event = () => {
                 allow="autoplay; encrypted-media"
                 allowFullScreen
               ></iframe>
-            </div>
+            </div> */}
+            <div id="event-player" className="event-video" />
           </div>
         </div>
       </div>
