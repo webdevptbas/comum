@@ -329,4 +329,9 @@
   .brand-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .explore-more {
+    grid-column: span 2;
+    text-align: center;
+  }
 }

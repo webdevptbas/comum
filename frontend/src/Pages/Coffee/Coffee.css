@@ -77,3 +77,34 @@
     width: 100%;
     object-fit: cover;
 }
+
+@media (max-width: 768px){
+  .coffee-container {
+    padding: 0 30px 30px 30px;
+  }
+
+  .grid-parent {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+
+  .menu-address-container {
+    margin: 15px 0;
+    gap: 30px;
+  }
+
+  .map-and-info {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .maps-wrapper {
+    width: 100%;
+  }
+
+  .footer-photo {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin: 15px 0;
+  }
+}

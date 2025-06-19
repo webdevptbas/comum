@@ -18,7 +18,6 @@
     background-color: #43946C;
     color: white;
     border: none;
-    font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease;
     width: fit-content;
@@ -28,3 +27,9 @@
     background-color: #387B5A;
   }
   
+  @media(max-width:768px)
+  {
+    .address-container{
+      padding: 30px;
+    }
+  }

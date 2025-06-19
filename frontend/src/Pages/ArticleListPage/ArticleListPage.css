@@ -3,7 +3,6 @@
   }
   
   .articlelist-page-title {
-    font-size: 48px;
     margin-bottom: 0;
     color: #0a0a0a;
   }
@@ -11,5 +10,11 @@
   .articlelist-page-content {
     display: flex;
     flex-direction: column;
+  }
+
+  @media(max-width:768px){
+    .articlelist-page-container {
+      padding: 2vh 30px;
+    }
   }
   

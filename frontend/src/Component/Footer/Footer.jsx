@@ -83,7 +83,7 @@ const MainFooter = () => {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Insert your email"
             />
-            <button className="submit-button" type="submit">
+            <button className="submit-button text-button-regular" type="submit">
               Subscribe Newsletter
             </button>
             {message && (

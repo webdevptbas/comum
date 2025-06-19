@@ -21,26 +21,32 @@ body {
 .heading1 {
   font-weight: 600;
   font-size: 52px;
+  font-family: "Clash Grotesk";
 }
 .heading2 {
   font-weight: 600;
   font-size: 42px;
+  font-family: "Clash Grotesk";
 }
 .heading3 {
   font-weight: 600;
   font-size: 34px;
+  font-family: "Clash Grotesk";
 }
 .heading4 {
   font-weight: 600;
   font-size: 24px;
+  font-family: "Clash Grotesk";
 }
 .heading5 {
   font-weight: 600;
   font-size: 19px;
+  font-family: "Clash Grotesk";
 }
 .heading6 {
   font-weight: 600;
   font-size: 16px;
+  font-family: "Clash Grotesk";
 }
 
 .subtitle {
@@ -52,6 +58,19 @@ body {
 .text-l-regular {
   font-weight: 400;
   font-size: 16px;
+  font-family: "Clash Grotesk";
+}
+
+.text-menu, .text-button-regular {
+  font-weight: 500;
+  font-size: 16px;
+  font-family: "Clash Grotesk";
+}
+
+.text-button-small {
+  font-weight: 500;
+  font-size: 15px;
+  font-family: "Clash Grotesk";
 }
 
 .button {
@@ -74,7 +93,6 @@ body {
 
 .link {
   color: #3267E3;
-  font-size: 16px;
   cursor: pointer;
 }
 
@@ -113,5 +131,13 @@ body {
   .heading6 {
     font-weight: 600;
     font-size: 16px;
+  }
+  .text-menu, .text-button-regular {
+    font-weight: 500;
+    font-size: 15px;
+  }
+  .text-button-small {
+    font-weight: 500;
+    font-size: 14px;
   }
 }

@@ -13,7 +13,7 @@ const AddressComponent = () => {
           Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12160
         </p>
         <button
-          className="get-direction-btn"
+          className="get-direction-btn text-button-regular"
           onClick={() =>
             window.open(
               "https://www.google.com/maps/dir/?api=1&destination=Comum+Coffee",

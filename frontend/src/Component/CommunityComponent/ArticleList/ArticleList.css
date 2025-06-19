@@ -7,8 +7,6 @@
  
   .articlelist-event-title {
     color: #0a0a0a;
-    font-weight: bold;
-    font-size: 34px;
     margin:0;
     cursor: pointer;
   }
@@ -21,7 +19,6 @@
  
   .articlelist-event-description {
     color: #0a0a0a;
-    font-size: 16px;
     margin: 20px 0;
     width: 90%;
     text-align: justify;
@@ -39,4 +36,18 @@
     height: auto;
     object-fit: cover; /* Crop image nicely */
     aspect-ratio: 16 / 9; /* 👈 Optional: force landscape proportion */
+  }
+
+  @media (max-width:768px) {
+    .articlelist-event-card {
+      flex-direction: column;
+    }
+
+    .articlelist-event-description {
+      width: 100%;
+    }
+
+    .articlelist-event-image {
+      max-width: 768px;
+    }
   }

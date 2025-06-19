@@ -5,7 +5,6 @@ import coffeePorcelainCup from "../../Images/Background/coffee/coffeePorcelainCu
 import coffeePlasticCup from "../../Images/Background/coffee/coffeePlasticCup.svg";
 import cashier from "../../Images/Background/coffee/cashier.svg";
 import holdingCoffee from "../../Images/Background/coffee/holdingCoffee.svg";
-import coffeeMenu from "../../Images/Background/coffee/menu/COMUM MENU_A4.png";
 import AddressComponent from "../../Component/Address/Address";
 import Maps from "../../Component/Maps/Maps";
 import latteArt from "../../Images/Background/coffee/latteArt.svg";

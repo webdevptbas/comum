@@ -5,8 +5,6 @@ import serviceMenuItem from "./serviceMenuItem";
 const ServiceMenu = () => {
   return (
     <div className="service-menu-container">
-      <h1 className="service-menu-title">Service Menu</h1>
-
       <div className="service-section-scroll-wrapper">
         <div className="service-section-container">
           {serviceMenuItem.map((section, index) => (

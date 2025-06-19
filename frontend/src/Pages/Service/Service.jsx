@@ -30,7 +30,7 @@ const ServicePage = () => {
             </div>
           </div> */}
           <div className="menu-address-container">
-            <div className="menu">
+            <div className="menu-service">
               <ServiceMenu />
             </div>
             <div className="map-and-info">

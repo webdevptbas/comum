@@ -35,7 +35,7 @@ const ArticleList = () => {
         <div key={event.id} className="articlelist-event-card">
           <div className="articlelist-event-info">
             <h3
-              className="articlelist-event-title title"
+              className="articlelist-event-title heading3"
               onClick={() => handleClick(event)}
             >
               {event.title}
@@ -49,7 +49,9 @@ const ArticleList = () => {
                 minute: "numeric",
               })}
             </p>
-            <p className="articlelist-event-description">{event.shortDesc}</p>
+            <p className="articlelist-event-description text-l-regular">
+              {event.shortDesc}
+            </p>
           </div>
           <img
             src={event.thumbnail}

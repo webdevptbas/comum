@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
@@ -6,6 +6,7 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import { Modal } from "antd";
 import "./Calendar.css"; // You can style this to match your mockup
 import { fetchAllEvent, fetchEventById } from "../../../Util/apiService";
+import useMediaQuery from "../../../Util/useMediaQuery";
 
 const CommunityCalendar = () => {
   const [currentView, setCurrentView] = useState("dayGridMonth");
@@ -13,6 +14,13 @@ const CommunityCalendar = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [eventDetails, setEventDetails] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [forceRefresh, setForceRefresh] = useState(0); // NEW STATE
+  const [calendarRange, setCalendarRange] = useState({
+    start: null,
+    end: null,
+  });
+  const isMobile = useMediaQuery("(max-width: 768px)");
+  const calendarRef = useRef(null);
 
   useEffect(() => {
     const loadEvent = async () => {
@@ -60,7 +68,15 @@ const CommunityCalendar = () => {
   };
 
   const handleDatesSet = (arg) => {
-    setCurrentView(arg.view.type);
+    const newView = arg.view.type;
+    if (currentView !== newView) {
+      setCurrentView(newView);
+    }
+
+    setCalendarRange({
+      start: arg.view.activeStart,
+      end: arg.view.activeEnd,
+    });
   };
 
   const renderEventContent = (eventInfo) => {
@@ -90,31 +106,203 @@ const CommunityCalendar = () => {
     return <div>{eventInfo.event.title}</div>;
   };
 
-  return (
-    <div className="container">
-      <FullCalendar
-        height="auto"
-        plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin]}
-        initialView={currentView}
-        headerToolbar={{
-          start: "dayGridDay, dayGridWeek, dayGridMonth",
+  const getCurrentWeekEvents = () => {
+    if (!calendarRange.start || !calendarRange.end) return [];
+
+    return events.filter((event) => {
+      const eventStart = new Date(event.start);
+      return (
+        eventStart >= calendarRange.start && eventStart < calendarRange.end
+      );
+    });
+  };
+
+  const formatRange = () => {
+    if (!calendarRange.start || !calendarRange.end) return "";
+
+    const start = calendarRange.start;
+    const end = calendarRange.end;
+
+    if (currentView === "dayGridDay") {
+      return start.toLocaleDateString("en-GB", {
+        weekday: "short",
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      });
+    }
+
+    const endDate = new Date(end.getTime() - 1);
+    const startStr = start.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+    });
+    const endStr = endDate.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
+
+    return `${startStr} – ${endStr}`;
+  };
+
+  const changeView = (viewName) => {
+    const calendarApi = calendarRef.current?.getApi();
+    if (calendarApi) {
+      calendarApi.changeView(viewName);
+      setCurrentView(viewName); // Keep local state in sync
+    }
+  };
+
+  const goPrev = () => {
+    const calendarApi = calendarRef.current?.getApi();
+    if (calendarApi) {
+      calendarApi.prev();
+      setForceRefresh((prev) => prev + 1); // Trigger re-render
+    }
+  };
+
+  const goNext = () => {
+    const calendarApi = calendarRef.current?.getApi();
+    if (calendarApi) {
+      calendarApi.next();
+      setForceRefresh((prev) => prev + 1); // Trigger re-render
+    }
+  };
+
+  const goToday = () => {
+    const calendarApi = calendarRef.current?.getApi();
+    if (calendarApi) {
+      calendarApi.today();
+      setForceRefresh((prev) => prev + 1); // Trigger re-render
+    }
+  };
+
+  const renderMobileHeader = () => (
+    <div className="custom-mobile-header">
+      {/* Top Row: Arrows + Title (Center) */}
+      <div className="mobile-header-title">
+        <div onClick={goPrev} className="arrow-btn">
+          ⬅
+        </div>
+        <span className="mobile-date-range text-button-regular">
+          {formatRange()}
+        </span>
+        <div onClick={goNext} className="arrow-btn">
+          ➡
+        </div>
+      </div>
+
+      {/* Bottom Row: Today + View Buttons */}
+      <div className="mobile-header-controls">
+        <div className="mobile-today-btn text-button-regular" onClick={goToday}>
+          Today
+        </div>
+
+        <div className="mobile-view-switch">
+          <div
+            className={`view-btn text-button-regular ${
+              currentView === "dayGridDay" ? "active" : ""
+            }`}
+            onClick={() => changeView("dayGridDay")}
+          >
+            Day
+          </div>
+          <div
+            className={`view-btn text-button-regular ${
+              currentView === "dayGridWeek" ? "active" : ""
+            }`}
+            onClick={() => changeView("dayGridWeek")}
+          >
+            Week
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderWeekEvents = () => {
+    const weekEvents = getCurrentWeekEvents();
+
+    if (weekEvents.length === 0) {
+      return <p className="text-l-regular no-events">No events this week.</p>;
+    }
+
+    return weekEvents.map((event) => (
+      <div key={event.id} className="custom-calendar-event">
+        <div className="calendar-event-date">
+          {new Date(event.start).toLocaleDateString("en-GB", {
+            weekday: "short",
+            day: "numeric",
+            month: "short",
+            year: "numeric",
+          })}
+        </div>
+
+        <div className="calendar-event-time">
+          {new Date(event.start).toLocaleTimeString("en-GB", {
+            hour: "numeric",
+            minute: "2-digit",
+          })}
+        </div>
+
+        <div className="calendar-event-title">{event.title}</div>
+        <div className="calendar-event-location">Comum Bike and Coffee</div>
+
+        <div className="calendar-event-link">
+          <a href="#" className="read-details">
+            Read Details
+          </a>
+        </div>
+      </div>
+    ));
+  };
+
+  const getHeaderToolbar = () => {
+    return isMobile
+      ? false
+      : {
+          start: "dayGridDay,dayGridWeek,dayGridMonth",
           center: "title",
           end: "today prev,next",
+        };
+  };
+
+  return (
+    <div className="container">
+      {isMobile && renderMobileHeader()}
+
+      {isMobile && currentView === "dayGridWeek" && (
+        <div className="week-events-container">{renderWeekEvents()}</div>
+      )}
+
+      {/* Always render FullCalendar (show/hide instead of unmounting) */}
+      <div
+        style={{
+          display: isMobile && currentView === "dayGridWeek" ? "none" : "block",
         }}
-        buttonText={{
-          today: "Today",
-          month: "Month",
-          week: "Week",
-          day: "Day",
-        }}
-        events={events}
-        eventContent={renderEventContent}
-        datesSet={handleDatesSet}
-        eventClick={handleEventClick}
-        editable={false}
-        selectable={true}
-        eventDisplay="block"
-      />
+      >
+        <FullCalendar
+          ref={calendarRef}
+          height="auto"
+          plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin]}
+          initialView={isMobile ? "dayGridWeek" : currentView}
+          headerToolbar={getHeaderToolbar()}
+          buttonText={{
+            today: "Today",
+            month: "Month",
+            week: "Week",
+            day: "Day",
+          }}
+          events={events}
+          eventContent={renderEventContent}
+          datesSet={handleDatesSet}
+          eventClick={handleEventClick}
+          editable={false}
+          selectable={true}
+          eventDisplay="block"
+        />
+      </div>
 
       <Modal
         title={null}
@@ -143,42 +331,46 @@ const CommunityCalendar = () => {
                 }}
               />
               <div className="event-modal-details">
-                <h2 className="event-modal-title">{eventDetails.title}</h2>
-                <p className="event-modal-date">
+                <h2 className="heading3 event-modal-title">
+                  {eventDetails.title}
+                </h2>
+                <p className="text-l-regular event-modal-date">
                   {new Date(eventDetails.date).toLocaleDateString("en-GB", {
                     day: "numeric",
                     month: "long",
                     year: "numeric",
                   })}
                 </p>
-                <p className="event-modal-time">⏰ {eventDetails.startTime}</p>
-                <p className="event-modal-location">
-                  📍{" "}
-                  <strong>
-                    {eventDetails.location} ➡️ {eventDetails.address}
-                  </strong>
+                <p className="text-l-regular event-modal-time">
+                  ⏰ {eventDetails.startTime}
                 </p>
-                <p className="event-modal-pace">
+                <p className="text-l-regular event-modal-location">
+                  📍 {eventDetails.location} ➡️ {eventDetails.address}
+                  {/* <strong>
+                  </strong> */}
+                </p>
+                <p className="text-l-regular event-modal-pace">
                   💨 {eventDetails.paceMin}
                   {eventDetails.paceMax === eventDetails.paceMin
                     ? ""
                     : `- ${eventDetails.paceMax}`}{" "}
                   kph
                 </p>
-                <p className="event-modal-time">
+                <p className="text-l-regular event-modal-time">
                   👤 {eventDetails.contactPerson}
                 </p>
               </div>
-              <p className="event-modal-description">
+              <p className="text-l-regular event-modal-description">
                 {eventDetails.shortDesc}
               </p>
               {eventDetails.additionalDetail && (
-                <p className="event-modal-additional">
+                <p className="text-l-regular event-modal-additional">
                   {eventDetails.additionalDetail}
                 </p>
               )}
               <div className="event-modal-actions">
                 <a
+                  className="event-modal-contact-person"
                   href={`https://wa.me/${
                     eventDetails.contactInfo
                   }?text=Hello%2C%20I%20would%20like%20to%20know%20more%20about%20${encodeURIComponent(
@@ -193,7 +385,9 @@ const CommunityCalendar = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <button className="join-btn">Contact Person</button>
+                  <button className="text-button-regular join-btn">
+                    Contact Person
+                  </button>
                 </a>
                 {/* <button className="details-btn">Event Details</button> */}
               </div>

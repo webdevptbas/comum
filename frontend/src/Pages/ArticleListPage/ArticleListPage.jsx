@@ -7,7 +7,7 @@ import { ArrowLeftOutlined } from "@ant-design/icons";
 
 const ArticleListPage = () => {
   const navigate = useNavigate();
-  
+
   return (
     <div className="articlelist-page-container">
       <div
@@ -17,7 +17,7 @@ const ArticleListPage = () => {
         <ArrowLeftOutlined />
         <div>Back</div>
       </div>
-      <h1 className="title articlelist-page-title">Articles</h1>
+      <h2 className="heading2 articlelist-page-title">Articles</h2>
       <div className="articlelist-page-content">
         <ArticleList />
       </div>

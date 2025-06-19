@@ -1,17 +1,13 @@
 import React, { useEffect, useRef } from "react";
 import "./Event.css";
-import eventVid from "../../../Videos/eventVid.mp4";
 import { LinkArrow } from "../../../Icons";
 import { useNavigate } from "react-router";
-import useMediaQuery from "../../../Util/useMediaQuery";
 
 const Event = () => {
   const navigate = useNavigate();
   const playerRef = useRef(null);
-  const iframeRef = useRef(null);
   const observerRef = useRef(null);
   const playerReadyRef = useRef(false);
-  const isMobile = useMediaQuery("(max-width: 768px)");
 
   useEffect(() => {
     const loadYouTubeAPI = () => {
@@ -108,7 +104,7 @@ const Event = () => {
             <div className="heading2 event-title">
               Move Together, Grow Together
             </div>
-            <div className="subtitle event-subtitle">
+            <div className="text-l-regular event-subtitle">
               This is more than just a cycling or running club—this is a space
               where passion, movement, and connection come together. Whether
               you're hitting your first 5K run, training for a long-distance
@@ -130,7 +126,7 @@ const Event = () => {
               Let’s go further, together.
             </div>
             <div
-              className="link"
+              className="link text-button-regular"
               onClick={() => {
                 navigate("community");
               }}
