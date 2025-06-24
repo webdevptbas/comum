@@ -37,6 +37,7 @@ const CommunityCalendar = () => {
           return {
             id: event._id,
             title: event.title,
+            location: event.location,
             start: startDateTime.toISOString(),
             end: endDateTime.toISOString(),
             extendedProps: event, // to pass all additional data if needed
@@ -85,15 +86,19 @@ const CommunityCalendar = () => {
     if (viewType === "dayGridDay") {
       return (
         <div className="custom-calendar-event">
-          <div className="calendar-event-time">
+          <div className="calendar-event-time heading6">
             {new Date(eventInfo.event.start).toLocaleDateString("en-GB", {
               hour: "numeric",
               minute: "2-digit",
             })}
           </div>
-          <div className="calendar-event-title">{eventInfo.event.title}</div>
-          <div className="calendar-event-location">Comum Bike and Coffee</div>
-          <div className="calendar-event-link">
+          <div className="calendar-event-title heading6">
+            {eventInfo.event.title}
+          </div>
+          <div className="calendar-event-location heading6">
+            {eventInfo.event.extendedProps.location}
+          </div>
+          <div className="calendar-event-link heading6">
             <a href="#" className="read-details">
               Read Details
             </a>
@@ -228,9 +233,22 @@ const CommunityCalendar = () => {
       return <p className="text-l-regular no-events">No events this week.</p>;
     }
 
+    const handleReadDetails = async (eventId) => {
+      setLoading(true);
+      setModalVisible(true);
+      try {
+        const data = await fetchEventById(eventId);
+        setEventDetails(data);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setTimeout(() => setLoading(false), 1000);
+      }
+    };
+
     return weekEvents.map((event) => (
-      <div key={event.id} className="custom-calendar-event">
-        <div className="calendar-event-date">
+      <div key={event.id} className="custom-calendar-week-event">
+        <div className="calendar-event-date heading5">
           {new Date(event.start).toLocaleDateString("en-GB", {
             weekday: "short",
             day: "numeric",
@@ -239,18 +257,25 @@ const CommunityCalendar = () => {
           })}
         </div>
 
-        <div className="calendar-event-time">
+        <div className="calendar-event-time heading6">
           {new Date(event.start).toLocaleTimeString("en-GB", {
             hour: "numeric",
             minute: "2-digit",
           })}
         </div>
 
-        <div className="calendar-event-title">{event.title}</div>
-        <div className="calendar-event-location">Comum Bike and Coffee</div>
+        <div className="calendar-event-title heading6">{event.title}</div>
+        <div className="calendar-event-location heading6">{event.location}</div>
 
-        <div className="calendar-event-link">
-          <a href="#" className="read-details">
+        <div className="calendar-event-link heading6">
+          <a
+            href="#"
+            className="read-details"
+            onClick={(e) => {
+              e.preventDefault();
+              handleReadDetails(event.id);
+            }}
+          >
             Read Details
           </a>
         </div>
@@ -321,44 +346,47 @@ const CommunityCalendar = () => {
         {eventDetails ? (
           <div className="event-modal-content">
             <div className="event-modal-grid">
-              <img
-                src={eventDetails.imageUrl}
-                alt={eventDetails.title}
-                className="event-modal-image"
-                onError={(e) => {
-                  e.target.onerror = null;
-                  e.target.src = "https://via.placeholder.com/800x400";
-                }}
-              />
-              <div className="event-modal-details">
-                <h2 className="heading3 event-modal-title">
-                  {eventDetails.title}
-                </h2>
-                <p className="text-l-regular event-modal-date">
-                  {new Date(eventDetails.date).toLocaleDateString("en-GB", {
-                    day: "numeric",
-                    month: "long",
-                    year: "numeric",
-                  })}
-                </p>
-                <p className="text-l-regular event-modal-time">
-                  ⏰ {eventDetails.startTime}
-                </p>
-                <p className="text-l-regular event-modal-location">
-                  📍 {eventDetails.location} ➡️ {eventDetails.address}
-                  {/* <strong>
+              <div className="event-modal-header">
+                <img
+                  src={eventDetails.imageUrl}
+                  alt={eventDetails.title}
+                  className="event-modal-image"
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = "https://via.placeholder.com/800x400";
+                  }}
+                />
+                <div className="event-modal-details">
+                  <h2 className="heading3 event-modal-title">
+                    {eventDetails.title}
+                  </h2>
+                  <p className="text-l-regular event-modal-date">
+                    {new Date(eventDetails.date).toLocaleDateString("en-GB", {
+                      day: "numeric",
+                      month: "long",
+                      year: "numeric",
+                    })}
+                  </p>
+                  <p className="text-l-regular event-modal-time">
+                    ⏰ {eventDetails.startTime}
+                  </p>
+                  <p className="text-l-regular event-modal-location">
+                    📍 {eventDetails.location} ➡️ {eventDetails.address}
+                    {/* <strong>
                   </strong> */}
-                </p>
-                <p className="text-l-regular event-modal-pace">
-                  💨 {eventDetails.paceMin}
-                  {eventDetails.paceMax === eventDetails.paceMin
-                    ? ""
-                    : `- ${eventDetails.paceMax}`}{" "}
-                  kph
-                </p>
-                <p className="text-l-regular event-modal-time">
-                  👤 {eventDetails.contactPerson}
-                </p>
+                  </p>
+                  <p className="text-l-regular event-modal-pace">
+                    💨 {eventDetails.paceMin}
+                    {eventDetails.paceMax &&
+                    eventDetails.paceMax !== eventDetails.paceMin
+                      ? ` - ${eventDetails.paceMax}`
+                      : ""}
+                    kph
+                  </p>
+                  <p className="text-l-regular event-modal-time">
+                    👤 {eventDetails.contactPerson}
+                  </p>
+                </div>
               </div>
               <p className="text-l-regular event-modal-description">
                 {eventDetails.shortDesc}

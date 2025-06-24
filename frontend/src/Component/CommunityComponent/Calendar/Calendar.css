@@ -51,11 +51,12 @@
 
 /* Event boxes */
 .fc-event {
-  background-color: #D6E1F9;
-  border-left: 2px solid #344EAD !important;
+  /* background-color: #fff; */
   font-size: 0.75rem;
+  background-color: #d6e1f9;
+  border-left: 2px solid #344ead !important;
   border: none;
-  padding: 0.25rem 0.4rem;
+  padding: 0.5rem 1rem;
   white-space: pre-wrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -87,7 +88,6 @@
   display: grid;
   grid-template-columns: 100px 1fr 1fr auto;
   align-items: center;
-  border-bottom: 1px solid #e0e0e0;
   padding: 0.5rem 1rem;
   font-size: 0.875rem;
   color: #000;
@@ -129,9 +129,9 @@
   padding: 3rem 3rem 0 3rem;
 }
 
-.event-modal-grid {
+.event-modal-header {
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
   gap: 2rem;
 }
 
@@ -216,6 +216,32 @@
 
 /* MOBILE STYLING */
 @media (max-width:768px){
+  .custom-calendar-event {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 20px;
+    padding: 0;
+  }
+
+  .custom-calendar-week-event {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 20px;
+    padding: 20px;
+    border: 1px solid #EDEDED;
+  }
+
+  .fc-event-start, .fc-event-end {
+    margin: 0 !important;
+  }
+
+  .fc-event {
+    background-color: #fff;
+    border-left: none !important;
+  }
+
   .custom-mobile-header {
     display: flex;
     flex-direction: column;
@@ -231,6 +257,13 @@
     align-items: center;
     text-align: center;
     border: 1px #EDEDED solid;
+  }
+
+  .arrow-btn {
+    flex-grow: 1;
+    height: 100%;
+    /* border-left: 1px solid #EDEDED;
+    border-right: 1px solid #EDEDED; */
     padding: 15px 0;
   }
   
@@ -273,6 +306,12 @@
     flex-direction: column;
   }
 
+  .event-modal-header {
+    flex-direction: column;
+    align-items: start;
+    gap: 15px;
+  }
+
   .event-modal-image {
     flex: 1;
     max-width: 768px;
@@ -285,6 +324,10 @@
 
   .event-modal-description {
     margin: 0;
+  }
+
+  .event-modal-actions {
+    padding: 0 0 30px 0;
   }
 
   .join-btn {
