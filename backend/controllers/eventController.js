@@ -11,15 +11,18 @@ const deleteFile = (filePath) => {
 // CREATE a new event
 exports.createEvent = async (req, res) => {
   try {
-    const backendBaseUrl = `${process.env.PROTOCOL}://${process.env.HOST}`; // e.g., http://localhost:5000
+    const backendBaseUrl = `${process.env.PROTOCOL}://${process.env.HOST}`;
     const imagePath = req.file?.path?.replace(/\\/g, "/");
     if (!imagePath) {
       return res.status(400).json({ error: "Image upload failed" });
     }
     const imageUrl = `${backendBaseUrl}/${imagePath}`;
 
+    const cleanContactInfo = (req.body.contactInfo || "").replace(/\D/g, "");
+
     const newEvent = new Event({
       ...req.body,
+      contactInfo: cleanContactInfo,
       imageUrl,
     });
 
@@ -32,10 +35,20 @@ exports.createEvent = async (req, res) => {
   }
 };
 
-// GET all events
+// GET all events with date filter
 exports.getAllEvents = async (req, res) => {
   try {
-    const events = await Event.find().sort({ date: 1 });
+    const { start, end } = req.query;
+
+    const query = {};
+    if (start && end) {
+      query.date = {
+        $gte: new Date(start),
+        $lte: new Date(end),
+      };
+    }
+
+    const events = await Event.find(query).sort({ date: 1 });
     res.status(200).json(events);
   } catch (err) {
     res.status(500).json({ error: err.message });
