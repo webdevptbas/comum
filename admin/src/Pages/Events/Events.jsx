@@ -29,26 +29,26 @@ const EventsAdminPage = () => {
   const [loading, setLoading] = useState(false);
   const [createForm] = Form.useForm();
 
-  useEffect(() => {
-    fetchEvents();
-  }, []);
+  // useEffect(() => {
+  //   fetchEvents();
+  // }, []);
 
-  const fetchEvents = async () => {
-    try {
-      setLoading(true);
-      const data = await fetchAllEvent();
-      const formattedEvents = data.map((event) => ({
-        id: event._id,
-        title: event.title,
-        date: event.date,
-      }));
-      setEvents(formattedEvents);
-    } catch (error) {
-      console.error("Failed to fetch events:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  // const fetchEvents = async () => {
+  //   try {
+  //     setLoading(true);
+  //     const data = await fetchAllEvent();
+  //     const formattedEvents = data.map((event) => ({
+  //       id: event._id,
+  //       title: event.title,
+  //       date: event.date,
+  //     }));
+  //     setEvents(formattedEvents);
+  //   } catch (error) {
+  //     console.error("Failed to fetch events:", error);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   const handleEventClick = async ({ event }) => {
     setLoading(true);
@@ -101,7 +101,7 @@ const EventsAdminPage = () => {
       }); // from apiService.js
       setCreateModalVisible(false);
       createForm.resetFields();
-      fetchEvents();
+      // fetchEvents();
     } catch (err) {
       message.error("Failed to create event");
     }
@@ -154,7 +154,7 @@ const EventsAdminPage = () => {
 
       setEditModalVisible(false);
       setModalVisible(false);
-      fetchEvents(); // refresh calendar
+      // fetchEvents();
     } catch (error) {
       console.error("Update failed:", error);
       message.error("Failed to update event.");
@@ -170,7 +170,7 @@ const EventsAdminPage = () => {
         message.success(res.message);
       });
       setModalVisible(false);
-      fetchEvents(); // refresh event list
+      // fetchEvents();
     } catch (error) {
       console.error("Delete failed:", error);
       message.error(error?.response?.data?.error);
@@ -195,8 +195,26 @@ const EventsAdminPage = () => {
     });
   };
 
-  const handleDatesSet = (arg) => {
+  const handleDatesSet = async (arg) => {
     setCurrentView(arg.view.type);
+
+    const startStr = arg.startStr; // FullCalendar gives ISO format
+    const endStr = arg.endStr;
+
+    try {
+      setLoading(true);
+      const data = await fetchAllEvent(startStr, endStr);
+      const formattedEvents = data.map((event) => ({
+        id: event._id,
+        title: event.title,
+        date: event.date,
+      }));
+      setEvents(formattedEvents);
+    } catch (error) {
+      console.error("Filtered event fetch failed:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const renderEventContent = (eventInfo) => {

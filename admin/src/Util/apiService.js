@@ -26,9 +26,11 @@ export const fetchProductById = async (id) => {
 //------------------------
 //-----EVENT LIST API-----
 //------------------------
-export const fetchAllEvent = async () => {
+export const fetchAllEvent = async (start, end) => {
   try {
-    const response = await api.get("/events");
+    const response = await api.get("/events", {
+      params: { start, end },
+    });
     return response.data;
   } catch (error) {
     console.error("Error fetching events:", error);

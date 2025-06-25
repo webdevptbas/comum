@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import "./index.css";
-import { Layout, Menu, message } from "antd";
+import { Layout, Menu, Modal, message } from "antd";
 import { Outlet, useLocation, useNavigate } from "react-router";
 import { useAuth } from "./Util/AuthContext";
 import api from "./Util/apiHandler";
@@ -11,22 +11,31 @@ const AdminLayout = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+  const [isLogoutModalVisible, setIsLogoutModalVisible] = useState(false);
 
   const isProductAdmin = user?.role === "AdminProduct";
   const isEventAdmin = user?.role === "AdminEvent";
 
-  const handleLogout = async () => {
-    try {
-      // Optional: call backend logout route if you have one
-      await api.post("/auth/logout"); // only if backend supports token invalidation
+  const showLogoutModal = () => {
+    setIsLogoutModalVisible(true);
+  };
 
-      logout(); // clear from context + localStorage
+  const confirmLogout = async () => {
+    try {
+      await api.post("/auth/logout");
+      logout();
       message.success("You have been logged out.");
       navigate("/login");
     } catch (err) {
       console.error(err);
       message.error("Logout failed");
+    } finally {
+      setIsLogoutModalVisible(false);
     }
+  };
+
+  const cancelLogout = () => {
+    setIsLogoutModalVisible(false);
   };
 
   const menuItems = [
@@ -55,7 +64,18 @@ const AdminLayout = () => {
       : []),
     {
       key: "logout",
-      label: "Logout",
+      label: (
+        <span
+          style={{
+            color: "white",
+            backgroundColor: "#ff4d4f",
+            padding: "4px 12px",
+            borderRadius: "4px",
+          }}
+        >
+          Logout
+        </span>
+      ),
     },
   ];
 
@@ -69,7 +89,7 @@ const AdminLayout = () => {
           items={menuItems}
           onClick={({ key }) => {
             if (key === "logout") {
-              handleLogout();
+              showLogoutModal();
             } else {
               navigate(key);
             }
@@ -84,6 +104,17 @@ const AdminLayout = () => {
           <Outlet />
         </Content>
       </Layout>
+
+      <Modal
+        title="Confirm Logout"
+        open={isLogoutModalVisible}
+        onOk={confirmLogout}
+        onCancel={cancelLogout}
+        okText="Logout"
+        okButtonProps={{ danger: true }}
+      >
+        <p>Are you sure you want to log out?</p>
+      </Modal>
     </Layout>
   );
 };
