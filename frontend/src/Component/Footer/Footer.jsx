@@ -71,7 +71,7 @@ const MainFooter = () => {
           <div className="heading4 news-title">
             Stay Ahead, Never Miss a Great Deal Again!
           </div>
-          <p className="news-subtitle">
+          <p className="news-subtitle text-l-regular">
             Get ready to discover all the latest trends, collaborations, and
             exclusive promotions!
           </p>
@@ -116,15 +116,17 @@ const MainFooter = () => {
 
           <div className="contact-container">
             <div>
-              <h3 className="heading5 footer-title">Contact</h3>
-              <p className="footer-subtitle">
+              <h5 className="heading5 footer-title">Contact</h5>
+              <p className="footer-subtitle text-s-regular">
                 Jl. Panglima Polim IX No.4, RT./RW/RW.: 1, 7, Melawai, Kec. Kby.
                 Baru, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta.
               </p>
-              <p className="footer-subtitle">comumbikeandcoffee@gmail.com</p>
+              <p className="footer-subtitle text-s-regular">
+                comumbikeandcoffee@gmail.com
+              </p>
             </div>
             <div>
-              <h3 className="heading5 footer-title">Follow Us!</h3>
+              <h5 className="heading5 footer-title">Follow Us!</h5>
               <div className="socmed-container">
                 <a
                   href="https://www.instagram.com/comumbike/"
@@ -145,7 +147,7 @@ const MainFooter = () => {
           </div>
         </div>
       </div>
-      <div className="copyright">
+      <div className="copyright text-s-regular">
         ©{new Date().getFullYear()} Comum Bike & Coffee. All right reserved
       </div>
     </Footer>

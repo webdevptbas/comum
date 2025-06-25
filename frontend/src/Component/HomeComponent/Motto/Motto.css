@@ -8,12 +8,10 @@
     align-items: center;
     background-color: rgb(44, 44, 44);
   }
-  
-  .motto-title {
-    font-size: 44px;
-    font-weight: 400;
-    color: #344EAD;
-    margin: 0 0 40px 0;
+
+  .logo-quote-container {
+    cursor: pointer;
+    padding: 20px 0 40px 0;
   }
   
   .motto-desc {
@@ -32,10 +30,16 @@
     .motto-container {
       padding: 0;
       height: 60vh;
-      background-position: bottom;
+      background-position-x: right;
+      background-position-y: bottom;
+    }
+
+    .logo-quote-container {
+      padding: 0 0 10px 0;
     }
 
     .motto-desc {
-      font-size: 72px;
+      font-size: 62px;
+      padding: 0 30px;
     }
   }

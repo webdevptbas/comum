@@ -101,9 +101,7 @@
   }
   
   .footer-subtitle {
-    font-weight: 400;
-    margin: 10px 0; /* Ensure consistent spacing between items */
-    font-size: 14px;
+    margin: 10px 0;
     color: #ffffff !important;
     cursor: default;
   }
@@ -153,5 +151,9 @@
   .details-container {
     flex-direction: column;
     margin: 30px 0 0 0;
+  }
+
+  .contact-container {
+    gap: 20px;
   }
 }

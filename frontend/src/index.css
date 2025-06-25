@@ -61,6 +61,24 @@ body {
   font-family: "Clash Grotesk";
 }
 
+.text-l-medium {
+  font-weight: 500;
+  font-size: 16px;
+  font-family: "Clash Grotesk";
+}
+
+.text-s-regular {
+  font-weight: 400;
+  font-size: 12px;
+  font-family: "Clash Grotesk";
+}
+
+.text-s-medium {
+  font-weight: 500;
+  font-size: 12px;
+  font-family: "Clash Grotesk";
+}
+
 .text-menu, .text-button-regular {
   font-weight: 500;
   font-size: 16px;
@@ -80,7 +98,6 @@ body {
   display: flex;
   align-items: center;
   text-align: center;
-  font-size: 16px;
   border-color: #ffffff;
   color: #ffffff;
 }

@@ -14,10 +14,7 @@ const Motto = () => {
           backgroundRepeat: "no-repeat",
         }}
       >
-        <div
-          className="logo-container"
-          style={{ cursor: "default", padding: "20px 0 40px 0" }}
-        >
+        <div className="logo-quote-container">
           <ComumHome />
         </div>
         <div className="motto-desc">"MORE THAN JUST</div>

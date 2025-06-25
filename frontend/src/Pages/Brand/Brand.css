@@ -1,3 +1,8 @@
+.brand-detail-title {
+    padding: 100px 0 0 0;
+    color: #0A0A0A;
+}
+
 .brand-page-container {
     min-height: 90vh;
     display: grid;
@@ -21,4 +26,26 @@
     width: 200px;
     height: auto;
     filter: invert(100%);
+}
+
+@media (max-width:768px){
+    .brand-detail-title {
+        padding: 15px 30px;
+    }
+
+    .brand-page-container {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 0 30px 30px 30px;
+        gap: 15px;
+    }
+
+    .brand-page-card {
+        height: 150px;
+    }
+    
+    .brand-page-item {
+        width: 100px;
+        height: auto;
+        filter: invert(100%);
+    }
 }

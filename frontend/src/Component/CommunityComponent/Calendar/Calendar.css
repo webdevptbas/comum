@@ -268,16 +268,18 @@
   }
   
   .mobile-header-controls {
-    display: grid;
+    display: flex;
     grid-template-columns: repeat(2, 1fr);
-    gap: 30px;
+    gap: 1rem;
+    justify-content: space-between;
     align-items: center;
   }
   
   .mobile-today-btn {
     border: 1px #EDEDED solid;
-    padding: 15px 30px;
+    padding: 0.8rem 1.2rem;
     font-weight: normal;
+    text-align: center;
   }
   
   .mobile-view-switch {
@@ -286,7 +288,7 @@
   }
   
   .view-btn {
-    padding: 15px 30px;
+    padding: 0.8rem 1.2rem;
     border: 1px #EDEDED solid;
     font-weight: normal;
   }

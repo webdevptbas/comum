@@ -23,9 +23,14 @@ const CommunityCalendar = () => {
   const calendarRef = useRef(null);
 
   useEffect(() => {
-    const loadEvent = async () => {
+    const loadEvents = async () => {
+      if (!calendarRange.start || !calendarRange.end) return;
+
       try {
-        const data = await fetchAllEvent();
+        const startISO = calendarRange.start.toISOString();
+        const endISO = calendarRange.end.toISOString();
+        const data = await fetchAllEvent(startISO, endISO);
+
         const transformedEvents = data.map((event) => {
           const startDateTime = new Date(
             `${event.date.substring(0, 10)}T${event.startTime}`
@@ -40,18 +45,18 @@ const CommunityCalendar = () => {
             location: event.location,
             start: startDateTime.toISOString(),
             end: endDateTime.toISOString(),
-            extendedProps: event, // to pass all additional data if needed
+            extendedProps: event,
           };
         });
 
         setEvents(transformedEvents);
       } catch (err) {
-        console.error(err);
+        console.error("Failed to load filtered events:", err);
       }
     };
 
-    loadEvent();
-  }, []);
+    loadEvents();
+  }, [calendarRange]);
 
   const handleEventClick = async ({ event }) => {
     setLoading(true);

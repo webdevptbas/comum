@@ -21,6 +21,14 @@
   scroll-behavior: smooth;
 }
 
+.menu-item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: top;
+  gap: 30px;
+  scroll-behavior: smooth;
+}
+
 .menu::-webkit-scrollbar {
   height: 8px;
 }
@@ -40,15 +48,17 @@
 }
 
 .menu-name {
-  font-weight: 600;
   margin: 0 0 0 0.5rem;
   color: #1a1a1a;
-  font-size: 18px;
+  max-width: 15vw;
 }
 
 .menu-price {
   color: #1a1a1a;
   font-weight: 600;
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
 }
 
 .menu-description {
@@ -89,6 +99,21 @@
 
 @media(max-width:768px){
   .menu-category {
-    min-width: 100%;
+    min-width: 80%;
+  }
+
+  .menu-row {
+    gap: 15px;
+  }
+
+  .menu-name {
+    max-width: 30vw;
+  }
+
+  .menu-price {
+    flex-direction: column;
+    gap: 5px;
+    max-width: 15vw;
+    text-align: end;
   }
 }

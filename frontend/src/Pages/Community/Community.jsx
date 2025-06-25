@@ -11,9 +11,9 @@ const CommunityPage = () => {
           <h1 className="title community-title">Community</h1>
         </div>
         <div className="community-body">
-          <h2 className="title event-schedule-title">Event Schedule</h2>
+          <h2 className="heading2 event-schedule-title">Event Schedule</h2>
           <CommunityCalendar />
-          <h2 className="title event-schedule-title">Past Event</h2>
+          <h2 className="heading2 event-schedule-title">Past Event</h2>
           <ArticleList />
         </div>
       </div>

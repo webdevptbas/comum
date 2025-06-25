@@ -40,7 +40,7 @@ const ArticleList = () => {
             >
               {event.title}
             </h3>
-            <p className="articlelist-event-date">
+            <p className="articlelist-event-date text-l-regular">
               {new Date(event.createdAt).toLocaleDateString("en-GB", {
                 day: "numeric",
                 month: "long",

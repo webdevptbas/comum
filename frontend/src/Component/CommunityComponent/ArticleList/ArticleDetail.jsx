@@ -28,8 +28,8 @@ const ArticleDetails = () => {
         <ArrowLeftOutlined />
         <div>Back</div>
       </div>
-      <h1 className="event-title">{pastEvent.title}</h1>
-      <p className="event-datetime">
+      <h3 className="event-title heading3">{pastEvent.title}</h3>
+      <p className="event-datetime text-l-regular">
         {new Date(pastEvent.createdAt).toLocaleDateString("en-GB", {
           day: "numeric",
           month: "long",
@@ -45,12 +45,12 @@ const ArticleDetails = () => {
         alt={pastEvent.title}
       />
 
-      <p className="event-short-desc">{pastEvent.shortDesc}</p>
+      <p className="event-short-desc text-l-regular">{pastEvent.shortDesc}</p>
 
       {pastEvent.articleSections?.map((section) => (
         <div key={section._id} className="event-article-section">
-          <h2>{section.heading}</h2>
-          <p>{section.body}</p>
+          <h3 className="heading3">{section.heading}</h3>
+          <p className="text-l-regular">{section.body}</p>
         </div>
       ))}
     </div>

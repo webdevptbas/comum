@@ -12,6 +12,10 @@
     /* align-items: center; */
 }
 
+.address-title {
+  margin: 0;
+}
+
 .get-direction-btn {
     margin-top: 16px;
     padding: 10px 18px;

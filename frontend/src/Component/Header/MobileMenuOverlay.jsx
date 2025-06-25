@@ -29,19 +29,19 @@ const MobileMenuOverlay = ({ closeMenu }) => {
         Brand <RightOutlined />
       </div> */}
       <div
-        className="mobile-menu-item"
+        className="mobile-menu-item text-menu"
         onClick={() => handleNavigate("/community")}
       >
         Community
       </div>
       <div
-        className="mobile-menu-item"
+        className="mobile-menu-item text-menu"
         onClick={() => handleNavigate("/coffee")}
       >
         Comum Coffee
       </div>
       <div
-        className="mobile-menu-item"
+        className="mobile-menu-item text-menu"
         onClick={() => handleNavigate("/service")}
       >
         Service
