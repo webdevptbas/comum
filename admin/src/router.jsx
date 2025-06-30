@@ -5,7 +5,7 @@ import AdminLogin from "./Pages/Login/Login";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import EventsAdminPage from "./Pages/Events/Events";
 import ArticlesAdminPage from "./Pages/Articles/Articles";
-import ProductsAdminPage from "./Pages/Products/Products";
+import Products from "./Pages/Products/Products";
 
 const router = createBrowserRouter([
   {
@@ -28,7 +28,7 @@ const router = createBrowserRouter([
             path: "products",
             element: (
               <PrivateRoute allowedRoles={["AdminProduct"]}>
-                <ProductsAdminPage />
+                <Products />
               </PrivateRoute>
             ),
           },

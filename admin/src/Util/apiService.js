@@ -23,6 +23,59 @@ export const fetchProductById = async (id) => {
   }
 };
 
+// Create Product
+export const createProduct = async (formData) => {
+  try {
+    const response = await api.post("/products", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error creating product:", error);
+    throw error;
+  }
+};
+
+// Update Product
+export const updateProduct = async (id, formData) => {
+  try {
+    const response = await api.put(`/products/${id}`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error(`Error updating product ${id}:`, error);
+    throw error;
+  }
+};
+
+// Delete Product
+export const deleteProduct = async (id) => {
+  try {
+    const response = await api.delete(`/products/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error(`Error deleting product ${id}:`, error);
+    throw error;
+  }
+};
+
+export const importProductsFromCsv = async (formData) => {
+  try {
+    const response = await api.post("/products/import-csv", formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error importing CSV:", error);
+    throw error;
+  }
+};
+
 //------------------------
 //-----EVENT LIST API-----
 //------------------------
