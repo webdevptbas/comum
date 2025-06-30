@@ -14,7 +14,7 @@ const productSchema = new mongoose.Schema(
     },
     productName: {
       type: String,
-      required: true,
+      required: false,
       trim: true,
     },
     brand: {
@@ -27,38 +27,39 @@ const productSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-    subCategory: [
-      {
-        type: String,
-        trim: true,
-        required: true,
-      },
-    ],
+    subCategory: {
+      type: String,
+      trim: true,
+      required: false,
+    },
     brandType: {
       type: String,
-      required: true,
+      required: false,
       trim: true,
     },
     specification: {
       type: String,
-      required: true,
+      required: false,
       trim: true,
     },
-    variants: [
-      {
-        color: { type: String, required: true },
-        size: { type: String, required: true },
-        stock: { type: Number, required: true, default: 0 },
-        sku: { type: String, required: true },
-      },
-    ],
+    color: {
+      type: String,
+      required: false,
+      trim: true,
+    },
+    size: {
+      type: String,
+      required: false,
+      trim: true,
+    },
     productCode: {
       type: String,
-      required: true,
+      required: false,
       trim: true,
     },
+    year: { type: String }, //arrivalYear but in Symbol
     arrivalYear: { type: Number },
-    seasonYear: { type: Number },
+    seasonYear: { type: String },
     gender: [{ type: String }],
     price: {
       type: Number,
@@ -89,18 +90,56 @@ const productSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
+    stock: {
+      type: Number,
+      required: false,
+      default: 0,
+    },
   },
   { timestamps: true }
 );
 
 // Pre-save hook to calculate discountPrice
 productSchema.pre("save", function (next) {
+  // Auto-calculate discountPrice
   if (this.isDiscount && this.discount > 0) {
     const discountAmount = (this.discount / 100) * this.price;
     this.discountPrice = this.price - discountAmount;
   } else {
     this.discountPrice = this.price;
   }
+
+  // Auto-generate year symbol from arrivalYear
+  if (this.arrivalYear) {
+    const lastDigit = this.arrivalYear % 10;
+    const symbolMap = [
+      "#J",
+      "#A",
+      "#B",
+      "#C",
+      "#D",
+      "#E",
+      "#F",
+      "#G",
+      "#H",
+      "#I",
+    ];
+    this.year = symbolMap[lastDigit];
+  }
+
+  // Generate productName
+  const parts = [
+    this.brand,
+    this.category,
+    this.brandType,
+    this.color,
+    this.size,
+    this.productCode,
+    this.year,
+  ].filter(Boolean); // remove falsy values
+
+  this.productName = parts.join(" ").trim();
+
   next();
 });
 
