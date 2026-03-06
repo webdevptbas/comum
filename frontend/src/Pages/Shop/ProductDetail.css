@@ -1,0 +1,143 @@
+.product-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 10vh 0 0 0;
+}
+
+.mobile-back-button {
+  display: none;
+}
+
+.product-detail-information {
+  display: flex;
+  padding: 0 60px;
+  gap: 24px;
+}
+
+.image-section {
+  display: flex;
+  gap: 24px;
+}
+
+.thumbnail-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.thumbnail-list img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.thumbnail-list img.active {
+  border: 1px solid #344ead;
+  padding: 8px;
+}
+
+.thumbnail-list img.inactive {
+  background-color: #fff;
+  border: 1px solid #ededed;
+  padding: 8px;
+  opacity: 0.5;
+  filter: grayscale(60%);
+}
+
+.main-image {
+  border: 1px solid #c2c2c2;
+  width: 100%;
+  max-width: 500px; /* optional limit */
+}
+
+.main-image img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+}
+
+.info-section {
+  flex: 1;
+  max-width: 70vw;
+}
+
+.discount {
+  color: #cb3a31;
+  font-weight: bold;
+}
+
+.discount del {
+  margin-left: 10px;
+  color: #aaa;
+}
+
+.final-price {
+  font-size: 24px;
+  color: #344ead;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.section {
+  margin: 20px 0;
+}
+
+.detail-section {
+  padding: 0 60px 40px 60px;
+  max-width: 100%;
+}
+
+.read-more {
+  font-weight: bold;
+  color: #344ead;
+}
+
+@media (max-width: 768px) {
+  .product-detail {
+    padding: 30px;
+  }
+
+  .mobile-back-button {
+    display: block;
+  }
+
+  .product-detail-information {
+    padding: 0;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .image-section {
+    flex-direction: column-reverse;
+  }
+
+  .thumbnail-list {
+    flex-direction: row;
+    overflow: scroll;
+  }
+
+  .main-image {
+    max-width: 81vw;
+  }
+
+  .main-image img {
+    width: 80vw;
+    height: auto;
+  }
+
+  .info-section {
+    max-width: 100%;
+  }
+
+  .product-detail-breadcrumb {
+    display: none;
+  }
+
+  .detail-section {
+    padding: 0;
+  }
+}

@@ -1,0 +1,18 @@
+.service-container {
+    padding: 6vh 60px 60px 60px;
+}
+
+.service-title {
+    color: #0a0a0a;
+}
+
+@media (max-width:768px){
+    .service-container {
+        padding: 0 30px 30px 30px;
+    }
+
+    .menu-service {
+        width: 100%;
+        overflow-x: auto;
+    }
+}

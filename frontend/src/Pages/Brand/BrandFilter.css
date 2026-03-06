@@ -1,0 +1,35 @@
+.brand-filter {
+  padding: 2rem 60px 0 60px;
+  display: flex;
+  gap: 10px;
+}
+
+.brand-button {
+  cursor: pointer;
+  padding: 8px 16px;
+  border: 1px solid;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  background-color: #ffffff;
+  border-color: #000000;
+  color: #000000;
+}
+
+.brand-active-button {
+  cursor: pointer;
+  padding: 8px 16px;
+  border: 1px solid;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  background-color: #ffffff;
+  border-color: #3267e3;
+  color: #3267e3;
+}
+
+@media (max-width: 768px) {
+  .brand-filter {
+    padding: 10px 30px 10px 30px;
+  }
+}

@@ -1,0 +1,23 @@
+.list-skeleton {
+  width: 60%;
+  padding: 12px 32px 12px 0;
+}
+
+.list-image-skeleton {
+  width: 100% !important;
+  padding: 12px;
+}
+
+.article-skeleton {
+  padding: 10px 2rem;
+}
+
+@media (max-width: 768px) {
+  .list-skeleton {
+    width: 100%;
+  }
+
+  .article-skeleton-item {
+    flex-direction: column;
+  }
+}

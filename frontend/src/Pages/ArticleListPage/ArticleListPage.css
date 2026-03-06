@@ -1,0 +1,20 @@
+.articlelist-page-container {
+    padding: 10vh 60px;
+  }
+  
+  .articlelist-page-title {
+    margin-bottom: 0;
+    color: #0a0a0a;
+  }
+  
+  .articlelist-page-content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  @media(max-width:768px){
+    .articlelist-page-container {
+      padding: 2vh 30px;
+    }
+  }
+  

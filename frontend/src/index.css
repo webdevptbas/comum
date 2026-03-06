@@ -1,0 +1,166 @@
+body {
+  margin: 0;
+  font-family: "Clash Grotesk";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+} */
+
+/* BASE STYLING */
+.title {
+  line-height: 44px;
+  font-family: 'Clash Grotesk';
+  color: #ffffff;
+  cursor: default;
+}
+
+.heading1 {
+  font-weight: 600;
+  font-size: 52px;
+  font-family: "Clash Grotesk";
+}
+.heading2 {
+  font-weight: 600;
+  font-size: 42px;
+  font-family: "Clash Grotesk";
+}
+.heading3 {
+  font-weight: 600;
+  font-size: 34px;
+  font-family: "Clash Grotesk";
+}
+.heading4 {
+  font-weight: 600;
+  font-size: 24px;
+  font-family: "Clash Grotesk";
+}
+.heading5 {
+  font-weight: 600;
+  font-size: 19px;
+  font-family: "Clash Grotesk";
+}
+.heading6 {
+  font-weight: 600;
+  font-size: 16px;
+  font-family: "Clash Grotesk";
+}
+
+.subtitle {
+  font-weight: 500;
+  font-size: 12px;
+  padding: 20px 40px;
+}
+
+.text-l-regular {
+  font-weight: 400;
+  font-size: 16px;
+  font-family: "Clash Grotesk";
+}
+
+.text-l-medium {
+  font-weight: 500;
+  font-size: 16px;
+  font-family: "Clash Grotesk";
+}
+
+.text-m-regular {
+  font-weight: 400;
+  font-size: 14px;
+  font-family: "Clash Grotesk";
+}
+
+.text-s-regular {
+  font-weight: 400;
+  font-size: 12px;
+  font-family: "Clash Grotesk";
+}
+
+.text-s-medium {
+  font-weight: 500;
+  font-size: 12px;
+  font-family: "Clash Grotesk";
+}
+
+.text-menu, .text-button-regular {
+  font-weight: 500;
+  font-size: 16px;
+  font-family: "Clash Grotesk";
+}
+
+.text-button-small {
+  font-weight: 500;
+  font-size: 15px;
+  font-family: "Clash Grotesk";
+}
+
+.button {
+  cursor: pointer;
+  padding: 8px 16px;
+  border: 1px solid;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  border-color: #ffffff;
+  color: #ffffff;
+}
+
+.white-button {
+  width: fit-content;
+  background-color: #ffffff;
+  color: #0A0A0A;
+}
+
+.link {
+  color: #3267E3;
+  cursor: pointer;
+}
+
+.vertical-divider {
+  height: 24px;
+  width: 1px;
+  background-color: #252525; /* or black for darker line */
+  margin: 2vw;
+}
+@media (max-width: 768px){
+  .title {
+    font-size: 24px;
+    font-weight: 600;
+  }
+
+  .heading1 {
+    font-weight: 600;
+    font-size: 42px;
+  }
+  .heading2 {
+    font-weight: 600;
+    font-size: 34px;
+  }
+  .heading3 {
+    font-weight: 600;
+    font-size: 28px;
+  }
+  .heading4 {
+    font-weight: 600;
+    font-size: 21px;
+  }
+  .heading5 {
+    font-weight: 600;
+    font-size: 18px;
+  }
+  .heading6 {
+    font-weight: 600;
+    font-size: 16px;
+  }
+  .text-menu, .text-button-regular {
+    font-weight: 500;
+    font-size: 15px;
+  }
+  .text-button-small {
+    font-weight: 500;
+    font-size: 14px;
+  }
+}

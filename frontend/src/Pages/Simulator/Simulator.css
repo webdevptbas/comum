@@ -1,0 +1,61 @@
+.simulator-container {
+  padding: 10vh 60px 60px 60px;
+}
+
+.simulator-hero {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.simulator-actions {
+  display: flex;
+  gap: 10px;
+  height: fit-content;
+}
+
+.simulator-button {
+  cursor: pointer;
+  padding: 8px 16px;
+  border: 1px solid;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  text-align: center;
+  background-color: #3267e3;
+  border-color: #ffffff;
+  color: #ffffff;
+}
+
+.simulator-media {
+  margin-top: 10px;
+}
+
+.simulator-features {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.feature-card {
+  flex: 1;
+}
+
+.feature-icon {
+  place-self: center;
+  font-size: 28px;
+}
+
+@media (max-width: 768px) {
+  .simulator-container {
+    padding: 2vh 30px 30px 30px;
+  }
+
+  .simulator-hero {
+    flex-direction: column;
+  }
+
+  .simulator-features {
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,122 @@
+.coffee-container {
+    padding: 6vh 60px 60px 60px;
+}
+
+.coffee-title {
+    color: #0a0a0a;
+}
+
+.grid-parent {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 52px;
+    margin-top: 24px;
+}
+
+.grid-parent > div {
+    overflow: hidden;
+}
+
+.grid-parent img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* If you want a larger first image spanning two columns like in your original idea */
+.grid-div1 {
+    grid-column: span 2;
+    grid-row: span 1;
+}
+
+.grid-div2, .grid-div3, .grid-div4, .grid-div5 {
+  aspect-ratio: 1 / 1;
+  position: relative;
+  width: 100%;
+}
+
+.menu-address-container {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 60px;
+    margin: 52px 0;
+  }
+  
+  .menu {
+    display: flex;
+    max-width: 100%;
+    justify-content: space-between;
+    overflow: auto;
+  }
+  
+  .map-and-info {
+    max-width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 60px;
+  }
+
+  .maps-wrapper {
+    width: 100%;
+  }
+
+  .address-wrapper {
+    flex-grow: 1;
+    align-items: flex-start; /* or center/end depending on your design */
+  }  
+
+.footer-photo {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 52px;
+    margin: 52px 0 0 0;
+}
+
+.footer-photo > div {
+  aspect-ratio: 1 / 1;
+  position: relative;
+  width: 100%;
+}
+
+.footer-photo img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+@media (max-width: 768px){
+  .coffee-container {
+    padding: 0 30px 30px 30px;
+  }
+
+  .grid-parent {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+
+  .menu-address-container {
+    margin: 15px 0;
+    gap: 30px;
+  }
+
+  .map-and-info {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .maps-wrapper {
+    width: 100%;
+  }
+
+  .footer-photo {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin: 15px 0;
+  }
+}

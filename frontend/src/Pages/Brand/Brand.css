@@ -1,0 +1,51 @@
+.brand-detail-title {
+  padding: 100px 0 0 60px;
+  color: #0a0a0a;
+}
+
+.brand-page-container {
+  min-height: 90vh;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  grid-template-columns: repeat(5, 1fr);
+  padding: 2vh 60px 10vh 60px;
+  gap: 20px;
+}
+
+.brand-page-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  height: 250px;
+  border: 1px solid #ededed;
+}
+
+.brand-page-item {
+  width: 200px;
+  height: auto;
+  filter: invert(100%);
+}
+
+@media (max-width: 768px) {
+  .brand-detail-title {
+    padding: 15px 30px;
+  }
+
+  .brand-page-container {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0 30px 30px 30px;
+    gap: 15px;
+  }
+
+  .brand-page-card {
+    height: 150px;
+  }
+
+  .brand-page-item {
+    width: 100px;
+    height: auto;
+    filter: invert(100%);
+  }
+}

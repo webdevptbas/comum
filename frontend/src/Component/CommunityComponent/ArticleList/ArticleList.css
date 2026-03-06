@@ -1,0 +1,53 @@
+.articlelist-event-card {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  margin: 30px 0;
+  gap: 10px;
+}
+
+.articlelist-event-title {
+  color: #0a0a0a;
+  margin: 0;
+  cursor: pointer;
+}
+
+.articlelist-event-date {
+  color: #888;
+  margin: 0;
+}
+
+.articlelist-event-description {
+  color: #0a0a0a;
+  margin: 20px 0;
+  width: 90%;
+  text-align: justify;
+}
+
+.articlelist-event-info {
+  flex: 2; /* or any ratio you like */
+}
+
+.articlelist-event-image {
+  flex: 1;
+  max-width: 320px;
+  max-height: 250px;
+  width: 100%;
+  height: auto;
+  object-fit: cover; /* Crop image nicely */
+  aspect-ratio: 16 / 9; /* 👈 Optional: force landscape proportion */
+}
+
+@media (max-width: 768px) {
+  .articlelist-event-card {
+    flex-direction: column;
+  }
+
+  .articlelist-event-description {
+    width: 100%;
+  }
+
+  .articlelist-event-image {
+    max-width: 768px;
+  }
+}
