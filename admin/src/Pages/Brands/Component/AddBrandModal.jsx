@@ -27,7 +27,12 @@ const AddBrandModal = ({ open, loading, onCancel, onSubmit }) => {
           <Input.TextArea />
         </Form.Item>
 
-        <Form.Item name="isActive" label="Brand Aktif?">
+        <Form.Item
+          name="isActive"
+          label="Brand Aktif?"
+          valuePropName="checked"
+          initialValue={true}
+        >
           <Switch defaultChecked={true} />
         </Form.Item>
       </Form>

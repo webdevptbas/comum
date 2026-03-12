@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Card, Button, List, Modal, Form, Input, message, Switch } from "antd";
-import { fetchBrands, fetchBrandTypesByBrand } from "../../Util/apiService";
+import { Card, Button, List, message, Switch } from "antd";
+import {
+  createBrand,
+  createBrandType,
+  fetchBrands,
+  fetchBrandTypesByBrand,
+  toggleBrandStatus,
+} from "../../Util/apiService";
 import AddBrandModal from "./Component/AddBrandModal";
 import AddBrandTypeModal from "./Component/AddBrandTypeModal";
 
@@ -22,17 +28,47 @@ const Brands = () => {
     setBrandTypes(res);
   };
 
-  const handleCreateBrand = () => {
-    console.log("Brand created");
+  const handleCreateBrand = async (values) => {
+    try {
+      await createBrand(values);
+      message.success("Brand created successfully");
+      setBrandModalOpen(false);
+      loadBrands();
+    } catch (err) {
+      message.error(err.response?.data?.message || "Failed to create brand");
+    }
   };
 
-  const handleCreateBrandType = () => {
-    console.log("Brand Type created");
+  const handleCreateBrandType = async (values) => {
+    try {
+      await createBrandType({ ...values, brand: selectedBrand._id });
+      message.success("Brand Type created successfully");
+      setBrandTypeModalOpen(false);
+      loadBrandTypes(selectedBrand._id);
+    } catch (err) {
+      message.error(
+        err.response?.data?.message || "Failed to create brand type",
+      );
+    }
   };
 
   useEffect(() => {
     loadBrands();
   }, []);
+
+  const handleToggleBrand = async (brandId, checked) => {
+    try {
+      await toggleBrandStatus(brandId, checked);
+
+      setBrands((prev) =>
+        prev.map((b) => (b._id === brandId ? { ...b, isActive: checked } : b)),
+      );
+
+      message.success("Brand status updated");
+    } catch (err) {
+      message.error("Failed to update brand status");
+    }
+  };
 
   return (
     <>
@@ -64,10 +100,19 @@ const Brands = () => {
                         ? "#f0f5ff"
                         : "transparent",
                     justifyContent: "space-between",
+                    color: brand.isActive ? "inherit" : "#aaa",
                   }}
                 >
                   {brand.name}
-                  <Switch checked={brand.isActive} />
+                  <Switch
+                    checked={brand.isActive}
+                    onClick={(checked, event) => {
+                      event.stopPropagation();
+                    }}
+                    onChange={(checked) =>
+                      handleToggleBrand(brand._id, checked)
+                    }
+                  />
                 </List.Item>
               </>
             )}
