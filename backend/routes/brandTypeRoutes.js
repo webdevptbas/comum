@@ -5,10 +5,13 @@ const {
   addBrandType,
   deleteBrandType,
 } = require("../controllers/brandTypeController");
+const { protect, roleCheck } = require("../middleware/authMiddleware");
 
 //Public routes
 router.get("/:brandId", getBrandTypesByBrand);
-router.post("/", addBrandType);
-router.delete("/:id", deleteBrandType);
+
+//Protected routes
+router.post("/", protect, roleCheck("AdminProduct"), addBrandType);
+router.delete("/:id", protect, roleCheck("AdminProduct"), deleteBrandType);
 
 module.exports = router;
