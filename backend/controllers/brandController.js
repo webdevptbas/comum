@@ -64,3 +64,22 @@ exports.deleteBrand = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+exports.updateBrandStatus = async (req, res) => {
+  try {
+    const { isActive } = req.body;
+
+    const brand = await Brand.findById(req.params.id);
+
+    if (!brand) {
+      return res.status(404).json({ message: "Brand not found" });
+    }
+
+    brand.isActive = isActive;
+    await brand.save();
+
+    res.json({ message: "Brand updated", brand });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};

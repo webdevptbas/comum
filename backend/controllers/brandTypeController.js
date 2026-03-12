@@ -49,6 +49,7 @@ exports.getBrandTypesByBrand = async (req, res) => {
   }
 };
 
+// @desc delete brand type
 exports.deleteBrandType = async (req, res) => {
   try {
     const brandType = await BrandType.findById(req.params.id);
