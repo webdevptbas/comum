@@ -222,9 +222,19 @@ export const fetchBrands = async () => {
   }
 };
 
-//-------------------
-//-----BRAND API-----
-//-------------------
+export const createBrand = async (data) => {
+  const response = await api.post(`/brands`, data);
+  return response.data;
+};
+
+export const toggleBrandStatus = async (id, isActive) => {
+  const response = await api.patch(`/brands/${id}`, { isActive });
+  return response.data;
+};
+
+//-------------------------
+//-----BRAND TYPES API-----
+//-------------------------
 export const fetchBrandTypesByBrand = async (id) => {
   try {
     const response = await api.get(`/brand-types/${id}`);
@@ -233,4 +243,9 @@ export const fetchBrandTypesByBrand = async (id) => {
     console.error("Error fetching brands:", error);
     throw error;
   }
+};
+
+export const createBrandType = async (data) => {
+  const response = await api.post(`/brand-types`, data);
+  return response.data;
 };
