@@ -23,7 +23,7 @@
 
 .utilities-container {
   display: flex;
-  gap: 20px;
+  gap: 0.4rem;
 }
 
 .header-container {
@@ -64,6 +64,7 @@
 
 .coffee {
   gap: 10px;
+  line-height: normal;
 }
 
 .coffee.active {
@@ -72,7 +73,58 @@
 
 .utilities {
   justify-content: space-between;
-  width: 7vw;
+  width: 7dvw;
+}
+
+.cart-container {
+  padding: 1rem 2rem;
+}
+
+.cart-item {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.cart-image {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
+
+.cart-info {
+  flex: 1;
+}
+
+.cart-title {
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.cart-quantity {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.cart-quantity button {
+  width: 32px;
+  height: 32px;
+  border: 1px solid #ccc;
+  background: white;
+  cursor: pointer;
+}
+
+.final-price {
+  color: #2f54eb;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.cart-delete {
+  font-size: 20px;
+  cursor: pointer;
 }
 
 .ant-menu-overflow {

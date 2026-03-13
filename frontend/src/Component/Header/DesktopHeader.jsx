@@ -1,18 +1,30 @@
 import React, { useState } from "react";
-import { Layout, Menu, Dropdown, Drawer, Input } from "antd";
 import {
-  SearchOutlined,
-  UserOutlined,
-  ShoppingCartOutlined,
-  CoffeeOutlined,
-  CloseOutlined,
-} from "@ant-design/icons";
-import { MdSportsTennis } from "react-icons/md";
+  Layout,
+  Menu,
+  Dropdown,
+  Drawer,
+  Input,
+  Badge,
+  InputNumber,
+  Divider,
+} from "antd";
+import {
+  MdSportsTennis,
+  MdSearch,
+  MdOutlineShoppingCart,
+  MdOutlineClose,
+  MdDeleteOutline,
+} from "react-icons/md";
+import { FiCoffee } from "react-icons/fi";
+import { FaRegUser } from "react-icons/fa";
 import "./Header.css";
 import { useLocation, useNavigate } from "react-router";
 import menuItems from "./headerItem";
 import { ComumHomeBlue } from "../../Icons/index.js";
 import dropdownItem from "./userDropdownItem.js";
+import { useSelector } from "react-redux";
+import { formatRupiah } from "../../Util/CartUtils.js";
 
 const { Header } = Layout;
 
@@ -23,6 +35,8 @@ const DesktopHeader = () => {
   const isSimulatorPage = location.pathname.startsWith("/simulator");
   const [isCartVisible, setIsCartVisible] = useState(false);
   const [searchValue, setSearchValue] = useState("");
+  const { cartItems } = useSelector((state) => state.cart);
+  console.log({ cartItems });
 
   const openCart = () => setIsCartVisible(true);
   const closeCart = () => setIsCartVisible(false);
@@ -30,7 +44,7 @@ const DesktopHeader = () => {
   const handleSearch = () => {
     console.log("Searching for: ", searchValue);
   };
-  const cartItems = [];
+
   const dropdownContent = (
     <div style={{ padding: "8px", width: "250px", backgroundColor: "white" }}>
       <Input.Search
@@ -77,9 +91,9 @@ const DesktopHeader = () => {
             onClick={() => navigate("/coffee")}
           >
             {isCoffeePage ? (
-              <CoffeeOutlined style={{ color: "#3267e3", fontSize: "20px" }} />
+              <FiCoffee style={{ color: "#3267e3", fontSize: "20px" }} />
             ) : (
-              <CoffeeOutlined />
+              <FiCoffee />
             )}
             Comum Coffee
           </div>
@@ -95,7 +109,7 @@ const DesktopHeader = () => {
             )}
             Comum Simulator
           </div>
-          {/* <div className="vertical-divider" />
+          <div className="vertical-divider" />
           <div className="utilities">
             <Dropdown
               dropdownRender={() => dropdownContent}
@@ -103,20 +117,28 @@ const DesktopHeader = () => {
               placement="bottomRight"
               arrow
             >
-              <SearchOutlined style={{ fontSize: "20px", cursor: "pointer" }} />
+              <MdSearch style={{ fontSize: "20px", cursor: "pointer" }} />
             </Dropdown>
             <Dropdown
               menu={{ items: dropdownItem }}
               trigger={["click"]}
               placement="bottomRight"
             >
-              <UserOutlined style={{ fontSize: "20px" }} />
+              <FaRegUser style={{ fontSize: "20px" }} />
             </Dropdown>
-            <ShoppingCartOutlined
-              style={{ fontSize: "20px" }}
-              onClick={openCart}
-            />
-          </div> */}
+            <>
+              {cartItems.length > 0 ? (
+                <Badge
+                  count={cartItems.reduce((a, c) => a + c.quantity, 0)}
+                  onClick={openCart}
+                >
+                  <MdOutlineShoppingCart style={{ fontSize: "20px" }} />
+                </Badge>
+              ) : (
+                <MdOutlineShoppingCart style={{ fontSize: "20px" }} />
+              )}
+            </>
+          </div>
 
           <Drawer
             title="Shopping Cart"
@@ -137,20 +159,57 @@ const DesktopHeader = () => {
                   alignItems: "center",
                 }}
               >
-                <CloseOutlined />
+                <MdOutlineClose />
                 <div>Close</div>
               </div>
             }
           >
             {cartItems.length > 0 ? (
-              <ul>
-                {cartItems.map((item, index) => (
-                  <li key={index}>
-                    <span>{item.name}</span>
-                    <span>{item.price}</span>
-                  </li>
+              <div className="cart-container">
+                {cartItems.map((item) => (
+                  <div key={item._id}>
+                    <div className="cart-item">
+                      {/* Product Image */}
+                      <img
+                        src={item.imageUrl}
+                        alt={item.productName}
+                        className="cart-image"
+                      />
+
+                      {/* Product Info */}
+                      <div className="cart-info">
+                        <div className="cart-title">
+                          {item.productName} - {item.size}
+                        </div>
+
+                        {/* Quantity Stepper */}
+                        <div className="cart-quantity">
+                          <button>-</button>
+                          <InputNumber
+                            min={1}
+                            max={item.stock}
+                            value={item.quantity}
+                            controls={false}
+                          />
+                          <button>+</button>
+                        </div>
+
+                        {/* Price Section */}
+                        <div className="cart-price">
+                          <span className="final-price">
+                            {formatRupiah(item.price)}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Delete Icon */}
+                      <MdDeleteOutline className="cart-delete" />
+                    </div>
+
+                    <Divider />
+                  </div>
                 ))}
-              </ul>
+              </div>
             ) : (
               <p>Your cart is empty.</p>
             )}

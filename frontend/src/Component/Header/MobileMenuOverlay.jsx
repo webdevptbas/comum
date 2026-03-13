@@ -24,13 +24,13 @@ const MobileMenuOverlay = ({ closeMenu }) => {
       <div className="mobile-menu-header">
         <CloseOutlined onClick={closeMenu} />
       </div>
-      {/* <div className="menu-search">
+      <div className="menu-search">
         <Search placeholder="Search a Product" />
       </div>
-      <div className="menu-group" onClick={() => handleNavigate("/shop")}>
+      {/* <div className="menu-group" onClick={() => handleNavigate("/shop")}>
         Shop <RightOutlined />
-      </div>
-      <div className="menu-group" onClick={() => handleNavigate("/brand")}>
+      </div> */}
+      {/* <div className="menu-group" onClick={() => handleNavigate("/brand")}>
         Brand <RightOutlined />
       </div> */}
       <div
