@@ -5,6 +5,8 @@ import { LeftOutlined } from "@ant-design/icons";
 import "./ProductDetail.css";
 import Tag from "../../Component/Tag/Tag";
 import { useGetProductDetailsQuery } from "../../Slices/productsApiSlice";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../Slices/cartSlice";
 
 const ProductDetailPage = () => {
   const { brand, id } = useParams();
@@ -13,18 +15,23 @@ const ProductDetailPage = () => {
   const [selectedSizeObj, setSelectedSizeObj] = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
   const [quantity, setQuantity] = useState(1);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (product?.imageUrl?.length > 0) {
       setSelectedImage(product.imageUrl[0]);
     }
-  }, [product]);
+    if (selectedSizeObj) {
+      setQuantity(1);
+    }
+  }, [product, selectedSizeObj]);
 
   if (!product) return <div>Loading...</div>;
 
   const sizeOptions = product.variations.map((v) => ({
     label: v.size || "No Size",
     value: v.size,
+    disabled: v.stock === 0,
   }));
 
   const handleSizeChange = (size) => {
@@ -52,6 +59,23 @@ const ProductDetailPage = () => {
       ? finalItem.discountPrice
       : finalItem.price
     : product.displayDiscountPrice;
+
+  const addToCartHandler = () => {
+    if (!selectedItem) return;
+
+    dispatch(
+      addToCart({
+        _id: selectedItem._id,
+        productId: product._id,
+        productName: product.productName,
+        imageUrl: product.imageUrl[0],
+        size: selectedItem.size,
+        price: finalPrice,
+        stock: selectedItem.stock,
+        quantity: quantity,
+      }),
+    );
+  };
 
   return (
     <div className="product-detail">
@@ -147,13 +171,34 @@ const ProductDetailPage = () => {
                 <p>Quantity</p>
                 <InputNumber
                   min={1}
-                  max={selectedSizeObj?.totalStock}
+                  max={selectedSizeObj?.stock}
                   value={quantity}
-                  onChange={(val) => setQuantity(val)}
+                  disabled={!selectedSizeObj}
+                  onChange={(val) => {
+                    //   if (!selectedSizeObj) return;
+
+                    //   const maxStock = selectedSizeObj.stock;
+
+                    //   if (!val) {
+                    //     setQuantity(1);
+                    //     return;
+                    //   }
+
+                    //   const safeQty = Math.min(val, maxStock);
+                    //   setQuantity(safeQty);
+                    //
+                    setQuantity(val);
+                  }}
+                  changeOnWheel={false}
                 />
               </div>
 
-              <Button type="primary" block>
+              <Button
+                type="primary"
+                block
+                onClick={() => addToCartHandler()}
+                disabled={!selectedItem}
+              >
                 Add To Cart
               </Button>
             </div>
