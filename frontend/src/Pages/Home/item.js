@@ -44,6 +44,8 @@ import RoyalPadel from "../../Icons/Brand/RoyalPadel.png";
 import Odea from "../../Icons/Brand/Odea.png";
 import Pulse from "../../Icons/Brand/Pulse.png";
 import Spectrum from "../../Icons/Brand/Spectrum.png";
+import Sram from "../../Icons/Brand/Sram.png";
+import SweetProtection from "../../Icons/Brand/SweetProtection.png";
 
 const slides = [
   {
@@ -157,7 +159,7 @@ const brands = [
   },
   { src: Fizik, alt: "Fizik", igUrl: null, type: "cycling", priority: false },
   { src: Garmin, alt: "Garmin", igUrl: null, type: "cycling", priority: false },
-  { src: Guee, alt: "Guee", igUrl: null, type: "cycling", priority: false },
+  // { src: Guee, alt: "Guee", igUrl: null, type: "cycling", priority: false },
   { src: Head, alt: "Head", igUrl: null, type: "padel", priority: true },
   {
     src: Met,
@@ -232,6 +234,20 @@ const brands = [
   {
     src: Spectrum,
     alt: "Spectrum",
+    igUrl: "",
+    type: "cycling",
+    priority: false,
+  },
+  {
+    src: Sram,
+    alt: "Sram",
+    igUrl: "",
+    type: "cycling",
+    priority: false,
+  },
+  {
+    src: SweetProtection,
+    alt: "Sweet Protection",
     igUrl: "",
     type: "cycling",
     priority: false,
