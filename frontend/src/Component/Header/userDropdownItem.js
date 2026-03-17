@@ -41,11 +41,11 @@ const dropdownItem = [
     icon: <ShoppingOutlined />,
     label: "Orders",
   },
-  {
-    key: "wishlist",
-    icon: <HeartOutlined />,
-    label: "Wishlist",
-  },
+  // {
+  //   key: "wishlist",
+  //   icon: <HeartOutlined />,
+  //   label: "Wishlist",
+  // },
   {
     key: "password",
     icon: <LockOutlined />,
