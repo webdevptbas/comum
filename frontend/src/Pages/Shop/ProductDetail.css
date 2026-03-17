@@ -95,6 +95,19 @@
   color: #344ead;
 }
 
+.add-to-cart-button {
+  width: 100%;
+  border-radius: 0;
+  background-color: #3267e3;
+  color: #fff;
+}
+
+.add-to-cart-button:hover {
+  background-color: #344ead !important;
+  border-color: #fff !important;
+  color: #fff !important;
+}
+
 @media (max-width: 768px) {
   .product-detail {
     padding: 30px;

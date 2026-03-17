@@ -67,12 +67,17 @@ const ProductDetailPage = () => {
       addToCart({
         _id: selectedItem._id,
         productId: product._id,
+        itemCode: selectedItem.itemCode,
         productName: product.productName,
         imageUrl: product.imageUrl[0],
         size: selectedItem.size,
         price: finalPrice,
         stock: selectedItem.stock,
         quantity: quantity,
+        discount: selectedItem.discount,
+        discountPrice: selectedItem.discountPrice,
+        isDiscount: selectedItem.isDiscount,
+        originalPrice: selectedItem.price,
       }),
     );
   };
@@ -105,7 +110,7 @@ const ProductDetailPage = () => {
                         className={
                           selectedImage === url ? "active" : "inactive"
                         }
-                        alt={`thumb-${index}`}
+                        alt={`${product.productName}-${index}`}
                       />
                     ))}
                   </div>
@@ -175,18 +180,6 @@ const ProductDetailPage = () => {
                   value={quantity}
                   disabled={!selectedSizeObj}
                   onChange={(val) => {
-                    //   if (!selectedSizeObj) return;
-
-                    //   const maxStock = selectedSizeObj.stock;
-
-                    //   if (!val) {
-                    //     setQuantity(1);
-                    //     return;
-                    //   }
-
-                    //   const safeQty = Math.min(val, maxStock);
-                    //   setQuantity(safeQty);
-                    //
                     setQuantity(val);
                   }}
                   changeOnWheel={false}
@@ -194,8 +187,7 @@ const ProductDetailPage = () => {
               </div>
 
               <Button
-                type="primary"
-                block
+                className="add-to-cart-button"
                 onClick={() => addToCartHandler()}
                 disabled={!selectedItem}
               >

@@ -10,7 +10,6 @@ import { useGetProductsQuery } from "../../Slices/productsApiSlice";
 const Shop = () => {
   const { data: products, isLoading, error } = useGetProductsQuery();
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
-  console.log({ products });
 
   return (
     <div className="store-container">
