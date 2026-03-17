@@ -10,10 +10,6 @@ const initialState = localStorage.getItem("cart")
       totalPrice: 0,
     };
 
-const addDecimals = (num) => {
-  return (Math.round(num * 100) / 100).toFixed(2);
-};
-
 const cartSlice = createSlice({
   name: "cart",
   initialState,
@@ -38,9 +34,26 @@ const cartSlice = createSlice({
 
       return updateCart(state);
     },
+    updateCartQuantity: (state, action) => {
+      const { id, quantity } = action.payload;
+
+      const item = state.cartItems.find((x) => x._id === id);
+
+      if (item) {
+        item.quantity = Math.min(Math.max(quantity, 1), item.stock);
+      }
+
+      return updateCart(state);
+    },
+    removeFromCart: (state, action) => {
+      state.cartItems = state.cartItems.filter((x) => x._id !== action.payload);
+
+      return updateCart(state);
+    },
   },
 });
 
-export const { addToCart } = cartSlice.actions;
+export const { addToCart, removeFromCart, updateCartQuantity } =
+  cartSlice.actions;
 
 export default cartSlice.reducer;
