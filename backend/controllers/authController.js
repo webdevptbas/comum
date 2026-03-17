@@ -1,27 +1,11 @@
-const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const User = require("../models/User");
-
-// Generate JWT token
-const generateToken = (user) => {
-  let expiresIn = "7d";
-
-  if (user.role === "AdminEvent" || user.role === "AdminProduct") {
-    expiresIn = "12h";
-  }
-
-  return jwt.sign(
-    {
-      id: user._id,
-      role: user.role,
-    },
-    process.env.JWT_SECRET,
-    { expiresIn }
-  );
-};
+const { generateToken } = require("../utils/generateToken");
 
 // @desc Register Buyer
-exports.registerBuyer = async (req, res) => {
+// @route POST api/auth/register
+// @access Public
+exports.registerUser = async (req, res) => {
   const { username, password, name, email, phone, gender, dateOfBirth, role } =
     req.body;
 
@@ -30,7 +14,7 @@ exports.registerBuyer = async (req, res) => {
       username: username.toLowerCase(),
     });
     if (existingUser)
-      return res.status(400).json({ message: "Username already exists." });
+      return res.status(400).json({ message: "User already exists." });
 
     const buyer = await User.create({
       username,
@@ -43,11 +27,21 @@ exports.registerBuyer = async (req, res) => {
       role,
     });
 
-    const token = generateToken(buyer);
+    if (buyer) {
+      res.status(201).json({
+        _id: buyer._id,
+        username: buyer.username,
+        email: buyer.email,
+        name: buyer.name,
+      });
+    } else {
+      res.status(400).json({ message: "Invalid user data" });
+    }
+
+    generateToken(res, buyer);
 
     res.status(201).json({
       message: "Account successfully registered!",
-      token,
       user: {
         id: buyer._id,
         username: buyer.username,
@@ -59,24 +53,30 @@ exports.registerBuyer = async (req, res) => {
 };
 
 // @desc Login User
+// @route POST api/auth/login
+// @access Public
 exports.loginUser = async (req, res) => {
   const { username, password } = req.body;
 
   try {
     const user = await User.findOne({ username: username.toLowerCase() });
-    if (!user) return res.status(400).json({ message: "User not found." });
+
+    if (!user)
+      return res.status(401).json({ message: "Invalid email or password" });
 
     const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) return res.status(400).json({ message: "Wrong password." });
 
-    const token = generateToken(user);
+    if (!isMatch)
+      return res.status(401).json({ message: "Invalid email or password" });
+
+    generateToken(res, user);
 
     res.status(200).json({
       message: "Login successful",
-      token,
       user: {
-        id: user._id,
+        _id: user._id,
         username: user.username,
+        email: user.email,
         name: user.name,
         role: user.role,
       },
@@ -86,8 +86,68 @@ exports.loginUser = async (req, res) => {
   }
 };
 
-// @desc Get Current User Info
-exports.getCurrentUser = async (req, res) => {
+// @desc Logout user / clear cookie
+// @route POST /api/auth/logout
+// @access Private route
+exports.logoutUser = async (req, res) => {
+  res.cookie("jwt", "", {
+    httpOnly: true,
+    expires: new Date(0),
+  });
+  res.status(200).json({ message: "Logout successful" });
+};
+
+// @desc Get Current User Info for user themselves
+// @route GET /api/auth/profile
+// @access Private
+exports.getUserProfile = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id).select("-password");
+
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    res.status(200).json(user);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+// @desc update user profile by user themselves, no need any :id
+// @route PUT /api/auth/profile
+// @access Private
+exports.updateUserProfile = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id).select("-password");
+
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    if (user) {
+      user.name = req.body.name || user.name;
+      user.username = req.body.username || user.username;
+      user.email = req.body.email || user.email;
+
+      if (req.body.password) {
+        user.password = req.body.password;
+      }
+
+      const updatedUser = await user.save();
+    }
+
+    res.status(200).json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      username: updatedUser.username,
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+// @desc get all users
+// @route GET /api/auth/users
+// @access Private/admin
+exports.getUsers = async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select("-password");
     if (!user) return res.status(404).json({ message: "User not found" });
@@ -98,7 +158,44 @@ exports.getCurrentUser = async (req, res) => {
   }
 };
 
-// POST /api/auth/logout
-exports.logout = async (req, res) => {
-  res.status(200).json({ message: "Logout successful" });
+// @desc get user by :id
+// @route GET /api/auth/:id
+// @access Private/admin
+exports.getUserById = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select("-password");
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    res.status(200).json(user);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+// @desc delete users
+// @route DELETE /api/auth/:id
+// @access Private/admin
+exports.deleteUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select("-password");
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    res.status(200).json(user);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+// @desc update users
+// @route PUT /api/auth/:id
+// @access Private/admin
+exports.updateUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select("-password");
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    res.status(200).json(user);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 };
