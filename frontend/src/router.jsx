@@ -13,6 +13,7 @@ import ServicePage from "./Pages/Service/Service";
 import Shop from "./Pages/Shop/Shop";
 import ProductDetailPage from "./Pages/Shop/ProductDetail.jsx";
 import SimulatorPage from "./Pages/Simulator/Simulator";
+import CartPage from "./Pages/Cart/Cart.jsx";
 
 const router = createBrowserRouter([
   {
@@ -59,6 +60,10 @@ const router = createBrowserRouter([
       {
         path: "/service",
         element: <ServicePage />,
+      },
+      {
+        path: "/cart",
+        element: <CartPage />,
       },
     ],
   },

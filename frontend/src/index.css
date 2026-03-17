@@ -73,6 +73,12 @@ body {
   font-family: "Clash Grotesk";
 }
 
+.text-m-medium {
+  font-weight: 500;
+  font-size: 14px;
+  font-family: "Clash Grotesk";
+}
+
 .text-s-regular {
   font-weight: 400;
   font-size: 12px;
