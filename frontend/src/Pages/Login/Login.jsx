@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Input, Button, message } from "antd";
-import { useNavigate } from "react-router";
-import { useDispatch } from "react-redux";
+import { useNavigate, useLocation } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
 import "../../index.css";
 import "./Login.css";
 
@@ -14,6 +14,17 @@ const LoginPage = () => {
   const dispatch = useDispatch();
 
   const [login, { isLoading }] = useLoginMutation();
+  const { userInfo } = useSelector((state) => state.auth);
+
+  const { search } = useLocation();
+  const sp = new URLSearchParams(search);
+  const redirect = sp.get("redirect") || "/";
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate(redirect);
+    }
+  }, [userInfo, redirect, navigate]);
 
   const submitHandler = async (values) => {
     try {
@@ -21,8 +32,8 @@ const LoginPage = () => {
 
       dispatch(setCredentials(res));
 
-      message.success("Login successful!");
-      navigate("/");
+      message.success("Login success ");
+      navigate(redirect);
     } catch (err) {
       message.error(err?.data?.message || "Login failed");
     }
