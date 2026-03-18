@@ -1,56 +1,73 @@
-import React, { useState } from "react";
+import React from "react";
 import { Form, Input, Button, message } from "antd";
 import { useNavigate } from "react-router";
-import { useAuth } from "../../Util/AuthContext";
-import api from "../../Util/apiHandler";
+import { useDispatch } from "react-redux";
+import "../../index.css";
+import "./Login.css";
 
-const AdminLogin = () => {
+import FormContainer from "../../Component/FormContainer/FormContainer";
+import { useLoginMutation } from "../../Slices/usersApiSlice";
+import { setCredentials } from "../../Slices/authSlice";
+
+const LoginPage = () => {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
-  const { login } = useAuth();
+  const dispatch = useDispatch();
 
-  const onFinish = async (values) => {
-    setLoading(true);
+  const [login, { isLoading }] = useLoginMutation();
+
+  const submitHandler = async (values) => {
     try {
-      const { data } = await api.post("/auth/login", values);
+      const res = await login(values).unwrap();
 
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("user", JSON.stringify(data.user));
-      login(data.user); // Instead of re-reading from localStorage // Update context
-      message.success("Login successful");
-      navigate("/admin/dashboard");
+      dispatch(setCredentials(res));
+
+      message.success("Login successful!");
+      navigate("/");
     } catch (err) {
-      message.error(err.response?.data?.message || "Login failed");
+      message.error(err?.data?.message || "Login failed");
     }
-    setLoading(false);
   };
 
   return (
-    <div style={{ maxWidth: 400, margin: "100px auto" }}>
-      <h2>Admin Login</h2>
-      <Form layout="vertical" onFinish={onFinish}>
+    <FormContainer>
+      <h2 className="heading2 login-title">Login</h2>
+
+      <Form layout="vertical" onFinish={submitHandler}>
         <Form.Item
-          name="username"
           label="Username"
-          rules={[{ required: true }]}
+          name="username"
+          rules={[{ required: true, message: "Please input your username" }]}
         >
           <Input />
         </Form.Item>
+
         <Form.Item
-          name="password"
           label="Password"
-          rules={[{ required: true }]}
+          name="password"
+          rules={[{ required: true, message: "Please input your password" }]}
         >
           <Input.Password />
         </Form.Item>
-        <Form.Item>
-          <Button type="primary" htmlType="submit" loading={loading} block>
-            Login
-          </Button>
-        </Form.Item>
+
+        <Button
+          className="login-button text-button-small"
+          type="primary"
+          htmlType="submit"
+          block
+          loading={isLoading}
+        >
+          Login
+        </Button>
       </Form>
-    </div>
+
+      <p className="login-information">
+        New Customer?{" "}
+        <span className="link" onClick={() => navigate("/register")}>
+          Register
+        </span>
+      </p>
+    </FormContainer>
   );
 };
 
-export default AdminLogin;
+export default LoginPage;
