@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Badge, Button, Drawer, Dropdown, InputNumber, Layout } from "antd";
+import { Badge, Button, Drawer, InputNumber, Layout } from "antd";
 import { MenuOutlined } from "@ant-design/icons";
 import { ComumHomeBlue } from "../../Icons";
 import MobileMenuOverlay from "./MobileMenuOverlay";
@@ -43,6 +43,7 @@ const MobileHeader = () => {
 
   const checkoutHandler = () => {
     navigate("/login?redirect=/shipping");
+    setIsCartVisible(false);
   };
 
   return (
@@ -282,11 +283,11 @@ const MobileHeader = () => {
       </Drawer>
 
       <DeleteItemConfirmation
-                  open={deleteConfirmation}
-                  onOk={removeFromCartHandler}
-                  onClose={cancelDeleteHandler}
-                  description={`Remove "${selectedItem?.productName} - ${selectedItem?.size}" from cart?`}
-                />
+        open={deleteConfirmation}
+        onOk={removeFromCartHandler}
+        onClose={cancelDeleteHandler}
+        description={`Remove "${selectedItem?.productName} - ${selectedItem?.size}" from cart?`}
+      />
     </>
   );
 };

@@ -1,14 +1,12 @@
-import { Menu } from "antd";
 import {
   UserOutlined,
   ShoppingOutlined,
   HeartOutlined,
   LockOutlined,
-  SettingOutlined,
   LogoutOutlined,
 } from "@ant-design/icons";
 
-const dropdownItem = [
+const getDropdownItem = (userInfo, onLogout) => [
   {
     key: "greeting",
     label: (
@@ -24,7 +22,7 @@ const dropdownItem = [
             fontWeight: "bold",
           }}
         >
-          Budi Sudarsono
+          {userInfo?.user?.name || "User"}
         </span>
       </div>
     ),
@@ -57,7 +55,8 @@ const dropdownItem = [
     icon: <LogoutOutlined />,
     danger: true,
     label: "Logout",
+    onClick: onLogout,
   },
 ];
 
-export default dropdownItem;
+export default getDropdownItem;

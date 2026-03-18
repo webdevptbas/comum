@@ -22,7 +22,7 @@ import "../../index.css";
 import { useLocation, useNavigate } from "react-router";
 import menuItems from "./headerItem";
 import { ComumHomeBlue } from "../../Icons/index.js";
-import dropdownItem from "./userDropdownItem.js";
+import getDropdownItem from "./userDropdownItem.js";
 import { useDispatch, useSelector } from "react-redux";
 import { DeleteItemConfirmation, formatRupiah } from "../../Util/CartUtils.js";
 import { removeFromCart, updateCartQuantity } from "../../Slices/cartSlice.js";
@@ -32,15 +32,18 @@ const { Header } = Layout;
 const DesktopHeader = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const isCoffeePage = location.pathname.startsWith("/coffee");
   const isSimulatorPage = location.pathname.startsWith("/simulator");
+
   const [isCartVisible, setIsCartVisible] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [deleteConfirmation, setDeleteConfirmation] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
+
   const { cartItems } = useSelector((state) => state.cart);
   const { userInfo } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
 
   const openCart = () => setIsCartVisible(true);
   const closeCart = () => setIsCartVisible(false);
@@ -78,6 +81,7 @@ const DesktopHeader = () => {
 
   const checkoutHandler = () => {
     navigate("/login?redirect=/shipping");
+    setIsCartVisible(false);
   };
 
   const handleUserClick = () => {
@@ -85,6 +89,12 @@ const DesktopHeader = () => {
       navigate("/login");
     }
   };
+
+  const logoutHandler = () => {
+    console.log("logout success");
+  };
+
+  const dropdownItem = getDropdownItem(userInfo, logoutHandler);
 
   return (
     <>
@@ -140,6 +150,7 @@ const DesktopHeader = () => {
           </div>
           <div className="vertical-divider" />
           <div className="utilities">
+            {/* search dropdown */}
             <Dropdown
               dropdownRender={() => dropdownContent}
               trigger={["click"]}
@@ -148,6 +159,8 @@ const DesktopHeader = () => {
             >
               <MdSearch style={{ fontSize: "20px", cursor: "pointer" }} />
             </Dropdown>
+
+            {/* user dropdown */}
             {userInfo ? (
               <Dropdown
                 menu={{ items: dropdownItem }}
@@ -162,24 +175,24 @@ const DesktopHeader = () => {
                 onClick={handleUserClick}
               />
             )}
-            <>
-              {cartItems.length > 0 ? (
-                <Badge
-                  count={cartItems.reduce((a, c) => a + c.quantity, 0)}
-                  onClick={openCart}
-                  style={{ cursor: "pointer" }}
-                >
-                  <MdOutlineShoppingCart
-                    style={{ fontSize: "20px", cursor: "pointer" }}
-                  />
-                </Badge>
-              ) : (
+
+            {/* cart trigger */}
+            {cartItems.length > 0 ? (
+              <Badge
+                count={cartItems.reduce((a, c) => a + c.quantity, 0)}
+                onClick={openCart}
+                style={{ cursor: "pointer" }}
+              >
                 <MdOutlineShoppingCart
-                  style={{ fontSize: "20px" }}
-                  onClick={openCart}
+                  style={{ fontSize: "20px", cursor: "pointer" }}
                 />
-              )}
-            </>
+              </Badge>
+            ) : (
+              <MdOutlineShoppingCart
+                style={{ fontSize: "20px", cursor: "pointer" }}
+                onClick={openCart}
+              />
+            )}
           </div>
 
           <Drawer
