@@ -1,4 +1,4 @@
-import { CiTrophy, CiFaceSmile } from "react-icons/ci";
+import { CiTrophy } from "react-icons/ci";
 import { GiRadarSweep } from "react-icons/gi";
 import { FaBottleWater } from "react-icons/fa6";
 
