@@ -7,7 +7,7 @@ import { Modal, Button } from "antd";
 import { FilterOutlined } from "@ant-design/icons";
 import { useGetProductsQuery } from "../../Slices/productsApiSlice";
 
-const Shop = () => {
+const ShopPage = () => {
   const { data: products, isLoading, error } = useGetProductsQuery();
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
 
@@ -94,4 +94,4 @@ const Shop = () => {
   );
 };
 
-export default Shop;
+export default ShopPage;
