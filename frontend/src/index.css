@@ -129,7 +129,6 @@ body {
   height: 24px;
   width: 1px;
   background-color: #252525; /* or black for darker line */
-  margin: 1dvw;
 }
 @media (max-width: 768px){
   .title {
