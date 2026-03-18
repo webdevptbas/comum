@@ -32,12 +32,12 @@ const getDropdownItem = (userInfo, onLogout) => [
   {
     key: "profile",
     icon: <UserOutlined />,
-    label: "My Profile",
+    label: <a href="/profile">My Profile</a>,
   },
   {
     key: "orders",
     icon: <ShoppingOutlined />,
-    label: "Orders",
+    label: <a href="/profile/orders">Orders</a>,
   },
   // {
   //   key: "wishlist",
@@ -47,7 +47,7 @@ const getDropdownItem = (userInfo, onLogout) => [
   {
     key: "password",
     icon: <LockOutlined />,
-    label: "Change Password",
+    label: <a href="/profile/change-password">Change Password</a>,
   },
   { type: "divider" },
   {

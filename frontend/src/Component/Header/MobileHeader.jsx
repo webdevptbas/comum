@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Badge, Button, Drawer, InputNumber, Layout } from "antd";
+import { Badge, Button, Drawer, Dropdown, InputNumber, Layout } from "antd";
 import { MenuOutlined } from "@ant-design/icons";
 import { ComumHomeBlue } from "../../Icons";
 import MobileMenuOverlay from "./MobileMenuOverlay";
@@ -19,7 +19,10 @@ const MobileHeader = () => {
   const [isCartVisible, setIsCartVisible] = useState(false);
   const [deleteConfirmation, setDeleteConfirmation] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
+
   const { cartItems } = useSelector((state) => state.cart);
+  const { userInfo } = useSelector((state) => state.auth);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -69,16 +72,21 @@ const MobileHeader = () => {
           <ComumHomeBlue height="31" width="auto" />
         </div>
         <div className="utilities">
-          <FaRegUser
-            style={{ fontSize: "20px" }}
-            onClick={() => navigate("/profile")}
-          />
-          {/* <Dropdown
-              menu={{ items: dropdownItem }}
-              trigger={["click"]}
-              placement="bottomRight"
-            >
-            </Dropdown> */}
+          {userInfo ? (
+            <FaRegUser
+              style={{ fontSize: "20px" }}
+              onClick={() => navigate("/profile")}
+            />
+          ) : (
+            <FaRegUser
+              style={{ fontSize: "20px", cursor: "pointer" }}
+              onClick={() => {
+                if (!userInfo) {
+                  navigate("/login");
+                }
+              }}
+            />
+          )}
           <>
             {cartItems.length > 0 ? (
               <Badge

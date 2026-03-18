@@ -8,6 +8,7 @@ import {
   Badge,
   InputNumber,
   Button,
+  message,
 } from "antd";
 import {
   MdSportsTennis,
@@ -26,6 +27,8 @@ import getDropdownItem from "./userDropdownItem.js";
 import { useDispatch, useSelector } from "react-redux";
 import { DeleteItemConfirmation, formatRupiah } from "../../Util/CartUtils.js";
 import { removeFromCart, updateCartQuantity } from "../../Slices/cartSlice.js";
+import { useLogoutMutation } from "../../Slices/usersApiSlice.js";
+import { clearCredentials } from "../../Slices/authSlice.js";
 
 const { Header } = Layout;
 
@@ -41,6 +44,7 @@ const DesktopHeader = () => {
   const [searchValue, setSearchValue] = useState("");
   const [deleteConfirmation, setDeleteConfirmation] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [logoutApiCall] = useLogoutMutation();
 
   const { cartItems } = useSelector((state) => state.cart);
   const { userInfo } = useSelector((state) => state.auth);
@@ -90,8 +94,14 @@ const DesktopHeader = () => {
     }
   };
 
-  const logoutHandler = () => {
-    console.log("logout success");
+  const logoutHandler = async () => {
+    try {
+      await logoutApiCall().unwrap();
+      dispatch(clearCredentials());
+      navigate("/login");
+    } catch (error) {
+      message.error(error?.data?.message);
+    }
   };
 
   const dropdownItem = getDropdownItem(userInfo, logoutHandler);
