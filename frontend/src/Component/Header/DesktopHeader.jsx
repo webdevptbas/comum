@@ -39,6 +39,7 @@ const DesktopHeader = () => {
   const [deleteConfirmation, setDeleteConfirmation] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const { cartItems } = useSelector((state) => state.cart);
+  const { userInfo } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const openCart = () => setIsCartVisible(true);
@@ -77,6 +78,12 @@ const DesktopHeader = () => {
 
   const checkoutHandler = () => {
     navigate("/login?redirect=/shipping");
+  };
+
+  const handleUserClick = () => {
+    if (!userInfo) {
+      navigate("/login");
+    }
   };
 
   return (
@@ -141,20 +148,30 @@ const DesktopHeader = () => {
             >
               <MdSearch style={{ fontSize: "20px", cursor: "pointer" }} />
             </Dropdown>
-            <Dropdown
-              menu={{ items: dropdownItem }}
-              trigger={["click"]}
-              placement="bottomRight"
-            >
-              <FaRegUser style={{ fontSize: "20px" }} />
-            </Dropdown>
+            {userInfo ? (
+              <Dropdown
+                menu={{ items: dropdownItem }}
+                trigger={["click"]}
+                placement="bottomRight"
+              >
+                <FaRegUser style={{ fontSize: "20px", cursor: "pointer" }} />
+              </Dropdown>
+            ) : (
+              <FaRegUser
+                style={{ fontSize: "20px", cursor: "pointer" }}
+                onClick={handleUserClick}
+              />
+            )}
             <>
               {cartItems.length > 0 ? (
                 <Badge
                   count={cartItems.reduce((a, c) => a + c.quantity, 0)}
                   onClick={openCart}
+                  style={{ cursor: "pointer" }}
                 >
-                  <MdOutlineShoppingCart style={{ fontSize: "20px" }} />
+                  <MdOutlineShoppingCart
+                    style={{ fontSize: "20px", cursor: "pointer" }}
+                  />
                 </Badge>
               ) : (
                 <MdOutlineShoppingCart
