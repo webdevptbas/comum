@@ -73,7 +73,12 @@ const LoginPage = () => {
 
       <p className="login-information">
         New Customer?{" "}
-        <span className="link" onClick={() => navigate("/register")}>
+        <span
+          className="link"
+          onClick={() =>
+            redirect ? navigate(`/register?redirect=${redirect}`) : "/register"
+          }
+        >
           Register
         </span>
       </p>
