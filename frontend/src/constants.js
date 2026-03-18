@@ -1,8 +1,5 @@
-export const BASE_URL =
-process.env.NODE_ENV === "development" ? "http://192.168.18.5:5000" : "";
-// export const BASE_URL =
-//   process.env.NODE_ENV === "development" ? "http://172.30.53.14:5000" : "";
-export const PRODUCTS_URL = "/api/products";
-export const USERS_URL = "/api/users";
-export const ORDERS_URL = "/api/orders";
-export const PAYMENT_GATEWAY_URL = "/api/config/payment-gateway";
+export const BASE_URL = process.env.REACT_APP_API_BASE_URL;
+export const PRODUCTS_URL = process.env.REACT_APP_PRODUCTS_URL;
+export const USERS_URL = process.env.REACT_APP_USERS_URL;
+export const ORDERS_URL = process.env.REACT_APP_ORDERS_URL;
+export const PAYMENT_GATEWAY_URL = process.env.REACT_APP_PAYMENT_GATEWAY_URL;
