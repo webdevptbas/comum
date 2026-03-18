@@ -27,24 +27,15 @@ exports.registerUser = async (req, res) => {
       role,
     });
 
-    if (buyer) {
-      res.status(201).json({
-        _id: buyer._id,
-        username: buyer.username,
-        email: buyer.email,
-        name: buyer.name,
-      });
-    } else {
-      res.status(400).json({ message: "Invalid user data" });
-    }
-
     generateToken(res, buyer);
 
     res.status(201).json({
       message: "Account successfully registered!",
       user: {
-        id: buyer._id,
+        _id: buyer._id,
         username: buyer.username,
+        email: buyer.email,
+        name: buyer.name,
       },
     });
   } catch (err) {
@@ -78,7 +69,6 @@ exports.loginUser = async (req, res) => {
         username: user.username,
         email: user.email,
         name: user.name,
-        role: user.role,
       },
     });
   } catch (err) {
