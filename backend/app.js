@@ -1,5 +1,6 @@
 const express = require("express");
 const dotenv = require("dotenv");
+const cookieParser = require("cookie-parser");
 const connectDB = require("./config/db");
 const cors = require("cors");
 const path = require("path");
@@ -20,34 +21,39 @@ connectDB();
 const allowedOrigins = [
   (process.env.FRONTEND_ORIGIN || "").trim(),
   (process.env.ADMIN_ORIGIN || "").trim(),
-  "https://www.comumspace.com",
-  "http://192.168.18.5:3000",
 ];
 
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      if (!origin) return callback(null, true);
-      if (allowedOrigins.includes(origin)) {
-        return callback(null, true);
-      } else {
-        console.warn("🚫 Blocked Origin:", origin);
-        return callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true,
-  }),
-);
-
-// 🚨 For development only!
 // app.use(
 //   cors({
-//     origin: "*",
+//     origin: function (origin, callback) {
+//       if (!origin) return callback(null, true);
+//       if (allowedOrigins.includes(origin)) {
+//         return callback(null, true);
+//       } else {
+//         console.warn("🚫 Blocked Origin:", origin);
+//         return callback(new Error("Not allowed by CORS"));
+//       }
+//     },
 //     credentials: true,
 //   }),
 // );
 
+// 🚨 For development only!
+app.use(
+  cors({
+    origin: "*",
+    credentials: true,
+  }),
+);
+
 app.use(express.json({ limit: "2mb" }));
+
+//body parser middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+//cookie parser middleware
+app.use(cookieParser());
 
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
