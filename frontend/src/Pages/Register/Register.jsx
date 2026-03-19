@@ -50,7 +50,7 @@ const RegisterPage = () => {
   };
 
   return (
-    <FormContainer style={{ padding: "100px 0 50px 0" }}>
+    <FormContainer className="register-form">
       <h2 className="heading2 register-title">Register</h2>
 
       <Form layout="vertical" onFinish={submitHandler}>
