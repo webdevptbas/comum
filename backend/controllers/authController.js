@@ -34,8 +34,11 @@ exports.registerUser = async (req, res) => {
       user: {
         _id: buyer._id,
         username: buyer.username,
-        email: buyer.email,
         name: buyer.name,
+        email: buyer.email,
+        phone: buyer.phone,
+        gender: buyer.gender,
+        dateOfBirth: buyer.dateOfBirth,
       },
     });
   } catch (err) {
@@ -67,8 +70,11 @@ exports.loginUser = async (req, res) => {
       user: {
         _id: user._id,
         username: user.username,
-        email: user.email,
         name: user.name,
+        email: user.email,
+        phone: user.phone,
+        gender: user.gender,
+        dateOfBirth: user.dateOfBirth,
       },
     });
   } catch (err) {
