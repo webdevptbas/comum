@@ -1,0 +1,19 @@
+.profile-page h2 {
+  margin-bottom: 20px;
+}
+
+.profile-avatar {
+  width: 120px;
+  border-radius: 8px;
+}
+
+.profile-section {
+  margin-top: 20px;
+}
+
+.profile-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
