@@ -14,6 +14,10 @@ import CartPage from "./Pages/Cart/Cart.jsx";
 import ShopPage from "./Pages/Shop/Shop";
 import LoginPage from "./Pages/Login/Login.jsx";
 import RegisterPage from "./Pages/Register/Register.jsx";
+import ProfileLayout from "./Layout/ProfileLayout/ProfileLayout.jsx";
+import ProfilePage from "./Pages/Profile/Profile.jsx";
+import OrdersPage from "./Pages/Orders/Orders.jsx";
+import ChangePasswordPage from "./Pages/ChangePassword/ChangePassword.jsx";
 
 const router = createBrowserRouter([
   {
@@ -72,6 +76,24 @@ const router = createBrowserRouter([
       {
         path: "/cart",
         element: <CartPage />,
+      },
+      {
+        path: "/profile",
+        element: <ProfileLayout />, // wrapper
+        children: [
+          {
+            index: true,
+            element: <ProfilePage />, // /profile
+          },
+          {
+            path: "orders",
+            element: <OrdersPage />,
+          },
+          {
+            path: "change-password",
+            element: <ChangePasswordPage />,
+          },
+        ],
       },
     ],
   },
