@@ -1,10 +1,10 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import "./Profile.css";
+import "../../index.css";
 
 const ProfilePage = () => {
   const { userInfo } = useSelector((state) => state.auth);
-  console.log(userInfo);
 
   return (
     <div className="profile-page">
@@ -21,12 +21,16 @@ const ProfilePage = () => {
 
         <div className="profile-row">
           <span>Username</span>
-          <span>{userInfo?.user?.username}</span>
+          <span className="profile-value text-m-medium">
+            {userInfo?.user?.username}
+          </span>
         </div>
 
         <div className="profile-row">
           <span>Name</span>
-          <span>{userInfo?.user?.name}</span>
+          <span className="profile-value text-m-medium">
+            {userInfo?.user?.name}
+          </span>
         </div>
       </div>
 
@@ -35,12 +39,16 @@ const ProfilePage = () => {
 
         <div className="profile-row">
           <span>Email</span>
-          <span>{userInfo?.user?.email}</span>
+          <span className="profile-value text-m-medium">
+            {userInfo?.user?.email}
+          </span>
         </div>
 
         <div className="profile-row">
           <span>Phone Number</span>
-          <span>{userInfo?.user?.phone}</span>
+          <span className="profile-value text-m-medium">
+            +62 {userInfo?.user?.phone}
+          </span>
         </div>
       </div>
     </div>
