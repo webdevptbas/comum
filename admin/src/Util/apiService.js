@@ -249,3 +249,64 @@ export const createBrandType = async (data) => {
   const response = await api.post(`/brand-types`, data);
   return response.data;
 };
+
+//----------------------
+//-----CATEGORY API-----
+//----------------------
+export const fetchCategories = async () => {
+  try {
+    const response = await api.get("/categories");
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching brands:", error);
+    throw error;
+  }
+};
+
+export const createCategory = async (data) => {
+  const response = await api.post(`/categories`, data);
+  return response.data;
+};
+
+// export const toggleCategoryStatus = async (id, isActive) => {
+//   const response = await api.patch(`/categories/${id}`, { isActive });
+//   return response.data;
+// };
+
+export const deleteCategory = async (id) => {
+  try {
+    const response = await api.delete(`/categories/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error deleting category:", error);
+    throw error;
+  }
+};
+
+//-------------------------
+//-----SUB CATEGORY API-----
+//-------------------------
+export const fetchSubCategoriesByCategory = async (id) => {
+  try {
+    const response = await api.get(`/categories/${id}/sub`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching brands:", error);
+    throw error;
+  }
+};
+
+export const createSubCategory = async (data) => {
+  const response = await api.post(`/categories/sub`, data);
+  return response.data;
+};
+
+export const deleteSubCategory = async (id) => {
+  try {
+    const response = await api.delete(`/categories/sub/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error deleting category:", error);
+    throw error;
+  }
+};
