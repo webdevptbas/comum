@@ -61,6 +61,10 @@
   align-items: center;
 }
 
+.logo-container {
+  cursor: pointer;
+}
+
 .coffee {
   gap: 10px;
   line-height: normal;

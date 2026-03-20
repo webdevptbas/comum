@@ -1,10 +1,4 @@
-import {
-  UserOutlined,
-  ShoppingOutlined,
-  HeartOutlined,
-  LockOutlined,
-  LogoutOutlined,
-} from "@ant-design/icons";
+import { FaUser, FaBox, FaLock, FaHeart, FaSignOutAlt } from "react-icons/fa";
 
 const getDropdownItem = (userInfo, onLogout) => [
   {
@@ -31,28 +25,28 @@ const getDropdownItem = (userInfo, onLogout) => [
   { type: "divider" },
   {
     key: "profile",
-    icon: <UserOutlined />,
+    icon: <FaUser />,
     label: <a href="/profile">My Profile</a>,
   },
   {
     key: "orders",
-    icon: <ShoppingOutlined />,
+    icon: <FaBox />,
     label: <a href="/profile/orders">Orders</a>,
   },
-  // {
-  //   key: "wishlist",
-  //   icon: <HeartOutlined />,
-  //   label: "Wishlist",
-  // },
+  {
+    key: "wishlist",
+    icon: <FaHeart />,
+    label: "Wishlist",
+  },
   {
     key: "password",
-    icon: <LockOutlined />,
+    icon: <FaLock />,
     label: <a href="/profile/change-password">Change Password</a>,
   },
   { type: "divider" },
   {
     key: "logout",
-    icon: <LogoutOutlined />,
+    icon: <FaSignOutAlt />,
     danger: true,
     label: "Logout",
     onClick: onLogout,
