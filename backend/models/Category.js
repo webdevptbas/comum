@@ -5,21 +5,33 @@ const categorySchema = new mongoose.Schema(
     name: {
       type: String,
       required: true,
+      unique: true,
       trim: true,
     },
-    brand: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Brand",
-      required: true,
-    },
+
     description: {
       type: String,
       trim: true,
     },
+
+    isActive: {
+      type: Boolean,
+      default: true,
+    },
+
+    sortOrder: {
+      type: Number,
+      default: 0,
+    },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
-categorySchema.index({ name: 1, brand: 1 }, { unique: true }); // A category name must be unique per brand
+categorySchema.pre("save", function (next) {
+  if (this.name) {
+    this.name = this.name.toUpperCase();
+  }
+  next();
+});
 
 module.exports = mongoose.model("Category", categorySchema);
