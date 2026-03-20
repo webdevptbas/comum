@@ -12,9 +12,9 @@ const AdminLogin = () => {
   const onFinish = async (values) => {
     setLoading(true);
     try {
-      const { data } = await api.post("/auth/login", values);
+      const { data } = await api.post("/auth/admin-login", values);
 
-      localStorage.setItem("token", data.token);
+      // localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));
       login(data.user); // Instead of re-reading from localStorage // Update context
       message.success("Login successful");

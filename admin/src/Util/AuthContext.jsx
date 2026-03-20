@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const response = await api.get("/auth/me");
+        const response = await api.get("/auth/admin-profile");
         setUser(response.data);
       } catch (error) {
         localStorage.removeItem("token");

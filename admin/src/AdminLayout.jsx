@@ -22,7 +22,7 @@ const AdminLayout = () => {
 
   const confirmLogout = async () => {
     try {
-      await api.post("/auth/logout");
+      await api.post("/auth/admin-logout");
       logout();
       message.success("You have been logged out.");
       navigate("/login");
