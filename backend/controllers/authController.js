@@ -82,10 +82,58 @@ exports.loginUser = async (req, res) => {
   }
 };
 
+// @desc Login admin
+// @route POST api/auth/login
+// @access Public
+exports.loginAdmin = async (req, res) => {
+  const { username, password } = req.body;
+
+  try {
+    const user = await User.findOne({ username: username.toLowerCase() });
+
+    if (!user)
+      return res.status(401).json({ message: "Invalid email or password" });
+
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (!isMatch)
+      return res.status(401).json({ message: "Invalid email or password" });
+
+    generateToken(res, user);
+
+    res.status(200).json({
+      message: "Login successful",
+      user: {
+        _id: user._id,
+        username: user.username,
+        name: user.name,
+        role: user.role,
+        email: user.email,
+        phone: user.phone,
+        gender: user.gender,
+        dateOfBirth: user.dateOfBirth,
+      },
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
 // @desc Logout user / clear cookie
 // @route POST /api/auth/logout
 // @access Private route
 exports.logoutUser = async (req, res) => {
+  res.cookie("jwt", "", {
+    httpOnly: true,
+    expires: new Date(0),
+  });
+  res.status(200).json({ message: "Logout successful" });
+};
+
+// @desc Logout admin / clear cookie
+// @route POST /api/auth/logout
+// @access Private route
+exports.logoutAdmin = async (req, res) => {
   res.cookie("jwt", "", {
     httpOnly: true,
     expires: new Date(0),
