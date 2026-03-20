@@ -7,6 +7,7 @@ import EventsAdminPage from "./Pages/Events/Events";
 import ArticlesAdminPage from "./Pages/Articles/Articles";
 import Products from "./Pages/Products/Products";
 import Brands from "./Pages/Brands/Brands";
+import Categories from "./Pages/Categories/Categories";
 
 const router = createBrowserRouter([
   {
@@ -45,7 +46,7 @@ const router = createBrowserRouter([
             path: "categories",
             element: (
               <PrivateRoute allowedRoles={["AdminProduct"]}>
-                <Products />
+                <Categories />
               </PrivateRoute>
             ),
           },
