@@ -2,13 +2,15 @@ const SubCategory = require("../models/SubCategory");
 
 // GET BY CATEGORY
 exports.getSubCategoriesByCategory = async (req, res) => {
-  const { categoryId } = req.params;
+  try {
+    const subs = await SubCategory.find({
+      category: req.params.categoryId,
+    }).select("name");
 
-  const subs = await SubCategory.find({ category: categoryId }).sort({
-    createdAt: -1,
-  });
-
-  res.json(subs);
+    res.status(200).json(subs);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 };
 
 // CREATE SUBCATEGORY
