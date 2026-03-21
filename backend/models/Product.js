@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Brand = require("./Brand");
 const BrandType = require("./BrandType");
+const Category = require("./Category");
 
 const productSchema = new mongoose.Schema(
   {
@@ -177,6 +178,7 @@ productSchema.pre("save", async function (next) {
     // 🔥 Fetch Brand Name (because brand is ObjectId)
     let brandName = "";
     let brandTypeName = "";
+    let category = "";
 
     if (this.brand) {
       const brandDoc = await Brand.findById(this.brand).select("name");
@@ -190,8 +192,13 @@ productSchema.pre("save", async function (next) {
       brandTypeName = brandTypeDoc?.name || "";
     }
 
+    if (this.category) {
+      const categoryDoc = await Category.findById(this.category).select("name");
+      category = categoryDoc?.name || "";
+    }
+
     // Generate productName using REAL brand name
-    const parts = [brandName, this.category, brandTypeName, this.color].filter(
+    const parts = [brandName, category, brandTypeName, this.color].filter(
       Boolean,
     );
 
