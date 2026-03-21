@@ -13,13 +13,17 @@ const AddCategoryModal = ({ open, loading, onCancel, onSubmit }) => {
   return (
     <Modal
       open={open}
-      title="Add Brand"
+      title="Add Category"
       onCancel={onCancel}
       onOk={handleOk}
       confirmLoading={loading}
     >
       <Form form={form} layout="vertical">
-        <Form.Item name="name" label="Nama Brand" rules={[{ required: true }]}>
+        <Form.Item
+          name="name"
+          label="Nama Category"
+          rules={[{ required: true }]}
+        >
           <Input />
         </Form.Item>
 
@@ -29,7 +33,7 @@ const AddCategoryModal = ({ open, loading, onCancel, onSubmit }) => {
 
         <Form.Item
           name="isActive"
-          label="Brand Aktif?"
+          label="Category Aktif?"
           valuePropName="checked"
           initialValue={true}
         >

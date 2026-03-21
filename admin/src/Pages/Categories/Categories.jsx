@@ -62,7 +62,14 @@ const Categories = () => {
 
   return (
     <>
-      <div style={{ display: "flex", gap: 24 }}>
+      <div
+        style={{
+          display: "flex",
+          gap: 24,
+          minHeight: "100%",
+          overflowY: "auto",
+        }}
+      >
         {/* LEFT: CATEGORY */}
         <Card
           title="Categories"
@@ -87,6 +94,8 @@ const Categories = () => {
                     selectedCategory?._id === cat._id
                       ? "#f0f5ff"
                       : "transparent",
+                  display: "flex",
+                  justifyContent: "space-between",
                 }}
               >
                 {cat.name}
@@ -128,7 +137,12 @@ const Categories = () => {
             <List
               dataSource={subCategories}
               renderItem={(sub) => (
-                <List.Item>
+                <List.Item
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                  }}
+                >
                   {sub.name}
                   <Button
                     danger

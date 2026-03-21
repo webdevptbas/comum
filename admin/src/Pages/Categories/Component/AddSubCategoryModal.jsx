@@ -13,7 +13,7 @@ const AddSubCategoryModal = ({ open, loading, onCancel, onSubmit }) => {
   return (
     <Modal
       open={open}
-      title="Add Brand Type"
+      title="Add Sub Category"
       onCancel={onCancel}
       onOk={handleOk}
       confirmLoading={loading}
@@ -21,7 +21,7 @@ const AddSubCategoryModal = ({ open, loading, onCancel, onSubmit }) => {
       <Form form={form} layout="vertical">
         <Form.Item
           name="name"
-          label="Brand Type Name"
+          label="Sub Category Name"
           rules={[{ required: true }]}
         >
           <Input />
