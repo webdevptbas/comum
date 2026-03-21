@@ -11,7 +11,12 @@ import {
   Button,
 } from "antd";
 import { PlusOutlined, MinusCircleOutlined } from "@ant-design/icons";
-import { fetchBrands, fetchBrandTypesByBrand } from "../../../Util/apiService";
+import {
+  fetchBrands,
+  fetchBrandTypesByBrand,
+  fetchCategories,
+  fetchSubCategoriesByCategory,
+} from "../../../Util/apiService";
 
 const ProductModal = ({
   open,
@@ -24,6 +29,8 @@ const ProductModal = ({
   const [fileList, setFileList] = useState([]);
   const [brands, setBrands] = useState([]);
   const [brandTypes, setBrandTypes] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [subCategories, setSubCategories] = useState([]);
 
   const brandOptions = brands?.map((brand) => ({
     label: brand.name,
@@ -33,6 +40,16 @@ const ProductModal = ({
   const brandTypeOptions = brandTypes?.map((bt) => ({
     label: bt.name,
     value: bt._id,
+  }));
+
+  const categoryOptions = categories.map((cat) => ({
+    label: cat.name,
+    value: cat._id,
+  }));
+
+  const subCategoryOptions = subCategories.map((sub) => ({
+    label: sub.name,
+    value: sub._id,
   }));
 
   const loadBrands = async () => {
@@ -53,14 +70,37 @@ const ProductModal = ({
     }
   };
 
+  const loadCategories = async () => {
+    try {
+      const res = await fetchCategories();
+      setCategories(res);
+    } catch (err) {
+      message.error("Failed to load Brands");
+    }
+  };
+
+  const loadSubCategoriesByCategory = async (categoryId) => {
+    try {
+      const res = await fetchSubCategoriesByCategory(categoryId);
+      setSubCategories(res);
+    } catch (err) {
+      message.error("Failed to load SubCategories");
+    }
+  };
+
   useEffect(() => {
     loadBrands();
+    loadCategories();
+
     if (editingProduct) {
       const brandId = editingProduct.brand?._id || editingProduct.brand;
+
       form.setFieldsValue({
         ...editingProduct,
         brand: brandId,
         brandType: editingProduct.brandType?._id || editingProduct.brandType,
+        category: editingProduct.category,
+        subCategory: editingProduct.subCategory,
       });
 
       if (brandId) {
@@ -77,10 +117,23 @@ const ProductModal = ({
 
         setFileList(formattedImages);
       }
+
+      const categoryObj = categories.find(
+        (c) => c.name === editingProduct.category,
+      );
+
+      if (categoryObj) {
+        form.setFieldsValue({
+          category: categoryObj._id,
+        });
+
+        loadSubCategoriesByCategory(categoryObj._id);
+      }
     } else {
       form.resetFields();
       setFileList([]);
       setBrandTypes([]);
+      setSubCategories([]);
     }
   }, [editingProduct, form]);
 
@@ -167,8 +220,6 @@ const ProductModal = ({
     }
   };
 
-  console.log({ brandTypes });
-
   return (
     <Modal
       open={open}
@@ -244,18 +295,6 @@ const ProductModal = ({
               </Form.Item>
 
               <Form.Item
-                name="category"
-                label="Kategori"
-                rules={[{ required: true }]}
-              >
-                <Input />
-              </Form.Item>
-
-              <Form.Item name="subCategory" label="Sub Kategori">
-                <Select mode="tags" />
-              </Form.Item>
-
-              <Form.Item
                 name="brandType"
                 label="Brand Type / Tipe Barang"
                 rules={[{ required: true }]}
@@ -263,6 +302,27 @@ const ProductModal = ({
                 <Select
                   options={brandTypeOptions}
                   disabled={!form.getFieldValue("brand")}
+                />
+              </Form.Item>
+
+              <Form.Item
+                name="category"
+                label="Kategori"
+                rules={[{ required: true }]}
+              >
+                <Select
+                  options={categoryOptions}
+                  onChange={(categoryId) => {
+                    form.setFieldsValue({ subCategory: undefined });
+                    loadSubCategoriesByCategory(categoryId);
+                  }}
+                />
+              </Form.Item>
+
+              <Form.Item name="subCategory" label="Sub Kategori">
+                <Select
+                  options={subCategoryOptions}
+                  disabled={!form.getFieldValue("category")}
                 />
               </Form.Item>
 

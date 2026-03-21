@@ -17,7 +17,6 @@ const Products = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [fileList, setFileList] = useState([]);
 
   const loadProducts = async (brand) => {
     try {
@@ -69,7 +68,7 @@ const Products = () => {
       setLoading(true);
       const response = await importProductsFromCsv(formData); // API call
       message.success(
-        `${response.message} - ${response.importedCount} products`
+        `${response.message} - ${response.importedCount} products`,
       );
       loadProducts();
     } catch (err) {
