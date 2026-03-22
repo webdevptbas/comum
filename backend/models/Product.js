@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const Brand = require("./Brand");
 const BrandType = require("./BrandType");
 const Category = require("./Category");
+const SubCategory = require("./SubCategory");
 
 const productSchema = new mongoose.Schema(
   {
@@ -29,6 +30,11 @@ const productSchema = new mongoose.Schema(
 
     displayDiscount: {
       type: Number,
+    },
+
+    displayStock: {
+      type: Number,
+      default: 0,
     },
 
     brand: {
@@ -139,11 +145,15 @@ productSchema.pre("save", async function (next) {
       this.displayDiscountPrice = 0;
       this.displayIsDiscount = false;
       this.displayDiscount = 0;
+      this.displayStock = 0;
     } else {
       let lowestEffectivePrice = Infinity;
       let lowestVariation = null;
+      let totalStock = 0;
 
       this.variations.forEach((variation) => {
+        totalStock += variation.stock || 0;
+
         // Calculate discountPrice per variation
         if (variation.isDiscount && variation.discount > 0) {
           const discountAmount = (variation.discount / 100) * variation.price;
@@ -161,6 +171,8 @@ productSchema.pre("save", async function (next) {
         }
       });
 
+      this.displayStock = totalStock;
+
       if (lowestVariation) {
         // BEFORE discount
         this.displayPrice = lowestVariation.price;
@@ -175,10 +187,10 @@ productSchema.pre("save", async function (next) {
       }
     }
 
-    // 🔥 Fetch Brand Name (because brand is ObjectId)
     let brandName = "";
     let brandTypeName = "";
     let category = "";
+    let subCategory = "";
 
     if (this.brand) {
       const brandDoc = await Brand.findById(this.brand).select("name");
@@ -195,6 +207,13 @@ productSchema.pre("save", async function (next) {
     if (this.category) {
       const categoryDoc = await Category.findById(this.category).select("name");
       category = categoryDoc?.name || "";
+    }
+
+    if (this.subCategory) {
+      const subCategoryDoc = await SubCategory.findById(this.category).select(
+        "name",
+      );
+      subCategory = subCategoryDoc?.name || "";
     }
 
     // Generate productName using REAL brand name
