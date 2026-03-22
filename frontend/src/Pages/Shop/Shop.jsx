@@ -69,6 +69,7 @@ const ShopPage = () => {
                           : ""
                       }
                       isDiscount={product.displayIsDiscount}
+                      displayStock={product.displayStock}
                     />
                   </Link>
                 ))}
