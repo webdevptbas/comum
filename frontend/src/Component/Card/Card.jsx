@@ -12,10 +12,17 @@ const ProductCard = ({
   text,
   finalPrice,
   isDiscount,
+  displayStock,
 }) => {
   return (
-    <div className="card-container">
+    <div className={`card-container ${displayStock === 0 ? "disabled" : ""}`}>
       <div className="image-container">
+        {displayStock === 0 && (
+          <div className="out-of-stock-overlay">
+            <span>Out of Stock</span>
+          </div>
+        )}
+
         {src ? (
           <img src={src} alt={title} />
         ) : (
