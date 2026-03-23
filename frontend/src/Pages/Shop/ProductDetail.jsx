@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router";
-import { Button, Select, InputNumber, Breadcrumb } from "antd";
+import { Button, Select, InputNumber, Breadcrumb, Skeleton } from "antd";
 import { LeftOutlined } from "@ant-design/icons";
 import "./ProductDetail.css";
 import Tag from "../../Component/Tag/Tag";
@@ -19,23 +19,21 @@ const ProductDetailPage = () => {
 
   useEffect(() => {
     if (product?.imageUrl?.length > 0) {
-      setSelectedImage(product.imageUrl[0]);
+      setSelectedImage(product?.imageUrl[0]);
     }
     if (selectedSizeObj) {
       setQuantity(1);
     }
   }, [product, selectedSizeObj]);
 
-  if (!product) return <div>Loading...</div>;
-
-  const sizeOptions = product.variations.map((v) => ({
+  const sizeOptions = product?.variations?.map((v) => ({
     label: v.size || "No Size",
     value: v.size,
     disabled: v.stock === 0,
   }));
 
   const handleSizeChange = (size) => {
-    const found = product.variations.find((v) => v.size === size);
+    const found = product?.variations?.find((v) => v.size === size);
     if (found) {
       setSelectedSizeObj(found);
       setSelectedItem(found);
@@ -45,20 +43,22 @@ const ProductDetailPage = () => {
   const finalItem = selectedItem || null;
 
   const finalIsDiscount = finalItem
-    ? finalItem.isDiscount
-    : product.displayIsDiscount;
+    ? finalItem?.isDiscount
+    : product?.displayIsDiscount;
 
   const finalDiscount = finalItem
-    ? finalItem.discount
-    : product.displayDiscount;
+    ? finalItem?.discount
+    : product?.displayDiscount;
 
-  const finalOriginalPrice = finalItem ? finalItem.price : product.displayPrice;
+  const finalOriginalPrice = finalItem
+    ? finalItem?.price
+    : product?.displayPrice;
 
   const finalPrice = finalItem
-    ? finalItem.isDiscount
-      ? finalItem.discountPrice
-      : finalItem.price
-    : product.displayDiscountPrice;
+    ? finalItem?.isDiscount
+      ? finalItem?.discountPrice
+      : finalItem?.price
+    : product?.displayDiscountPrice;
 
   const addToCartHandler = () => {
     if (!selectedItem) return;
@@ -92,7 +92,41 @@ const ProductDetailPage = () => {
       </div>
 
       {isLoading ? (
-        <h2>Loading...</h2>
+        <div className="product-detail-information">
+          {/* IMAGE SECTION */}
+          <div className="image-section">
+            <div className="skeleton-thumbnail-list thumbnail-list">
+              {[...Array(4)].map((_, i) => (
+                <Skeleton.Image key={i} style={{ padding: "1rem" }} />
+              ))}
+            </div>
+
+            <div className="main-image skeleton-main-image">
+              <Skeleton.Image
+                className="skeleton-main-image"
+                style={{ height: 400, padding: "1rem" }}
+              />
+            </div>
+          </div>
+
+          {/* INFO SECTION */}
+          <div className="info-section">
+            <Skeleton
+              active
+              paragraph={{ rows: 1 }}
+              title={false}
+              style={{ width: "100%", padding: "1rem" }}
+            />{" "}
+            {/* breadcrumb */}
+            <Skeleton.Input active style={{ padding: "1rem" }} /> {/* title */}
+            {/* SIZE */}
+            <div className="section">
+              <Skeleton.Input active style={{ padding: "1rem" }} />
+            </div>
+            {/* BUTTON */}
+            <Skeleton.Button active style={{ padding: "1rem" }} />
+          </div>
+        </div>
       ) : error ? (
         <div>{error?.data?.message || error.error}</div>
       ) : (
@@ -199,14 +233,14 @@ const ProductDetailPage = () => {
           {product.details ? (
             <div className="detail-section">
               <h2>Product Details</h2>
-              <p className="text-m-regular" style={{ whiteSpace: "pre-line" }}>
-                {product.specification}
-              </p>
               <p
                 className="text-m-regular"
                 style={{ textAlign: "justify", whiteSpace: "pre-line" }}
               >
                 {product.details}
+              </p>
+              <p className="text-m-regular" style={{ whiteSpace: "pre-line" }}>
+                {product.specification}
               </p>
               {/* <a href="#more" className="read-more">
             Read More

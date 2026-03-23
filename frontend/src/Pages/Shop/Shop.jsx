@@ -11,6 +11,19 @@ const ShopPage = () => {
   const { data: products, isLoading, error } = useGetProductsQuery();
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
 
+  const processedProducts = React.useMemo(() => {
+    if (!products) return [];
+
+    return [...products].sort((a, b) => {
+      // 1. Move out-of-stock to bottom
+      if (a.displayStock === 0 && b.displayStock > 0) return 1;
+      if (a.displayStock > 0 && b.displayStock === 0) return -1;
+
+      // 2. Alphabetical sort (productName)
+      return a.productName.localeCompare(b.productName);
+    });
+  }, [products]);
+
   return (
     <div className="store-container">
       <h3 className="sidebar-heading heading3">Explore Product</h3>
@@ -48,7 +61,7 @@ const ShopPage = () => {
             </select> */}
               </div>
               <div className="product-grid">
-                {products?.map((product) => (
+                {processedProducts?.map((product) => (
                   <Link
                     className="product-link"
                     to={`/shop/${product?.brand?.name?.toLowerCase()}/${product?._id}`}
