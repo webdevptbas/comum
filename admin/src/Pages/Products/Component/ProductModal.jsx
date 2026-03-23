@@ -92,50 +92,52 @@ const ProductModal = ({
     loadBrands();
     loadCategories();
 
-    if (editingProduct) {
-      const brandId = editingProduct.brand?._id || editingProduct.brand;
+    if (open) {
+      if (editingProduct) {
+        const brandId = editingProduct.brand?._id || editingProduct.brand;
 
-      form.setFieldsValue({
-        ...editingProduct,
-        brand: brandId,
-        brandType: editingProduct.brandType?._id || editingProduct.brandType,
-        category: editingProduct.category,
-        subCategory: editingProduct.subCategory,
-      });
-
-      if (brandId) {
-        loadBrandTypesByBrand(brandId);
-      }
-
-      if (editingProduct.imageUrl?.length) {
-        const formattedImages = editingProduct.imageUrl.map((url, index) => ({
-          uid: `existing-${index}`,
-          name: url.split("/").pop(),
-          status: "done",
-          url,
-        }));
-
-        setFileList(formattedImages);
-      }
-
-      const categoryObj = categories.find(
-        (c) => c.name === editingProduct.category,
-      );
-
-      if (categoryObj) {
         form.setFieldsValue({
-          category: categoryObj._id,
+          ...editingProduct,
+          brand: brandId,
+          brandType: editingProduct.brandType?._id || editingProduct.brandType,
+          category: editingProduct.category,
+          subCategory: editingProduct.subCategory,
         });
 
-        loadSubCategoriesByCategory(categoryObj._id);
+        if (brandId) {
+          loadBrandTypesByBrand(brandId);
+        }
+
+        if (editingProduct.imageUrl?.length) {
+          const formattedImages = editingProduct.imageUrl.map((url, index) => ({
+            uid: `existing-${index}`,
+            name: url.split("/").pop(),
+            status: "done",
+            url,
+          }));
+
+          setFileList(formattedImages);
+        }
+
+        const categoryObj = categories.find(
+          (c) => c.name === editingProduct.category,
+        );
+
+        if (categoryObj) {
+          form.setFieldsValue({
+            category: categoryObj._id,
+          });
+
+          loadSubCategoriesByCategory(categoryObj._id);
+        }
+      } else {
+        form.resetFields();
+        setFileList([]);
+        setBrandTypes([]);
+        setSubCategories([]);
       }
-    } else {
-      form.resetFields();
-      setFileList([]);
-      setBrandTypes([]);
-      setSubCategories([]);
     }
-  }, [editingProduct, form]);
+  }, [editingProduct, form, open]);
 
   const beforeUpload = (file) => {
     const isImage = file.type.startsWith("image/");
@@ -348,11 +350,11 @@ const ProductModal = ({
                 <Switch />
               </Form.Item>
 
-              <Form.Item name="specification" label="Specification">
+              <Form.Item name="details" label="Detail/Deskripsi Produk">
                 <Input.TextArea rows={8} />
               </Form.Item>
 
-              <Form.Item name="details" label="Detail/Deskripsi Produk">
+              <Form.Item name="specification" label="Specification">
                 <Input.TextArea rows={8} />
               </Form.Item>
             </div>
@@ -419,10 +421,22 @@ const ProductModal = ({
                         <Form.Item
                           {...restField}
                           name={[name, "price"]}
-                          label="Harga"
+                          label="Harga (Rp. )"
                           rules={[{ required: true }]}
                         >
-                          <InputNumber min={0} style={{ width: "100%" }} />
+                          <InputNumber
+                            min={0}
+                            style={{ width: "100%" }}
+                            formatter={(value) =>
+                              value
+                                ? `${value}`.replace(
+                                    /\B(?=(\d{3})+(?!\d))/g,
+                                    ".",
+                                  )
+                                : ""
+                            }
+                            parser={(value) => value.replace(/Rp\s?|\./g, "")}
+                          />
                         </Form.Item>
 
                         <Form.Item

@@ -105,7 +105,10 @@ const Products = () => {
         loading={loading}
         editingProduct={editingProduct}
         onSubmit={handleSubmit}
-        onCancel={() => setModalVisible(false)}
+        onCancel={() => {
+          setModalVisible(false);
+          setEditingProduct(null);
+        }}
       />
     </>
   );
