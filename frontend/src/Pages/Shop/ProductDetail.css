@@ -20,6 +20,10 @@
   gap: 24px;
 }
 
+.skeleton-thumbnail-list {
+  gap: 0 !important;
+}
+
 .thumbnail-list {
   display: flex;
   flex-direction: column;
@@ -45,6 +49,10 @@
   padding: 8px;
   opacity: 0.5;
   filter: grayscale(60%);
+}
+
+.skeleton-main-image {
+  width: 400px;
 }
 
 .main-image {
@@ -129,7 +137,11 @@
 
   .thumbnail-list {
     flex-direction: row;
-    overflow: scroll;
+    overflow: auto;
+  }
+
+  .skeleton-main-image {
+    width: 100% !important;
   }
 
   .main-image {
