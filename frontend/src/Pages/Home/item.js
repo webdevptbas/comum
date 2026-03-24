@@ -1,11 +1,13 @@
-import slide1 from "../../Images/Carousel/slide2.jpeg";
-import slide2 from "../../Images/Carousel/slide1.png";
-import slide3 from "../../Images/Carousel/slide3.png";
-import slide4 from "../../Images/Carousel/slide4.png";
-import slide1_mobile from "../../Images/Carousel/slide2_mobile.jpeg";
-import slide2_mobile from "../../Images/Carousel/slide1_mobile.png";
-import slide3_mobile from "../../Images/Carousel/slide3_mobile.png";
-import slide4_mobile from "../../Images/Carousel/slide4_mobile.png";
+import slide1 from "../../Images/Carousel/slide1.jpeg";
+import slide2 from "../../Images/Carousel/slide2.jpeg";
+import slide3 from "../../Images/Carousel/slide3.jpeg";
+import slide4 from "../../Images/Carousel/slide4.jpeg";
+import slide5 from "../../Images/Carousel/slide5.png";
+import slide1_mobile from "../../Images/Carousel/slide1_mobile.jpeg";
+import slide2_mobile from "../../Images/Carousel/slide2_mobile.jpeg";
+import slide3_mobile from "../../Images/Carousel/slide3_mobile.jpeg";
+import slide4_mobile from "../../Images/Carousel/slide4_mobile.jpeg";
+import slide5_mobile from "../../Images/Carousel/slide5_mobile.png";
 import CyclingIcon from "../../Icons/Category/new_cycling_icon.svg";
 import RunningIcon from "../../Icons/Category/new_running_icon.svg";
 import TriathlonIcon from "../../Icons/Category/new_triathlon_icon.svg";
@@ -60,6 +62,9 @@ const slides = [
   {
     src: slide4,
   },
+  {
+    src: slide5,
+  },
 ];
 
 const slidesMobile = [
@@ -67,6 +72,7 @@ const slidesMobile = [
   { src: slide2_mobile },
   { src: slide3_mobile },
   { src: slide4_mobile },
+  { src: slide5_mobile },
 ];
 
 const categories = [
