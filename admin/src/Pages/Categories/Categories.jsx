@@ -11,6 +11,7 @@ import {
 
 import AddCategoryModal from "./Component/AddCategoryModal";
 import AddSubCategoryModal from "./Component/AddSubCategoryModal";
+import { sortByName } from "../../Util/sortByName";
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
@@ -81,7 +82,7 @@ const Categories = () => {
           }
         >
           <List
-            dataSource={categories}
+            dataSource={sortByName(categories)}
             renderItem={(cat) => (
               <List.Item
                 onClick={() => {
@@ -135,7 +136,7 @@ const Categories = () => {
         >
           {selectedCategory ? (
             <List
-              dataSource={subCategories}
+              dataSource={sortByName(subCategories)}
               renderItem={(sub) => (
                 <List.Item
                   style={{

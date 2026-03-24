@@ -9,6 +9,7 @@ import {
 } from "../../Util/apiService";
 import AddBrandModal from "./Component/AddBrandModal";
 import AddBrandTypeModal from "./Component/AddBrandTypeModal";
+import { sortByName } from "../../Util/sortByName";
 
 const Brands = () => {
   const [brands, setBrands] = useState([]);
@@ -84,7 +85,7 @@ const Brands = () => {
           }
         >
           <List
-            dataSource={brands}
+            dataSource={sortByName(brands)}
             renderItem={(brand) => (
               <>
                 <List.Item
@@ -140,7 +141,7 @@ const Brands = () => {
         >
           {selectedBrand ? (
             <List
-              dataSource={brandTypes}
+              dataSource={sortByName(brandTypes)}
               renderItem={(bt) => <List.Item>{bt.name}</List.Item>}
             />
           ) : (
