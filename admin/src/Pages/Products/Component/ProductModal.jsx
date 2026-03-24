@@ -32,25 +32,37 @@ const ProductModal = ({
   const [categories, setCategories] = useState([]);
   const [subCategories, setSubCategories] = useState([]);
 
-  const brandOptions = brands?.map((brand) => ({
-    label: brand.name,
-    value: brand._id,
-  }));
+  const brandOptions = brands
+    ?.slice()
+    .sort((a, b) => a.name.localeCompare(b.name))
+    .map((brand) => ({
+      label: brand.name,
+      value: brand._id,
+    }));
 
-  const brandTypeOptions = brandTypes?.map((bt) => ({
-    label: bt.name,
-    value: bt._id,
-  }));
+  const brandTypeOptions = brandTypes
+    ?.slice()
+    .sort((a, b) => a.name.localeCompare(b.name))
+    .map((bt) => ({
+      label: bt.name,
+      value: bt._id,
+    }));
 
-  const categoryOptions = categories.map((cat) => ({
-    label: cat.name,
-    value: cat._id,
-  }));
+  const categoryOptions = categories
+    ?.slice()
+    .sort((a, b) => a.name.localeCompare(b.name))
+    .map((cat) => ({
+      label: cat.name,
+      value: cat._id,
+    }));
 
-  const subCategoryOptions = subCategories.map((sub) => ({
-    label: sub.name,
-    value: sub._id,
-  }));
+  const subCategoryOptions = subCategories
+    ?.slice()
+    .sort((a, b) => a.name.localeCompare(b.name))
+    .map((sub) => ({
+      label: sub.name,
+      value: sub._id,
+    }));
 
   const loadBrands = async () => {
     try {
@@ -321,7 +333,11 @@ const ProductModal = ({
                 />
               </Form.Item>
 
-              <Form.Item name="subCategory" label="Sub Kategori">
+              <Form.Item
+                name="subCategory"
+                label="Sub Kategori"
+                rules={[{ required: true }]}
+              >
                 <Select
                   options={subCategoryOptions}
                   disabled={!form.getFieldValue("category")}
