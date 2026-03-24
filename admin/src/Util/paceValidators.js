@@ -1,5 +1,3 @@
-// utils/paceValidators.js
-
 export const paceValidators = (getFieldValue) => ({
   validator(_, value) {
     const paceMin = Number(getFieldValue("paceMin"));
