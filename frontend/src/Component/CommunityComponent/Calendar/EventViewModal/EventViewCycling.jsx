@@ -6,7 +6,6 @@ import { IoSpeedometerOutline, IoPersonOutline } from "react-icons/io5";
 
 const EventViewCycling = ({ event }) => {
   const { cycling } = event;
-  console.log({ event });
 
   return (
     <div className="event-modal-content">
