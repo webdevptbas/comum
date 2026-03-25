@@ -28,6 +28,12 @@
   color: #3267e3;
 }
 
+@media (max-width: 1024px) {
+  .brand-filter {
+    padding: 10px 30px;
+  }
+}
+
 @media (max-width: 768px) {
   .brand-filter {
     padding: 10px 30px 10px 30px;

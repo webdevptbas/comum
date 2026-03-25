@@ -15,7 +15,7 @@ import useMediaQuery from "../../Util/useMediaQuery";
 const HomePage = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
-  const isMobile = useMediaQuery("(max-width: 768px)");
+  const isMobile = useMediaQuery("(max-width: 1024px)");
 
   const isLatest = (createdAt) => {
     const oneMonthAgo = new Date();

@@ -288,7 +288,7 @@
 /* -------------- */
 /* MOBILE STYLING */
 /* -------------- */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .ant-drawer-body {
     padding: 0 !important;
   }

@@ -36,6 +36,12 @@
   align-items: center;
 }
 
+@media (max-width: 1024px) {
+  .community-container {
+    padding: 0 0 2vh 0;
+  }
+}
+
 @media (max-width: 768px) {
   .community-container {
     padding: 0;

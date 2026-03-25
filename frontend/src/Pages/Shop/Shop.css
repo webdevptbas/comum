@@ -25,7 +25,7 @@
 .store-sidebar {
   width: 240px;
   flex-shrink: 0;
-  border: 1px solid #EDEDED;
+  border: 1px solid #ededed;
   padding: 0 20px;
 }
 
@@ -59,7 +59,13 @@
   gap: 16px;
 }
 
-@media(max-width:768px){
+@media (max-width: 1024px) {
+  .store-container {
+    padding: 30px;
+  }
+}
+
+@media (max-width: 768px) {
   .store-container {
     padding: 30px 10px 30px 10px;
   }

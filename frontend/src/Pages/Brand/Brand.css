@@ -28,6 +28,17 @@
   filter: invert(100%);
 }
 
+@media (max-width: 1024px) {
+  .brand-detail-title {
+    padding: 2vh 30px;
+  }
+
+  .brand-page-container {
+    grid-template-columns: repeat(4, 1fr);
+    padding: 0px 30px 30px 30px;
+  }
+}
+
 @media (max-width: 768px) {
   .brand-detail-title {
     padding: 15px 30px;

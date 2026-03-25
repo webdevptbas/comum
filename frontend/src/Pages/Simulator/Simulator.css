@@ -46,6 +46,12 @@
   font-size: 28px;
 }
 
+@media (max-width: 1024px) {
+  .simulator-container {
+    padding: 2vh 30px 30px 30px;
+  }
+}
+
 @media (max-width: 768px) {
   .simulator-container {
     padding: 2vh 30px 30px 30px;
