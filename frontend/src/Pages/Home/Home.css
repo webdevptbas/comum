@@ -291,6 +291,7 @@
   .carousel-image-container {
     top: 0;
     height: 92dvh;
+    overflow: hidden;
   }
 
   .brand-container {
@@ -304,9 +305,9 @@
 
 @media (max-width: 768px) {
   .carousel-image-container {
-    display: flex !important;
     height: 90vh;
     top: 0;
+    overflow: hidden;
   }
 
   .text-overlay {
