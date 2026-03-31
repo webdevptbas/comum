@@ -18,6 +18,7 @@ import ProfileLayout from "./Layout/ProfileLayout/ProfileLayout.jsx";
 import ProfilePage from "./Pages/Profile/Profile.jsx";
 import OrdersPage from "./Pages/Orders/Orders.jsx";
 import ChangePasswordPage from "./Pages/ChangePassword/ChangePassword.jsx";
+import ShippingPage from "./Pages/Shipping/Shipping.jsx";
 
 const router = createBrowserRouter([
   {
@@ -76,6 +77,10 @@ const router = createBrowserRouter([
       {
         path: "/cart",
         element: <CartPage />,
+      },
+      {
+        path: "/shipping",
+        element: <ShippingPage />,
       },
       {
         path: "/profile",
