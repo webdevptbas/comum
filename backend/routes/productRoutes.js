@@ -7,7 +7,6 @@ const {
   updateProduct,
   deleteProduct,
   importCsv,
-  getProductsByBrand,
 } = require("../controllers/productController");
 const multer = require("multer");
 const csvUpload = multer({ dest: "uploads/csv/" });
@@ -18,7 +17,6 @@ const { upload } = require("../middleware/uploadMiddleware");
 // Public routes
 router.get("/", getAllProducts);
 router.get("/:id", getProductById);
-router.get("/brand/:brand", getProductsByBrand);
 
 // Protected routes for AdminEvent and AdminProduct
 router.post("/", protect, roleCheck("AdminProduct"), upload, createProduct);

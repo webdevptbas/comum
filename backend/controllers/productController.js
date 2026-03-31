@@ -63,7 +63,22 @@ exports.createProduct = async (req, res) => {
 // @desc Get all product
 exports.getAllProducts = async (req, res) => {
   try {
-    const products = await Product.find()
+    const { brand, category, gender } = req.query;
+    let filter = {};
+
+    if (brand) {
+      filter.brand = brand;
+    }
+    if (category) {
+      filter.category = category;
+    }
+    if (gender) {
+      const genderArray = gender.includes(",") ? gender.split(",") : [gender];
+
+      filter.gender = { $in: genderArray }; // 🔥 Mongo magic
+    }
+
+    const products = await Product.find(filter)
       .populate("createdBy", "username role")
       .populate("brand", "name")
       .populate("brandType", "name");
@@ -83,17 +98,6 @@ exports.getProductById = async (req, res) => {
 
     res.status(200).json(product);
   } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-};
-
-exports.getProductsByBrand = async (req, res) => {
-  try {
-    const brand = req.params.brand;
-    const products = await Product.find({ brand });
-    res.status(200).json(products);
-  } catch (err) {
-    console.error(err);
     res.status(500).json({ message: err.message });
   }
 };
