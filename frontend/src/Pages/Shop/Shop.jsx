@@ -1,15 +1,50 @@
 import React, { useState } from "react";
 import "./Shop.css";
 import { ProductCard } from "../../Component/Card/Card";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import ProductFilter from "./ProductFilter";
 import { Modal, Button } from "antd";
 import { FilterOutlined } from "@ant-design/icons";
 import { useGetProductsQuery } from "../../Slices/productsApiSlice";
 
 const ShopPage = () => {
-  const { data: products, isLoading, error } = useGetProductsQuery();
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
+  const { search } = useLocation();
+  const params = new URLSearchParams(search);
+
+  const navigate = useNavigate();
+
+  const gender = params.get("gender");
+  const brand = params.get("brand");
+  const category = params.get("category");
+
+  const queryParams = React.useMemo(() => {
+    const params = {};
+
+    if (gender) params.gender = gender;
+    if (brand) params.brand = brand;
+    if (category) params.category = category;
+
+    return params;
+  }, [gender, brand, category]);
+
+  const { data: products, isLoading, error } = useGetProductsQuery(queryParams);
+
+  const handleFilterChange = (filters) => {
+    const params = new URLSearchParams();
+
+    if (filters.gender) {
+      if (Array.isArray(filters.gender)) {
+        params.set("gender", filters.gender.join(","));
+      } else {
+        params.set("gender", filters.gender);
+      }
+    }
+    if (filters.brand) params.set("brand", filters.brand);
+    if (filters.category) params.set("category", filters.category);
+
+    navigate(`/shop?${params.toString()}`);
+  };
 
   const processedProducts = React.useMemo(() => {
     if (!products) return [];
@@ -41,7 +76,7 @@ const ShopPage = () => {
       <div className="store-container-body">
         {/* Desktop Sidebar */}
         <aside className="desktop-only">
-          <ProductFilter />
+          <ProductFilter onChange={handleFilterChange} />
         </aside>
 
         <main className="store-main">
@@ -52,7 +87,9 @@ const ShopPage = () => {
           ) : (
             <>
               <div className="store-header">
-                <p>{`${products.length} Product(s) Available`}</p>
+                <p
+                  style={{ margin: "0" }}
+                >{`${products.length} Product(s) Available`}</p>
                 {/* Optional Sort */}
                 {/* <select>
               <option value="relevant">Most Relevant</option>
@@ -102,7 +139,7 @@ const ShopPage = () => {
         centered
         // bodyStyle={{ maxHeight: "80vh", overflowY: "auto" }}
       >
-        <ProductFilter />
+        <ProductFilter onChange={handleFilterChange} />
       </Modal>
     </div>
   );
