@@ -97,6 +97,12 @@ const ShopPage = () => {
               <option value="price-high">Highest Price</option>
             </select> */}
               </div>
+
+              {processedProducts.length === 0 && (
+                <div className="product-grid heading4">
+                  No product available
+                </div>
+              )}
               <div className="product-grid">
                 {processedProducts?.map((product) => (
                   <Link
