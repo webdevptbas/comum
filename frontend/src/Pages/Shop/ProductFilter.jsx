@@ -13,8 +13,18 @@ const ProductFilter = ({ onChange }) => {
   const [categories, setCategories] = useState([]);
   const [showAllCategories, setShowAllCategories] = useState(false);
   const [showAllBrands, setShowAllBrands] = useState(false);
+  const [brandSearch, setBrandSearch] = useState("");
+  const [categorySearch, setCategorySearch] = useState("");
 
   const LIMIT = 5;
+
+  const filteredBrands = brands.filter((b) =>
+    b.name.toLowerCase().includes(brandSearch.toLowerCase()),
+  );
+
+  const filteredCategories = categories.filter((c) =>
+    c.name.toLowerCase().includes(categorySearch.toLowerCase()),
+  );
 
   const visibleCategories = showAllCategories
     ? categories
@@ -77,50 +87,52 @@ const ProductFilter = ({ onChange }) => {
       <div className="filter-group">
         <h5 className="heading5">Product Category</h5>
 
-        {visibleCategories.map((cat) => (
-          <label key={cat._id}>
-            <input
-              type="checkbox"
-              checked={filters.category === cat._id}
-              onChange={() => handleSelect("category", cat._id)}
-            />
-            {cat.name}
-          </label>
-        ))}
+        <input
+          type="text"
+          placeholder="Search category"
+          value={categorySearch}
+          onChange={(e) => setCategorySearch(e.target.value)}
+          className="filter-search"
+        />
 
-        {categories.length > LIMIT && (
-          <button
-            className="show-more-btn button"
-            onClick={() => setShowAllCategories(!showAllCategories)}
-          >
-            {showAllCategories ? "Show Less" : "Show More"}
-          </button>
-        )}
+        <div className="filter-list">
+          {filteredCategories.map((cat) => (
+            <label key={cat._id}>
+              <input
+                type="checkbox"
+                checked={filters.category === cat._id}
+                onChange={() => handleSelect("category", cat._id)}
+              />
+              {cat.name}
+            </label>
+          ))}
+        </div>
       </div>
 
       {/* Brand Filter */}
       <div className="filter-group">
         <h5 className="heading5">Brands</h5>
 
-        {visibleBrands.map((brand) => (
-          <label key={brand._id}>
-            <input
-              type="checkbox"
-              checked={filters.brand === brand._id}
-              onChange={() => handleSelect("brand", brand._id)}
-            />
-            {brand.name}
-          </label>
-        ))}
+        <input
+          type="text"
+          placeholder="Search brand"
+          value={brandSearch}
+          onChange={(e) => setBrandSearch(e.target.value)}
+          className="filter-search"
+        />
 
-        {brands.length > LIMIT && (
-          <button
-            className="show-more-btn button"
-            onClick={() => setShowAllBrands(!showAllBrands)}
-          >
-            {showAllBrands ? "Show Less" : "Show More"}
-          </button>
-        )}
+        <div className="filter-list">
+          {filteredBrands.map((brand) => (
+            <label key={brand._id}>
+              <input
+                type="checkbox"
+                checked={filters.brand === brand._id}
+                onChange={() => handleSelect("brand", brand._id)}
+              />
+              {brand.name}
+            </label>
+          ))}
+        </div>
       </div>
 
       {/* Gender Filter */}

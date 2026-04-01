@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, Link } from "react-router";
+import { useParams, Link, useSearchParams } from "react-router";
 import { Button, Select, InputNumber, Breadcrumb, Skeleton } from "antd";
 import { LeftOutlined } from "@ant-design/icons";
 import "./ProductDetail.css";
@@ -9,13 +9,16 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "../../Slices/cartSlice";
 
 const ProductDetailPage = () => {
-  const { brand, id } = useParams();
+  const { id } = useParams();
+
   const { data: product, isLoading, error } = useGetProductDetailsQuery(id);
   const [selectedImage, setSelectedImage] = useState("");
   const [selectedSizeObj, setSelectedSizeObj] = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const dispatch = useDispatch();
+
+  const brandId = product?.brand?._id;
 
   useEffect(() => {
     if (product?.imageUrl?.length > 0) {
@@ -169,9 +172,7 @@ const ProductDetailPage = () => {
                   <Link to="/shop">Shop</Link>
                 </Breadcrumb.Item>
                 <Breadcrumb.Item>
-                  <Link to={`/shop/${product?.brand?.name.toLowerCase()}`}>
-                    {product?.brand?.name}
-                  </Link>
+                  <Link to={`/shop/${brandId}`}>{product?.brand?.name}</Link>
                 </Breadcrumb.Item>
                 <Breadcrumb.Item>{product.productName}</Breadcrumb.Item>
               </Breadcrumb>

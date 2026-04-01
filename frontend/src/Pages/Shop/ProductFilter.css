@@ -10,3 +10,17 @@
 input[type="checkbox"] {
   accent-color: #344ead; /* Use your desired color */
 }
+
+.filter-list {
+  max-height: 150px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.filter-search {
+  width: 100%;
+  padding: 4px;
+  margin-bottom: 8px;
+}
