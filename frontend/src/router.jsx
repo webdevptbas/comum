@@ -19,6 +19,8 @@ import ProfilePage from "./Pages/Profile/Profile.jsx";
 import OrdersPage from "./Pages/Orders/Orders.jsx";
 import ChangePasswordPage from "./Pages/ChangePassword/ChangePassword.jsx";
 import ShippingPage from "./Pages/Shipping/Shipping.jsx";
+import ShopLayout from "./Layout/ShopLayout/ShopLayout.jsx";
+import BrandShopPage from "./Pages/Shop/BrandShop.jsx";
 
 const router = createBrowserRouter([
   {
@@ -40,7 +42,17 @@ const router = createBrowserRouter([
       },
       {
         path: "/shop",
-        element: <ShopPage />,
+        element: <ShopLayout />, // wrapper
+        children: [
+          {
+            index: true,
+            element: <ShopPage />, // /profile
+          },
+          {
+            path: ":brand",
+            element: <BrandShopPage />,
+          },
+        ],
       },
       {
         path: "shop/:brand/:id",
