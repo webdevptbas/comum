@@ -12,14 +12,16 @@ const ShopPage = () => {
   const gender = params.get("gender");
   const brand = params.get("brand");
   const category = params.get("category");
+  const keyword = params.get("keyword");
 
   const queryParams = React.useMemo(() => {
     const params = {};
     if (gender) params.gender = gender;
     if (brand) params.brand = brand;
     if (category) params.category = category;
+    if (keyword) params.keyword = keyword;
     return params;
-  }, [gender, brand, category]);
+  }, [gender, brand, category, keyword]);
 
   const { data: products, isLoading, error } = useGetProductsQuery(queryParams);
 
