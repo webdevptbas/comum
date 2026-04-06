@@ -63,7 +63,7 @@ exports.createProduct = async (req, res) => {
 // @desc Get all product
 exports.getAllProducts = async (req, res) => {
   try {
-    const { brand, category, gender } = req.query;
+    const { brand, category, gender, keyword } = req.query;
     let filter = {};
 
     if (brand) {
@@ -76,6 +76,17 @@ exports.getAllProducts = async (req, res) => {
       const genderArray = gender.includes(",") ? gender.split(",") : [gender];
 
       filter.gender = { $in: genderArray }; // 🔥 Mongo magic
+    }
+
+    if (keyword) {
+      const words = keyword.split(" ").filter(Boolean);
+
+      filter.$and = words.map((word) => ({
+        productName: {
+          $regex: word,
+          $options: "i",
+        },
+      }));
     }
 
     const products = await Product.find(filter)
