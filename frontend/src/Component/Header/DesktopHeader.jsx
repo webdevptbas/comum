@@ -4,7 +4,6 @@ import {
   Menu,
   Dropdown,
   Drawer,
-  Input,
   Badge,
   InputNumber,
   Button,
@@ -29,6 +28,7 @@ import { DeleteItemConfirmation, formatRupiah } from "../../Util/CartUtils.js";
 import { removeFromCart, updateCartQuantity } from "../../Slices/cartSlice.js";
 import { useLogoutMutation } from "../../Slices/usersApiSlice.js";
 import { clearCredentials } from "../../Slices/authSlice.js";
+import SearchBar from "./SearchBar/SearchBar.jsx";
 
 const { Header } = Layout;
 
@@ -41,7 +41,7 @@ const DesktopHeader = () => {
   const isSimulatorPage = location.pathname.startsWith("/simulator");
 
   const [isCartVisible, setIsCartVisible] = useState(false);
-  const [searchValue, setSearchValue] = useState("");
+  const [searchOpen, setSearchOpen] = useState(false);
   const [deleteConfirmation, setDeleteConfirmation] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [logoutApiCall] = useLogoutMutation();
@@ -52,19 +52,14 @@ const DesktopHeader = () => {
   const openCart = () => setIsCartVisible(true);
   const closeCart = () => setIsCartVisible(false);
 
-  const handleSearch = () => {
-    console.log("Searching for: ", searchValue);
+  const handleSearch = (keyword) => {
+    navigate(`/shop?keyword=${keyword}`);
+    setSearchOpen(false);
   };
 
   const dropdownContent = (
-    <div style={{ padding: "8px", width: "250px", backgroundColor: "white" }}>
-      <Input.Search
-        placeholder="Search products..."
-        value={searchValue}
-        onChange={(e) => setSearchValue(e.target.value)}
-        onSearch={handleSearch}
-        enterButton
-      />
+    <div style={{ backgroundColor: "white" }}>
+      <SearchBar onSearch={handleSearch} />
     </div>
   );
 
@@ -162,6 +157,8 @@ const DesktopHeader = () => {
           <div className="utilities">
             {/* search dropdown */}
             <Dropdown
+              open={searchOpen}
+              onOpenChange={setSearchOpen}
               dropdownRender={() => dropdownContent}
               trigger={["click"]}
               placement="bottomRight"

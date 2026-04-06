@@ -1,14 +1,9 @@
 import React from "react";
-import { Input } from "antd";
-import {
-  CloseOutlined,
-  CoffeeOutlined,
-} from "@ant-design/icons";
+import { CloseOutlined, CoffeeOutlined } from "@ant-design/icons";
 import { MdSportsTennis } from "react-icons/md";
 import { useNavigate } from "react-router";
 import "./MobileMenuOverlay.css";
-
-const { Search } = Input;
+import SearchBar from "./SearchBar/SearchBar";
 
 const MobileMenuOverlay = ({ closeMenu }) => {
   const navigate = useNavigate();
@@ -18,13 +13,18 @@ const MobileMenuOverlay = ({ closeMenu }) => {
     closeMenu();
   };
 
+  const handleSearch = (keyword) => {
+    navigate(`/shop?keyword=${keyword}`);
+    closeMenu();
+  };
+
   return (
     <div className="mobile-menu-overlay">
       <div className="mobile-menu-header">
         <CloseOutlined onClick={closeMenu} />
       </div>
       <div className="menu-search">
-        <Search placeholder="Search a Product" />
+        <SearchBar onSearch={handleSearch} />
       </div>
       {/* <div className="menu-group" onClick={() => handleNavigate("/shop")}>
         Shop <RightOutlined />
