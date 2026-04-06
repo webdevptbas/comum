@@ -8,7 +8,6 @@ import { fetchBrands } from "../../Util/apiService";
 
 const ShopLayout = () => {
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
-  const [brands, setBrands] = useState([]);
   const [brandName, setBrandName] = useState("");
 
   const navigate = useNavigate();
@@ -47,7 +46,6 @@ const ShopLayout = () => {
     const loadBrands = async () => {
       try {
         const data = await fetchBrands();
-        setBrands(data);
 
         if (brand) {
           const found = data.find(
