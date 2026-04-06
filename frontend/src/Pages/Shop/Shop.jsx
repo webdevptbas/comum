@@ -1,11 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Shop.css";
 import { ProductCard } from "../../Component/Card/Card";
-import { Link, useLocation, useNavigate } from "react-router";
-import ProductFilter from "./ProductFilter";
-import { Modal, Button } from "antd";
-import { FilterOutlined } from "@ant-design/icons";
+import { Link, useLocation } from "react-router";
 import { useGetProductsQuery } from "../../Slices/productsApiSlice";
+import { sortProducts } from "../../Util/ProductSort";
 
 const ShopPage = () => {
   const { search } = useLocation();
@@ -26,16 +24,7 @@ const ShopPage = () => {
   const { data: products, isLoading, error } = useGetProductsQuery(queryParams);
 
   const processedProducts = React.useMemo(() => {
-    if (!products) return [];
-
-    return [...products].sort((a, b) => {
-      // 1. Move out-of-stock to bottom
-      if (a.displayStock === 0 && b.displayStock > 0) return 1;
-      if (a.displayStock > 0 && b.displayStock === 0) return -1;
-
-      // 2. Alphabetical sort (productName)
-      return a.productName.localeCompare(b.productName);
-    });
+    return sortProducts(products);
   }, [products]);
 
   return (
