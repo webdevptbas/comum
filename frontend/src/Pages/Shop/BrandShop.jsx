@@ -3,6 +3,7 @@ import { Link, useLocation, useParams } from "react-router";
 import { ProductCard } from "../../Component/Card/Card";
 import { useGetProductsQuery } from "../../Slices/productsApiSlice";
 import { fetchBrands } from "../../Util/apiService";
+import { sortProducts } from "../../Util/ProductSort";
 
 const BrandShopPage = () => {
   const { brand } = useParams();
@@ -57,6 +58,10 @@ const BrandShopPage = () => {
     skip: !shouldFetchProducts,
   });
 
+  const processedProducts = React.useMemo(() => {
+    return sortProducts(products);
+  }, [products]);
+
   return (
     <>
       {isLoading ? (
@@ -66,15 +71,15 @@ const BrandShopPage = () => {
       ) : (
         <>
           <div className="store-header">
-            <p>{products?.length} Product(s)</p>
+            <p>{processedProducts?.length} Product(s)</p>
           </div>
 
-          {products?.length === 0 && (
+          {processedProducts?.length === 0 && (
             <div className="product-grid heading4">No product available</div>
           )}
 
           <div className="product-grid">
-            {products?.map((product) => (
+            {processedProducts?.map((product) => (
               <Link key={product._id} to={`/shop/${brand}/${product._id}`}>
                 <ProductCard
                   key={product._id}
