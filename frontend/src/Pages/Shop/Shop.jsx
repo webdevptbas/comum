@@ -8,11 +8,8 @@ import { FilterOutlined } from "@ant-design/icons";
 import { useGetProductsQuery } from "../../Slices/productsApiSlice";
 
 const ShopPage = () => {
-  const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
   const { search } = useLocation();
   const params = new URLSearchParams(search);
-
-  const navigate = useNavigate();
 
   const gender = params.get("gender");
   const brand = params.get("brand");
@@ -20,31 +17,13 @@ const ShopPage = () => {
 
   const queryParams = React.useMemo(() => {
     const params = {};
-
     if (gender) params.gender = gender;
     if (brand) params.brand = brand;
     if (category) params.category = category;
-
     return params;
   }, [gender, brand, category]);
 
   const { data: products, isLoading, error } = useGetProductsQuery(queryParams);
-
-  const handleFilterChange = (filters) => {
-    const params = new URLSearchParams();
-
-    if (filters.gender) {
-      if (Array.isArray(filters.gender)) {
-        params.set("gender", filters.gender.join(","));
-      } else {
-        params.set("gender", filters.gender);
-      }
-    }
-    if (filters.brand) params.set("brand", filters.brand);
-    if (filters.category) params.set("category", filters.category);
-
-    navigate(`/shop?${params.toString()}`);
-  };
 
   const processedProducts = React.useMemo(() => {
     if (!products) return [];
@@ -60,94 +39,50 @@ const ShopPage = () => {
   }, [products]);
 
   return (
-    <div className="store-container">
-      <h3 className="sidebar-heading heading3">Explore Product</h3>
+    <>
+      {isLoading ? (
+        <h2>Loading...</h2>
+      ) : error ? (
+        <div>{error?.data?.message || error.error}</div>
+      ) : (
+        <>
+          <div className="store-header">
+            <p>{products.length} Product(s) Available</p>
+          </div>
 
-      {/* Mobile Filter Button */}
-      <div className="filter-button-mobile">
-        <Button
-          icon={<FilterOutlined />}
-          onClick={() => setIsFilterModalOpen(true)}
-        >
-          Filter
-        </Button>
-      </div>
-
-      <div className="store-container-body">
-        {/* Desktop Sidebar */}
-        <aside className="desktop-only">
-          <ProductFilter onChange={handleFilterChange} />
-        </aside>
-
-        <main className="store-main">
-          {isLoading ? (
-            <h2>Loading...</h2>
-          ) : error ? (
-            <div>{error?.data?.message || error.error}</div>
-          ) : (
-            <>
-              <div className="store-header">
-                <p
-                  style={{ margin: "0" }}
-                >{`${products.length} Product(s) Available`}</p>
-                {/* Optional Sort */}
-                {/* <select>
-              <option value="relevant">Most Relevant</option>
-              <option value="price-low">Lowest Price</option>
-              <option value="price-high">Highest Price</option>
-            </select> */}
-              </div>
-
-              {processedProducts.length === 0 && (
-                <div className="product-grid heading4">
-                  No product available
-                </div>
-              )}
-              <div className="product-grid">
-                {processedProducts?.map((product) => (
-                  <Link
-                    className="product-link"
-                    to={`/shop/${product?.brand?.name?.toLowerCase()}/${product?._id}`}
-                    key={product._id}
-                    style={{ textDecoration: "none", color: "inherit" }}
-                  >
-                    <ProductCard
-                      key={product._id}
-                      title={product.productName}
-                      brand={product.brand?.name}
-                      src={product.imageUrl?.[0]}
-                      price={product.displayPrice}
-                      finalPrice={product.displayDiscountPrice}
-                      type={product.displayIsDiscount ? "discount" : ""}
-                      text={
-                        product.displayIsDiscount
-                          ? `${product.displayDiscount}%`
-                          : ""
-                      }
-                      isDiscount={product.displayIsDiscount}
-                      displayStock={product.displayStock}
-                    />
-                  </Link>
-                ))}
-              </div>
-            </>
+          {processedProducts.length === 0 && (
+            <div className="product-grid heading4">No product available</div>
           )}
-        </main>
-      </div>
-
-      {/* Mobile Modal Filter */}
-      <Modal
-        title="Filter"
-        open={isFilterModalOpen}
-        onCancel={() => setIsFilterModalOpen(false)}
-        footer={null}
-        width="90%"
-        centered
-        // bodyStyle={{ maxHeight: "80vh", overflowY: "auto" }}
-      >
-        <ProductFilter onChange={handleFilterChange} />
-      </Modal>
-    </div>
+          <div className="product-grid">
+            {processedProducts?.map((product) => (
+              <Link
+                className="product-link"
+                to={`/shop/${product?.brand?.name?.toLowerCase()}/${product?._id}`}
+                key={product._id}
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                <ProductCard
+                  key={product._id}
+                  title={product.productName}
+                  brand={product.brand?.name}
+                  src={product.imageUrl?.[0]}
+                  price={product.displayPrice}
+                  finalPrice={product.displayDiscountPrice}
+                  type={product.displayIsDiscount ? "discount" : ""}
+                  text={
+                    product.displayIsDiscount
+                      ? `${product.displayDiscount}%`
+                      : ""
+                  }
+                  isDiscount={product.displayIsDiscount}
+                  displayStock={product.displayStock}
+                />
+              </Link>
+            ))}
+          </div>
+        </>
+      )}
+    </>
   );
 };
 

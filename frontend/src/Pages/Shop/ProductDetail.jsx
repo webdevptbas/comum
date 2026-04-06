@@ -18,8 +18,6 @@ const ProductDetailPage = () => {
   const [quantity, setQuantity] = useState(1);
   const dispatch = useDispatch();
 
-  const brandId = product?.brand?._id;
-
   useEffect(() => {
     if (product?.imageUrl?.length > 0) {
       setSelectedImage(product?.imageUrl[0]);
@@ -172,7 +170,9 @@ const ProductDetailPage = () => {
                   <Link to="/shop">Shop</Link>
                 </Breadcrumb.Item>
                 <Breadcrumb.Item>
-                  <Link to={`/shop/${brandId}`}>{product?.brand?.name}</Link>
+                  <Link to={`/shop/${product?.brand?.name?.toLowerCase()}`}>
+                    {product?.brand?.name}
+                  </Link>
                 </Breadcrumb.Item>
                 <Breadcrumb.Item>{product.productName}</Breadcrumb.Item>
               </Breadcrumb>

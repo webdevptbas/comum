@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./ProductFilter.css";
 import { fetchBrands, fetchCategories } from "../../Util/apiService";
 
-const ProductFilter = ({ onChange }) => {
+const ProductFilter = ({ onChange, hideBrandFilter }) => {
   const [filters, setFilters] = useState({
     category: "",
     brand: "",
@@ -11,12 +11,8 @@ const ProductFilter = ({ onChange }) => {
 
   const [brands, setBrands] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [showAllCategories, setShowAllCategories] = useState(false);
-  const [showAllBrands, setShowAllBrands] = useState(false);
   const [brandSearch, setBrandSearch] = useState("");
   const [categorySearch, setCategorySearch] = useState("");
-
-  const LIMIT = 5;
 
   const filteredBrands = brands.filter((b) =>
     b.name.toLowerCase().includes(brandSearch.toLowerCase()),
@@ -25,12 +21,6 @@ const ProductFilter = ({ onChange }) => {
   const filteredCategories = categories.filter((c) =>
     c.name.toLowerCase().includes(categorySearch.toLowerCase()),
   );
-
-  const visibleCategories = showAllCategories
-    ? categories
-    : categories.slice(0, LIMIT);
-
-  const visibleBrands = showAllBrands ? brands : brands.slice(0, LIMIT);
 
   const handleSelect = (type, value) => {
     const updated = {
@@ -110,30 +100,32 @@ const ProductFilter = ({ onChange }) => {
       </div>
 
       {/* Brand Filter */}
-      <div className="filter-group">
-        <h5 className="heading5">Brands</h5>
+      {!hideBrandFilter && (
+        <div className="filter-group">
+          <h5 className="heading5">Brands</h5>
 
-        <input
-          type="text"
-          placeholder="Search brand"
-          value={brandSearch}
-          onChange={(e) => setBrandSearch(e.target.value)}
-          className="filter-search"
-        />
+          <input
+            type="text"
+            placeholder="Search brand"
+            value={brandSearch}
+            onChange={(e) => setBrandSearch(e.target.value)}
+            className="filter-search"
+          />
 
-        <div className="filter-list">
-          {filteredBrands.map((brand) => (
-            <label key={brand._id}>
-              <input
-                type="checkbox"
-                checked={filters.brand === brand._id}
-                onChange={() => handleSelect("brand", brand._id)}
-              />
-              {brand.name}
-            </label>
-          ))}
+          <div className="filter-list">
+            {filteredBrands.map((brand) => (
+              <label key={brand._id}>
+                <input
+                  type="checkbox"
+                  checked={filters.brand === brand._id}
+                  onChange={() => handleSelect("brand", brand._id)}
+                />
+                {brand.name}
+              </label>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Gender Filter */}
       <div className="filter-group">
