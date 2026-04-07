@@ -75,7 +75,7 @@ exports.getAllProducts = async (req, res) => {
     if (gender) {
       const genderArray = gender.includes(",") ? gender.split(",") : [gender];
 
-      filter.gender = { $in: genderArray }; // 🔥 Mongo magic
+      filter.gender = { $in: genderArray };
     }
 
     if (keyword) {
