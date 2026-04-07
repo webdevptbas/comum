@@ -1,9 +1,10 @@
 .coffee-container {
-  padding: 6vh 60px 60px 60px;
+  padding: 4vh 60px 60px 60px;
 }
 
 .coffee-title {
   color: #0a0a0a;
+  margin-top: 0;
 }
 
 .grid-parent {

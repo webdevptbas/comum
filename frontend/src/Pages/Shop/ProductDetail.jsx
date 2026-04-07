@@ -133,6 +133,20 @@ const ProductDetailPage = () => {
       ) : (
         <>
           <div className="product-detail-information">
+            <Breadcrumb
+              className="product-detail-breadcrumb-mobile"
+              style={{ marginBottom: "1rem" }}
+            >
+              <Breadcrumb.Item>
+                <Link to="/shop">Shop</Link>
+              </Breadcrumb.Item>
+              <Breadcrumb.Item>
+                <Link to={`/shop/${product?.brand?.name?.toLowerCase()}`}>
+                  {product?.brand?.name}
+                </Link>
+              </Breadcrumb.Item>
+              <Breadcrumb.Item>{product.productName}</Breadcrumb.Item>
+            </Breadcrumb>
             <div className="image-section">
               {product.imageUrl && product.imageUrl.length > 0 ? (
                 <>

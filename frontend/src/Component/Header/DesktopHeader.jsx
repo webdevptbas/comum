@@ -103,7 +103,17 @@ const DesktopHeader = () => {
 
   return (
     <>
-      <Header className="header scrolled">
+      <Header
+        className="header scrolled"
+        style={{
+          position: "sticky",
+          top: 0,
+          zIndex: 5,
+          width: "100%",
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
         <div className="main-menu-container header-container">
           <div
             className="logo-container"

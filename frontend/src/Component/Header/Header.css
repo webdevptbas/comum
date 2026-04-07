@@ -1,9 +1,9 @@
 .header {
-  position: fixed;
+  /* position: fixed;
   top: 0;
   z-index: 5;
   width: 100%;
-  display: flex;
+  display: flex; */
   justify-content: space-between;
   align-items: center;
   color: #000;

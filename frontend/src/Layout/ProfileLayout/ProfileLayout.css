@@ -1,7 +1,7 @@
 .profile-container {
   display: flex;
   flex-direction: column;
-  padding: 14vh 60px 60px 60px;
+  padding: 4vh 60px 60px 60px;
 }
 
 .profile-page-content {

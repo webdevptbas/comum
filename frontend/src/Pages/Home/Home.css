@@ -17,8 +17,8 @@
 
 .carousel-image-container {
   position: relative;
-  top: 7vh;
-  height: 100vh;
+  /* top: 7vh; */
+  height: 94vh;
   width: 100%;
   display: flex;
   align-items: center; /* Vertically centers text */

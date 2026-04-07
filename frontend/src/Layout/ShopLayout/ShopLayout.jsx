@@ -68,7 +68,11 @@ const ShopLayout = () => {
           <div
             className="back-button"
             onClick={() => navigate("/shop")}
-            style={{ cursor: "pointer", marginBottom: "0.5rem" }}
+            style={{
+              cursor: "pointer",
+              marginBottom: "0.5rem",
+              color: "#1677ff",
+            }}
           >
             <LeftOutlined /> Back to Shop
           </div>

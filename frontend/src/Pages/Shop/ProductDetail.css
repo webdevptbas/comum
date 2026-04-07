@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
-  padding: 10vh 0 0 0;
+  padding: 4vh 0 0 0;
 }
 
 .mobile-back-button {
@@ -13,6 +13,10 @@
   display: flex;
   padding: 0 60px;
   gap: 24px;
+}
+
+.product-detail-breadcrumb-mobile {
+  display: none;
 }
 
 .image-section {
@@ -159,6 +163,10 @@
 
   .product-detail-breadcrumb {
     display: none;
+  }
+
+  .product-detail-breadcrumb-mobile {
+    display: flex;
   }
 
   .detail-section {
