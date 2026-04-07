@@ -30,7 +30,7 @@
 
 @media (max-width: 1024px) {
   .brand-detail-title {
-    padding: 2vh 30px;
+    padding: 30px;
   }
 
   .brand-page-container {
@@ -41,7 +41,7 @@
 
 @media (max-width: 768px) {
   .brand-detail-title {
-    padding: 15px 30px;
+    padding: 30px;
   }
 
   .brand-page-container {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, Link, useSearchParams } from "react-router";
+import { useParams, Link } from "react-router";
 import { Button, Select, InputNumber, Breadcrumb, Skeleton } from "antd";
 import { LeftOutlined } from "@ant-design/icons";
 import "./ProductDetail.css";

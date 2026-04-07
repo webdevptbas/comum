@@ -1,9 +1,7 @@
 import React from "react";
 import "./Simulator.css";
 import { Divider, Card } from "antd";
-import {
-  SendOutlined,
-} from "@ant-design/icons";
+import { SendOutlined } from "@ant-design/icons";
 import useMediaQuery from "../../Util/useMediaQuery";
 import comumSimulator from "../../Videos/comumSimulator.mp4";
 import comumSimulatorLandscape from "../../Videos/comumSimulatorLandscape.mp4";
@@ -24,9 +22,12 @@ const SimulatorPage = () => {
         {/* HERO */}
         <section className="simulator-hero">
           <div className="hero-text">
-            <h1 className="title" style={{ margin: "0", color: "#000000" }}>
+            <h2
+              className="title heading2"
+              style={{ margin: "0", color: "#000000" }}
+            >
               Comum Padel & Tennis Simulator
-            </h1>
+            </h2>
             <p className="text-l-regular">
               Experience padel and tennis in a whole new way. Real-time
               tracking, immersive visuals, and data-driven play all inside one

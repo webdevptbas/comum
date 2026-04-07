@@ -15,9 +15,9 @@ const ArticleListPage = () => {
         onClick={() => navigate("/community")}
       >
         <ArrowLeftOutlined />
-        <div>Back</div>
+        <div>Back to Community</div>
       </div>
-      <h2 className="heading2 articlelist-page-title">Articles</h2>
+      <h2 className="heading2 articlelist-page-title">All Articles</h2>
       <div className="articlelist-page-content">
         <ArticleList pageSize={5} showPagination={true} />
       </div>

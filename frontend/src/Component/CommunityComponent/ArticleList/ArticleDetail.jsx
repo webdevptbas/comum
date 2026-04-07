@@ -66,7 +66,7 @@ const ArticleDetails = () => {
         onClick={() => navigate("/community/article")}
       >
         <ArrowLeftOutlined />
-        <div>Back</div>
+        <div>Back to All Articles</div>
       </div>
       <h3 className="article-event-title heading3">{pastEvent.title}</h3>
       <p className="event-datetime text-l-regular">

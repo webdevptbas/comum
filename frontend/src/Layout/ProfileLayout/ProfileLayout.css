@@ -4,6 +4,10 @@
   padding: 4vh 60px 60px 60px;
 }
 
+.profile-title {
+  margin-top: 0;
+}
+
 .profile-page-content {
   display: flex;
   gap: 40px;
@@ -35,6 +39,12 @@
 /* CONTENT */
 .profile-content {
   flex: 1;
+}
+
+@media (max-width: 1024px) {
+  .profile-container {
+    padding: 30px;
+  }
 }
 
 /* MOBILE */

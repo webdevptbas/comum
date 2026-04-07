@@ -9,13 +9,13 @@
 
 @media (max-width: 1024px) {
   .service-container {
-    padding: 0 30px 30px 30px;
+    padding: 30px;
   }
 }
 
 @media (max-width: 768px) {
   .service-container {
-    padding: 0 30px 30px 30px;
+    padding: 30px;
   }
 
   .menu-service {

@@ -12,9 +12,15 @@
     flex-direction: column;
   }
 
+  @media (max-width:1024px){
+    .articlelist-page-container {
+      padding: 30px;
+    }
+  }
+
   @media(max-width:768px){
     .articlelist-page-container {
-      padding: 2vh 30px;
+      padding: 30px;
     }
   }
   

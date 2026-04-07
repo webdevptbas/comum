@@ -31,6 +31,7 @@
 }
 
 .community-past-event {
+  margin: 30px 0 0 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -40,9 +41,21 @@
   .community-container {
     padding: 0 0 2vh 0;
   }
+
+  .community-body {
+    padding: 0 30px;
+  }
+
+  .event-schedule-title {
+    margin: 30px 0;
+  }
 }
 
 @media (max-width: 768px) {
+  .community-past-event {
+    margin: 30px 0 0 0;
+  }
+
   .community-container {
     padding: 0;
   }
@@ -52,6 +65,10 @@
   }
 
   .event-schedule-title {
-    margin: 20px 0 0 0;
+    margin: 30px 0 0 0;
+  }
+
+  .article-title {
+    margin: 0;
   }
 }

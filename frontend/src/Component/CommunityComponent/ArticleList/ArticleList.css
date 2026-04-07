@@ -2,8 +2,9 @@
   display: flex;
   flex-direction: row;
   align-items: stretch;
-  margin: 30px 0;
+  padding: 30px 0;
   gap: 10px;
+  border-bottom: 1px dashed #0a0a0a;
 }
 
 .articlelist-event-title {
@@ -36,6 +37,10 @@
   height: auto;
   object-fit: cover; /* Crop image nicely */
   aspect-ratio: 16 / 9; /* 👈 Optional: force landscape proportion */
+}
+
+.pagination-wrapper {
+  margin-top: 15px;
 }
 
 @media (max-width: 768px) {

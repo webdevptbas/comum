@@ -18,7 +18,7 @@ const CoffeePage = () => {
     <>
       <div className="coffee-container">
         <div className="coffee-header">
-          <h1 className="title coffee-title">Comum Coffee</h1>
+          <h2 className="title heading2 coffee-title">Comum Coffee</h2>
         </div>
         <div className="coffee-body">
           <div className="grid-parent">

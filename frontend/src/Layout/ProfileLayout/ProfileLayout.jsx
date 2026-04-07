@@ -30,7 +30,7 @@ const ProfileLayout = () => {
   return (
     <>
       <div className="profile-container">
-        <h2>{pageTitle}</h2>
+        <h2 className="heading2 profile-title">{pageTitle}</h2>
         <div className="profile-page-content">
           {/* Sidebar */}
           <div className="profile-sidebar">

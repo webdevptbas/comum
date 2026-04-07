@@ -95,7 +95,7 @@
 
 @media (max-width: 1024px) {
   .coffee-container {
-    padding: 0 30px 30px 30px;
+    padding: 30px;
   }
 
   .grid-parent {
@@ -119,7 +119,7 @@
 
 @media (max-width: 768px) {
   .coffee-container {
-    padding: 0 30px 30px 30px;
+    padding: 30px;
   }
 
   .grid-parent {

@@ -78,9 +78,9 @@ const ShopLayout = () => {
           </div>
         )}
 
-        <h3 className="sidebar-heading heading3">
+        <h2 className="sidebar-heading heading2">
           {brand ? `Explore ${brandName || brand} Product` : "Explore Product"}
-        </h3>
+        </h2>
       </div>
 
       {/* Mobile Filter */}

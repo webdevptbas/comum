@@ -14,7 +14,7 @@ const ServicePage = () => {
     <>
       <div className="service-container">
         <div className="service-header">
-          <h1 className="title service-title">Comum Service</h1>
+          <h2 className="title heading2 service-title">Comum Service</h2>
         </div>
         <div className="service-body">
           <div className="menu-address-container">

@@ -17,7 +17,7 @@ const CommunityPage = () => {
           <h2 className="heading2 event-schedule-title">Event Schedule</h2>
           <CommunityCalendar />
           <div className="community-past-event">
-            <h2 className="heading2 event-schedule-title">Articles</h2>
+            <h2 className="heading2 articles-title">Articles</h2>
             <h4
               className="heading4 past-event-clickable clickable"
               onClick={() => navigate("/community/article")}
