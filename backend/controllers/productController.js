@@ -79,7 +79,7 @@ exports.getAllProducts = async (req, res) => {
     }
 
     if (keyword) {
-      const words = keyword.split(" ").filter(Boolean);
+      const words = keyword.toLowerCase().trim().split(/\s+/).filter(Boolean);
 
       filter.$and = words.map((word) => ({
         productName: {
