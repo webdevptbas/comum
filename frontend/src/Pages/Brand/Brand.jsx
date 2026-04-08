@@ -17,7 +17,7 @@ const BrandPage = () => {
   const filteredBrands = [...brands].filter((brand) => brand.type === type);
   return (
     <>
-      <div className="brand-detail-title heading2">Our Partner Brands</div>
+      <h2 className="brand-detail-title heading2">Our Partner Brands</h2>
 
       <BrandFilter activeType={type} />
       <div className="brand-page-container">
