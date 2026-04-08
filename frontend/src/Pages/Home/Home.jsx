@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Home.css";
 import "../../index.css";
-import { Carousel } from "antd";
+import { Button, Carousel, ConfigProvider } from "antd";
 import Tag from "../../Component/Tag/Tag";
 import { brands, categories, slides, slidesMobile } from "./item";
 import { ProductCard } from "../../Component/Card/Card";
@@ -11,6 +11,7 @@ import Motto from "../../Component/HomeComponent/Motto/Motto";
 import Event from "../../Component/HomeComponent/Event/Event";
 import { fetchAllProducts } from "../../Util/apiService";
 import useMediaQuery from "../../Util/useMediaQuery";
+import { MdArrowBackIos, MdArrowForwardIos } from "react-icons/md";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -43,37 +44,55 @@ const HomePage = () => {
   return (
     <>
       <div className="home-container">
-        <Carousel autoplay autoplaySpeed={3500} arrows infinite={true}>
-          {isMobile
-            ? slidesMobile.map((slide, index) => (
-                <div className="carousel-image-container" key={index}>
-                  <img
-                    src={slide.src}
-                    alt={slide.title}
-                    className="background-image"
-                  />
-                  <div className="text-overlay">
-                    <Tag type={slide.tagType} text={slide.tagText} />
-                    <div className="heading1">{slide.title}</div>
-                    <div className="subtitle">{slide.subtitle}</div>
+        <ConfigProvider
+          theme={{
+            components: {
+              Carousel: {
+                arrowOffset: 20,
+                arrowSize: 30,
+              },
+            },
+          }}
+        >
+          <Carousel
+            autoplay
+            autoplaySpeed={3500}
+            arrows
+            prevArrow={<MdArrowBackIos />}
+            nextArrow={<MdArrowForwardIos />}
+            infinite={true}
+          >
+            {isMobile
+              ? slidesMobile.map((slide, index) => (
+                  <div className="carousel-image-container" key={index}>
+                    <img
+                      src={slide.src}
+                      alt={slide.title}
+                      className="background-image"
+                    />
+                    <div className="text-overlay">
+                      <Tag type={slide.tagType} text={slide.tagText} />
+                      <div className="heading1">{slide.title}</div>
+                      <div className="subtitle">{slide.subtitle}</div>
+                    </div>
                   </div>
-                </div>
-              ))
-            : slides.map((slide, index) => (
-                <div className="carousel-image-container" key={index}>
-                  <img
-                    src={slide.src}
-                    alt={slide.title}
-                    className="background-image"
-                  />
-                  <div className="text-overlay">
-                    <Tag type={slide.tagType} text={slide.tagText} />
-                    <div className="heading1">{slide.title}</div>
-                    <div className="subtitle">{slide.subtitle}</div>
+                ))
+              : slides.map((slide, index) => (
+                  <div className="carousel-image-container" key={index}>
+                    <img
+                      src={slide.src}
+                      alt={slide.title}
+                      className="background-image"
+                    />
+                    <div className="text-overlay">
+                      <Tag type={slide.tagType} text={slide.tagText} />
+                      <div className="heading1">{slide.title}</div>
+                      <div className="subtitle">{slide.subtitle}</div>
+                    </div>
                   </div>
-                </div>
-              ))}
-        </Carousel>
+                ))}
+          </Carousel>
+        </ConfigProvider>
         <div className="category-scroll-wrapper">
           <div className="category-container">
             {categories.map((category, index) => (
