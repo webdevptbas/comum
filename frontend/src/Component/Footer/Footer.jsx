@@ -137,6 +137,13 @@ const MainFooter = () => {
                   Pinang Kota Tangerang, Banten - 15325
                 </p>
               </div>
+              <div style={{ margin: "20px 0" }}>
+                <p className="footer-title heading5">Comum BSD</p>
+                <p className="footer-subtitle text-l-regular">
+                  Jl. Wijaya BSD City, Kadu Sirung - Pagedangan Kabupaten
+                  Tangerang, Banten - 15330
+                </p>
+              </div>
               <p className="footer-subtitle text-l-regular">
                 info@comumspace.com
               </p>

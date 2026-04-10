@@ -3,7 +3,7 @@ import "./Header.css";
 import "../../index.css";
 import useMediaQuery from "../../Util/useMediaQuery";
 import MobileHeader from "./MobileHeader";
-import DesktopHeader from "./DesktopHeader";
+import DesktopHeader from "./Desktop/DesktopHeader";
 
 const MainHeader = () => {
   const isMobile = useMediaQuery("(max-width: 1024px)");

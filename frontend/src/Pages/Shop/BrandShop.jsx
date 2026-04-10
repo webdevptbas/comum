@@ -77,7 +77,6 @@ const BrandShopPage = () => {
           {processedProducts?.length === 0 && (
             <div className="product-grid heading4">No product available</div>
           )}
-
           <div className="product-grid">
             {processedProducts?.map((product) => (
               <Link key={product._id} to={`/shop/${brand}/${product._id}`}>
