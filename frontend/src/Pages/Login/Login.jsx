@@ -32,7 +32,7 @@ const LoginPage = () => {
 
       dispatch(setCredentials(res));
 
-      message.success("Login success ");
+      message.success("Login success");
       navigate(redirect);
     } catch (err) {
       message.error(err?.data?.message || "Login failed");
