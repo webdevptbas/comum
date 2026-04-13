@@ -1,13 +1,11 @@
-/* * {
-    cursor: default;
-} */
-
 .content {
-    min-height: min-content;
-    background-color: #FFFFFF;
-    /* height: 100vh; */
+  min-height: min-content;
+  background-color: #ffffff;
+  /* height: 100vh; */
 }
 
-.ant-layout, .ant-carousel, .ant-menu-title-content {
-    font-family: "Clash Grotesk";
+.ant-layout,
+.ant-carousel,
+.ant-menu-title-content {
+  font-family: "Clash Grotesk";
 }
