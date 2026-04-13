@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Dropdown, Badge, message } from "antd";
+import { Dropdown, Badge, message, Modal } from "antd";
 import { MdSearch, MdOutlineShoppingCart } from "react-icons/md";
 import { FiCoffee } from "react-icons/fi";
 import { MdSportsTennis } from "react-icons/md";
@@ -17,6 +17,7 @@ const DesktopUtilities = ({ onCartOpen }) => {
   const dispatch = useDispatch();
 
   const [searchOpen, setSearchOpen] = useState(false);
+  const [logoutModal, setLogoutModal] = useState(false);
   const [logoutApiCall] = useLogoutMutation();
 
   const { cartItems } = useSelector((state) => state.cart);
@@ -34,17 +35,26 @@ const DesktopUtilities = ({ onCartOpen }) => {
     if (!userInfo) navigate("/login");
   };
 
-  const logoutHandler = async () => {
+  const confirmLogout = async () => {
     try {
       await logoutApiCall().unwrap();
       dispatch(clearCredentials());
+      setLogoutModal(false);
       navigate("/login");
     } catch (error) {
       message.error(error?.data?.message);
     }
   };
 
-  const dropdownItem = getDropdownItem(userInfo, logoutHandler);
+  const cancelLogout = () => {
+    setLogoutModal(false);
+  };
+
+  const showLogoutModal = () => {
+    setLogoutModal(true);
+  };
+
+  const dropdownItem = getDropdownItem(userInfo, showLogoutModal);
 
   const dropdownContent = (
     <div style={{ backgroundColor: "white" }}>
@@ -126,6 +136,17 @@ const DesktopUtilities = ({ onCartOpen }) => {
           />
         )}
       </div>
+
+      <Modal
+        title="Confirm Logout"
+        open={logoutModal}
+        onOk={confirmLogout}
+        onCancel={cancelLogout}
+        okText="Logout"
+        okButtonProps={{ danger: true }}
+      >
+        <p>Are you sure you want to log out?</p>
+      </Modal>
     </div>
   );
 };
