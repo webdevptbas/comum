@@ -7,6 +7,7 @@ import { clearCredentials } from "../../Slices/authSlice";
 import { useLogoutMutation } from "../../Slices/usersApiSlice";
 import { FaSignOutAlt } from "react-icons/fa";
 import { menu } from "./item";
+import { message, Modal } from "antd";
 
 const ProfileLayout = () => {
   const navigate = useNavigate();
@@ -14,17 +15,27 @@ const ProfileLayout = () => {
   const dispatch = useDispatch();
 
   const [pageTitle, setPageTitle] = useState(menu[0].label);
+  const [logoutModal, setLogoutModal] = useState(false);
 
   const [logoutApiCall] = useLogoutMutation();
 
-  const handleLogout = async () => {
+  const confirmLogout = async () => {
     try {
       await logoutApiCall().unwrap();
       dispatch(clearCredentials());
+      setLogoutModal(false);
       navigate("/login");
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      message.error(error?.data?.message);
     }
+  };
+
+  const cancelLogout = () => {
+    setLogoutModal(false);
+  };
+
+  const showLogoutModal = () => {
+    setLogoutModal(true);
   };
 
   return (
@@ -50,7 +61,7 @@ const ProfileLayout = () => {
               </div>
             ))}
 
-            <div className="profile-menu-item logout" onClick={handleLogout}>
+            <div className="profile-menu-item logout" onClick={showLogoutModal}>
               <FaSignOutAlt />
               <span>Logout</span>
             </div>
@@ -61,6 +72,16 @@ const ProfileLayout = () => {
             <Outlet />
           </div>
         </div>
+        <Modal
+          title="Confirm Logout"
+          open={logoutModal}
+          onOk={confirmLogout}
+          onCancel={cancelLogout}
+          okText="Logout"
+          okButtonProps={{ danger: true }}
+        >
+          <p>Are you sure you want to log out?</p>
+        </Modal>
       </div>
     </>
   );
