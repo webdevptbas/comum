@@ -18,9 +18,9 @@ import ProfileLayout from "./Layout/ProfileLayout/ProfileLayout.jsx";
 import ProfilePage from "./Pages/Profile/Profile.jsx";
 import OrdersPage from "./Pages/Orders/Orders.jsx";
 import ChangePasswordPage from "./Pages/ChangePassword/ChangePassword.jsx";
-import ShippingPage from "./Pages/Shipping/Shipping.jsx";
 import ShopLayout from "./Layout/ShopLayout/ShopLayout.jsx";
 import BrandShopPage from "./Pages/Shop/BrandShop.jsx";
+import CheckoutPage from "./Pages/Checkout/Checkout.jsx";
 
 const router = createBrowserRouter([
   {
@@ -91,8 +91,8 @@ const router = createBrowserRouter([
         element: <CartPage />,
       },
       {
-        path: "/shipping",
-        element: <ShippingPage />,
+        path: "/checkout",
+        element: <CheckoutPage />,
       },
       {
         path: "/profile",
