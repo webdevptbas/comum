@@ -2,7 +2,7 @@ import React from "react";
 import "./Header.css";
 import "../../index.css";
 import useMediaQuery from "../../Util/useMediaQuery";
-import MobileHeader from "./MobileHeader";
+import MobileHeader from "./Mobile/MobileHeader";
 import DesktopHeader from "./Desktop/DesktopHeader";
 
 const MainHeader = () => {
