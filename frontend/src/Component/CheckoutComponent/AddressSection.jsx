@@ -12,7 +12,7 @@ const AddressSection = () => {
         </div>
       </div>
 
-      <p className="address-text">
+      <p className="address-text text-l-regular">
         Jl. Panglima Polim IX No.4, RT/RW/RW: 1/7, Jakarta Selatan...
       </p>
     </Card>

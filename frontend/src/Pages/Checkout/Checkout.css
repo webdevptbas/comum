@@ -4,6 +4,11 @@
   font-family: "Clash Grotesk" !important;
 }
 
+.ant-steps-item-process .ant-steps-item-icon {
+  background-color: #3267e3 !important;
+  border-color: #3267e3 !important;
+}
+
 .ant-steps-item-title {
   font-family: "Clash Grotesk";
 }
@@ -49,6 +54,10 @@
   cursor: pointer;
 }
 
+.summary-card {
+  border-radius: 0;
+}
+
 .summary-row,
 .summary-total {
   display: flex;
@@ -62,6 +71,9 @@
 }
 
 .ant-radio-inner {
-  border-color: #3267e3;
-  background-color: #3267e3;
+  border-color: #3267e3 !important;
+}
+
+.ant-radio-checked::after {
+  border: 1px solid #3267e3 !important;
 }

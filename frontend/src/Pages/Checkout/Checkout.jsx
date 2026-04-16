@@ -17,6 +17,9 @@ const CheckoutPage = () => {
             { title: "Payment" },
             { title: "Complete" },
           ]}
+          type="dot"
+          variant="outlined"
+          titlePlacement="vertical"
         />
       </div>
 
