@@ -20,6 +20,7 @@ const CheckoutPage = () => {
           type="dot"
           variant="outlined"
           titlePlacement="vertical"
+          size="medium"
         />
       </div>
 
