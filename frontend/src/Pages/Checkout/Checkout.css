@@ -79,20 +79,18 @@
   cursor: pointer;
 }
 
-.summary-card {
+.checkout-summary-card {
   border-radius: 0;
 }
 
-.summary-row,
-.summary-total {
+.checkout-summary-row,
+.checkout-summary-total {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 12px;
 }
 
-.summary-total {
-  font-size: 18px;
-  font-weight: bold;
+.checkout-summary-row p {
+  margin: 0;
 }
 
 .ant-radio-inner {
