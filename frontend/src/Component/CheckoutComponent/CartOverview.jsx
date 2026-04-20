@@ -4,18 +4,6 @@ import { formatRupiah } from "../../Util/CartUtils";
 
 const CartOverview = () => {
   const { cartItems } = useSelector((state) => state.cart);
-  const items = [
-    {
-      name: "Helmet",
-      price: "Rp2.480.000",
-    },
-    {
-      name: "Headband",
-      price: "Rp216.000",
-    },
-  ];
-
-  console.log({ cartItems });
 
   return (
     <Card className="checkout-card">
@@ -35,6 +23,7 @@ const CartOverview = () => {
                 <h6 className="heading6 checkout-cart-title">
                   {item.productName} - {item.size}
                 </h6>
+                <p className="text-l-regular"> x {item.quantity}</p>
               </div>
               {/* PRICE */}
               <div className="checkout-cart-price">
