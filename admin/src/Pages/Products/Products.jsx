@@ -4,6 +4,7 @@ import {
   createProduct,
   deleteProduct,
   fetchAllProducts,
+  fetchBrands,
   fetchProductByBrand,
   importProductsFromCsv,
   updateProduct,
@@ -14,14 +15,15 @@ import ProductModal from "./Component/ProductModal";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
+  const [brands, setBrands] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const loadProducts = async (brand) => {
+  const loadProducts = async (brandId) => {
     try {
-      const res = brand
-        ? await fetchProductByBrand(brand)
+      const res = brandId
+        ? await fetchProductByBrand(brandId)
         : await fetchAllProducts();
       setProducts(res);
     } catch (error) {
@@ -30,9 +32,14 @@ const Products = () => {
     }
   };
 
-  useEffect(() => {
-    loadProducts();
-  }, []);
+  const loadBrands = async () => {
+    try {
+      const res = await fetchBrands();
+      setBrands(res);
+    } catch (err) {
+      message.error("Failed to load brands", err);
+    }
+  };
 
   const handleDelete = async (id) => {
     try {
@@ -79,10 +86,15 @@ const Products = () => {
     }
   };
 
+  useEffect(() => {
+    loadProducts();
+    loadBrands();
+  }, []);
+
   return (
     <>
       <ProductToolbar
-        products={products}
+        brands={brands}
         onFilter={loadProducts}
         onAdd={() => {
           setEditingProduct(null);

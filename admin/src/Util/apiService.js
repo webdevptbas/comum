@@ -22,6 +22,7 @@ export const fetchProductById = async (id) => {
     throw error;
   }
 };
+
 export const fetchProductByBrand = async (brand) => {
   try {
     const response = await api.get(`/products/brand/${brand}`);

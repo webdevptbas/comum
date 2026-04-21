@@ -1,12 +1,14 @@
 import { Button, Select, Upload } from "antd";
+import { sortByName } from "../../../Util/sortByName";
 
-const ProductToolbar = ({ products, onFilter, onAdd, onCsvUpload }) => {
-  const brandOptions = [
-    ...Array.from(new Set(products.map((p) => p.brand))).map((brand) => ({
-      label: brand,
-      value: brand,
-    })),
-  ];
+const ProductToolbar = ({ brands, onFilter, onAdd, onCsvUpload }) => {
+  const brandOptions = brands.map((brand) => ({
+    _id: brand._id,
+    value: brand._id,
+    name: brand.name,
+    label: brand.name,
+    disabled: !brand.isActive,
+  }));
 
   return (
     <div style={{ display: "flex", gap: 16, marginBottom: 16 }}>
@@ -15,16 +17,16 @@ const ProductToolbar = ({ products, onFilter, onAdd, onCsvUpload }) => {
         allowClear
         style={{ width: 200 }}
         onChange={onFilter}
-        options={brandOptions}
+        options={sortByName(brandOptions)}
       />
 
-      <Upload
+      {/* <Upload
         accept=".csv"
         showUploadList={false}
         customRequest={({ file }) => onCsvUpload(file)}
       >
         <Button>📥 Import CSV</Button>
-      </Upload>
+      </Upload> */}
 
       <Button type="primary" onClick={onAdd}>
         + Add Product
