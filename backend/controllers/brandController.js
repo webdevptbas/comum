@@ -38,9 +38,7 @@ exports.addBrand = async (req, res) => {
 // @desc get brand list
 exports.getBrands = async (req, res) => {
   try {
-    const brands = await Brand.find({ isActive: true }).select(
-      "name slug isActive",
-    );
+    const brands = await Brand.find().select("name slug isActive");
 
     res.status(200).json(brands);
   } catch (err) {
