@@ -113,6 +113,20 @@ exports.getProductById = async (req, res) => {
   }
 };
 
+// @desc    Get products by Brand
+exports.getProductByBrand = async (req, res) => {
+  try {
+    const product = await Product.find({ brand: req.params.brand })
+      .populate("brand", "name")
+      .populate("brandType", "name");
+    if (!product) return res.status(404).json({ message: "Product not found" });
+
+    res.status(200).json(product);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
 // @desc    Update a product
 exports.updateProduct = async (req, res) => {
   try {
