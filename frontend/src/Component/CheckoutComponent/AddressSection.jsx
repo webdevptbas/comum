@@ -1,4 +1,4 @@
-import { Button, Card } from "antd";
+import { Button, Card, Form } from "antd";
 import { EditOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import { useState } from "react";
@@ -7,6 +7,7 @@ import ChangeAddressModal from "./ChangeAddressModal";
 const AddressSection = () => {
   const cart = useSelector((state) => state.cart);
   const { shippingAddress } = cart;
+  const [form] = Form.useForm();
 
   const [open, setOpen] = useState(false);
 
@@ -37,7 +38,11 @@ const AddressSection = () => {
           Jl. Panglima Polim IX No.4, RT/RW/RW: 1/7, Jakarta Selatan...
         </p>
       </Card>
-      <ChangeAddressModal open={open} onCancel={() => setOpen(false)} />
+      <ChangeAddressModal
+        open={open}
+        onCancel={() => setOpen(false)}
+        form={form}
+      />
     </>
   );
 };

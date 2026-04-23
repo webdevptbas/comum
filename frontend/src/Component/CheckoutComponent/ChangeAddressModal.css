@@ -2,6 +2,8 @@
   margin: 0 0 30px 0;
 }
 
-.ant-select-placeholder {
+.ant-select-placeholder,
+.ant-select-content,
+.ant-select-item-option-content {
   font-family: "Clash Grotesk" !important;
 }
