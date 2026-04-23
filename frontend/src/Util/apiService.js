@@ -110,3 +110,46 @@ export const fetchCategories = async () => {
     throw error;
   }
 };
+
+//---------------------------
+//-----RAJAONGKIR API--------
+//---------------------------
+export const fetchProvinces = async () => {
+  try {
+    const response = await api.get("/rajaongkir/province");
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching provinces:", error);
+    throw error;
+  }
+};
+
+export const fetchCitiesById = async (id) => {
+  try {
+    const response = await api.get(`/rajaongkir/city/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching cities:", error);
+    throw error;
+  }
+};
+
+export const fetchDistrictsByCityId = async (id) => {
+  try {
+    const response = await api.get(`/rajaongkir/district/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching districts:", error);
+    throw error;
+  }
+};
+
+export const fetchSubDistrictsByDistrictId = async (id) => {
+  try {
+    const response = await api.get(`/rajaongkir/sub-district/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching sub districts:", error);
+    throw error;
+  }
+};
