@@ -208,6 +208,11 @@
   color: #ffffff !important;
 }
 
+.checkout-btn:disabled {
+  background-color: #e0e0e0 !important;
+  color: #ffffff !important;
+}
+
 .cart-close {
   display: flex;
   align-items: center;
