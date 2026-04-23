@@ -4,6 +4,7 @@ const cookieParser = require("cookie-parser");
 const connectDB = require("./config/db");
 const cors = require("cors");
 const path = require("path");
+dotenv.config();
 
 const authRoutes = require("./routes/authRoutes");
 const productRoutes = require("./routes/productRoutes");
@@ -14,9 +15,9 @@ const subscriptionRoutes = require("./routes/subscriptionRoutes");
 const brandRoutes = require("./routes/brandRoutes");
 const brandTypeRoutes = require("./routes/brandTypeRoutes");
 const categoryRoutes = require("./routes/categoryRoutes");
+const rajaOngkirRoutes = require("./routes/rajaOngkirRoutes");
 
 const app = express();
-dotenv.config();
 connectDB();
 
 const allowedOrigins = [
@@ -59,5 +60,6 @@ app.use("/api/subscribe", subscriptionRoutes);
 app.use("/api/brands", brandRoutes);
 app.use("/api/brand-types", brandTypeRoutes);
 app.use("/api/categories", categoryRoutes);
+app.use("/api/rajaongkir", rajaOngkirRoutes);
 
 module.exports = app;
