@@ -13,7 +13,7 @@ body {
 /* BASE STYLING */
 .title {
   line-height: 44px;
-  font-family: 'Clash Grotesk';
+  font-family: "Clash Grotesk";
   color: #ffffff;
   cursor: default;
 }
@@ -91,7 +91,8 @@ body {
   font-family: "Clash Grotesk";
 }
 
-.text-menu, .text-button-regular {
+.text-menu,
+.text-button-regular {
   font-weight: 500;
   font-size: 16px;
   font-family: "Clash Grotesk";
@@ -117,11 +118,11 @@ body {
 .white-button {
   width: fit-content;
   background-color: #ffffff;
-  color: #0A0A0A;
+  color: #0a0a0a;
 }
 
 .link {
-  color: #3267E3;
+  color: #3267e3;
   cursor: pointer;
 }
 
@@ -130,7 +131,12 @@ body {
   width: 1px;
   background-color: #252525; /* or black for darker line */
 }
-@media (max-width: 768px){
+
+.ant-btn {
+  border-radius: 0;
+}
+
+@media (max-width: 768px) {
   .title {
     font-size: 24px;
     font-weight: 600;
@@ -160,7 +166,8 @@ body {
     font-weight: 600;
     font-size: 16px;
   }
-  .text-menu, .text-button-regular {
+  .text-menu,
+  .text-button-regular {
     font-weight: 500;
     font-size: 15px;
   }
