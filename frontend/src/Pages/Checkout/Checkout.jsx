@@ -4,8 +4,22 @@ import CartOverview from "../../Component/CheckoutComponent/CartOverview";
 import SummaryCard from "../../Component/CheckoutComponent/SummaryCard";
 import "./Checkout.css";
 import { Steps } from "antd";
+import { useEffect, useState } from "react";
+import { setShippingPrice } from "../../Slices/cartSlice";
+import { useDispatch } from "react-redux";
 
 const CheckoutPage = () => {
+  const [shippingOptions, setShippingOptions] = useState([]);
+  const [selectedShipping, setSelectedShipping] = useState(null);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (selectedShipping) {
+      dispatch(setShippingPrice(selectedShipping.cost));
+    }
+  }, [selectedShipping]);
+
   return (
     <div className="checkout-page-container">
       {/* STEP INDICATOR */}
@@ -27,8 +41,12 @@ const CheckoutPage = () => {
       <div className="checkout-container">
         {/* LEFT */}
         <div className="checkout-left">
-          <AddressSection />
-          <ShippingMethod />
+          <AddressSection setShippingOptions={setShippingOptions} />
+          <ShippingMethod
+            onChange={setSelectedShipping}
+            options={shippingOptions}
+            value={selectedShipping}
+          />
           <CartOverview />
         </div>
 
