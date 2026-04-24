@@ -8,7 +8,13 @@ import {
   fetchSubDistrictsByDistrictId,
 } from "../../Util/apiService";
 
-const ChangeAddressModal = ({ open, onCancel, form }) => {
+const ChangeAddressModal = ({
+  open,
+  onCancel,
+  form,
+  onFinish,
+  shippingAddress,
+}) => {
   const [provinces, setProvinces] = useState([]);
   const [cities, setCities] = useState([]);
   const [districts, setDistrict] = useState([]);
@@ -56,6 +62,30 @@ const ChangeAddressModal = ({ open, onCancel, form }) => {
     }
   };
 
+  useEffect(() => {
+    if (open && shippingAddress) {
+      form.setFieldsValue(shippingAddress);
+    }
+  }, [open]);
+
+  useEffect(() => {
+    if (!open || !shippingAddress?.province?.value) return;
+
+    loadCities(shippingAddress.province.value);
+  }, [open]);
+
+  useEffect(() => {
+    if (!open || !shippingAddress?.city?.value) return;
+
+    loadDistricts(shippingAddress.city.value);
+  }, [open]);
+
+  useEffect(() => {
+    if (!open || !shippingAddress?.district?.value) return;
+
+    loadSubDistricts(shippingAddress.district.value);
+  }, [open]);
+
   return (
     <>
       <Modal
@@ -71,20 +101,30 @@ const ChangeAddressModal = ({ open, onCancel, form }) => {
         <h4 className="heading4 change-address-title">
           Change Shipment Address
         </h4>
-        <Form form={form} variant="outlined" layout="vertical">
+        <Form
+          form={form}
+          variant="outlined"
+          layout="vertical"
+          onFinish={onFinish}
+        >
           <Form.Item
             label="Province"
             name="province"
             rules={[{ required: true, message: "Please select your Province" }]}
           >
             <Select
-              placeholder="eg DKI Jakarta, Jawa Barat, Jawa Timur"
+              placeholder="eg. DKI Jakarta, Jawa Barat, Jawa Timur"
               options={provinces}
               showSearch={{ optionFilterProp: "label" }}
               onChange={(value) => {
-                form.setFieldsValue({ city: null });
-                loadCities(value);
+                form.setFieldsValue({
+                  city: null,
+                  district: null,
+                  subdistrict: null,
+                });
+                loadCities(value.value);
               }}
+              labelInValue
             />
           </Form.Item>
           <Form.Item
@@ -93,13 +133,14 @@ const ChangeAddressModal = ({ open, onCancel, form }) => {
             rules={[{ required: true, message: "Please select your City" }]}
           >
             <Select
-              placeholder="eg Jakarta, Surabaya"
+              placeholder="eg. Jakarta, Surabaya, Bandung"
               options={cities}
               showSearch={{ optionFilterProp: "label" }}
               onChange={(value) => {
-                form.setFieldsValue({ district: null });
-                loadDistricts(value);
+                form.setFieldsValue({ district: null, subdistrict: null });
+                loadDistricts(value.value);
               }}
+              labelInValue
             />
           </Form.Item>
           <Form.Item
@@ -113,20 +154,21 @@ const ChangeAddressModal = ({ open, onCancel, form }) => {
             ]}
           >
             <Select
-              placeholder="eg. "
+              placeholder="eg. Kebon Jeruk, Palmerah"
               options={districts}
               showSearch={{ optionFilterProp: "label" }}
               onChange={(value) => {
                 form.setFieldsValue({ subdistrict: null });
-                loadSubDistricts(value);
+                loadSubDistricts(value.value);
               }}
+              labelInValue
             />
           </Form.Item>
           <Form.Item label="Kelurahan/Sub District" name="subdistrict">
             <Select
-              placeholder="eg. "
               options={subDistricts}
               showSearch={{ optionFilterProp: "label" }}
+              labelInValue
             />
           </Form.Item>
           <Form.Item
