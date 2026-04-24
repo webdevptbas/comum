@@ -77,3 +77,30 @@ exports.getSubDistrictsByDistrictId = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
+exports.districtCalculateCost = async (req, res) => {
+  try {
+    const { destination, weight } = req.body;
+
+    const response = await axios.post(
+      `${BASE_URL}/calculate/district/domestic-cost`,
+      new URLSearchParams({
+        origin: "6160",
+        destination,
+        weight,
+        courier: "jne",
+        price: "lowest",
+      }),
+      {
+        headers: {
+          key: process.env.RAJAONGKIR_API_KEY,
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      },
+    );
+
+    res.json(response.data);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
