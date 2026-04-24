@@ -153,3 +153,8 @@ export const fetchSubDistrictsByDistrictId = async (id) => {
     throw error;
   }
 };
+
+export const districtCalculateCost = async (payload) => {
+  const response = await api.post("/rajaongkir/cost", payload);
+  return response.data;
+};
