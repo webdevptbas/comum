@@ -1,26 +1,42 @@
-import { Button, Card, Form } from "antd";
+import { Button, Card, Form, message } from "antd";
 import { EditOutlined } from "@ant-design/icons";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import ChangeAddressModal from "./ChangeAddressModal";
+import { saveShippingAddress } from "../../Slices/cartSlice";
+import { districtCalculateCost } from "../../Util/apiService";
 
-const AddressSection = () => {
+const AddressSection = ({ setShippingOptions }) => {
   const cart = useSelector((state) => state.cart);
-  const { shippingAddress } = cart;
+  const { shippingAddress, totalWeight } = cart;
   const [form] = Form.useForm();
+  const dispatch = useDispatch();
 
   const [open, setOpen] = useState(false);
 
-  const [address, setAddress] = useState(shippingAddress?.address || "");
-  const [city, setCity] = useState(shippingAddress?.city || "");
-  const [district, setDistrict] = useState(shippingAddress?.district || "");
-  const [subDistrict, setSubDistrict] = useState(
-    shippingAddress?.subDistrict || "",
-  );
-  const [zipCode, setZipCode] = useState(shippingAddress?.zip_code || "");
-
   const handleModalOpen = () => {
     setOpen(true);
+  };
+
+  const handleFinish = async (values) => {
+    dispatch(saveShippingAddress(values));
+
+    try {
+      const payload = {
+        destination: values.district.value,
+        weight: totalWeight,
+      };
+
+      const res = await districtCalculateCost(payload);
+
+      const options = res?.data || [];
+
+      setShippingOptions(options);
+    } catch (err) {
+      message.error(err);
+    }
+
+    setOpen(false);
   };
 
   return (
@@ -35,13 +51,18 @@ const AddressSection = () => {
         </div>
 
         <p className="address-text text-l-regular">
-          Jl. Panglima Polim IX No.4, RT/RW/RW: 1/7, Jakarta Selatan...
+          {shippingAddress?.address?.toUpperCase()},{" "}
+          {shippingAddress?.subdistrict && shippingAddress?.subdistrict?.label},{" "}
+          {shippingAddress?.district?.label}, {shippingAddress?.city?.label},{" "}
+          {shippingAddress?.province?.label}
         </p>
       </Card>
       <ChangeAddressModal
         open={open}
         onCancel={() => setOpen(false)}
         form={form}
+        onFinish={handleFinish}
+        shippingAddress={shippingAddress}
       />
     </>
   );
