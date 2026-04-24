@@ -136,6 +136,10 @@ body {
   border-radius: 0;
 }
 
+.ant-card {
+  font-family: "Clash Grotesk" !important;
+}
+
 @media (max-width: 768px) {
   .title {
     font-size: 24px;

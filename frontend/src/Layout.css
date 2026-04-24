@@ -7,5 +7,5 @@
 .ant-layout,
 .ant-carousel,
 .ant-menu-title-content {
-  font-family: "Clash Grotesk";
+  font-family: "Clash Grotesk" !important;
 }
