@@ -100,6 +100,12 @@ const productSchema = new mongoose.Schema(
             trim: true,
           },
 
+          weight: {
+            type: Number, // in grams
+            required: true,
+            min: 1000,
+          },
+
           price: {
             type: Number,
             required: true,
