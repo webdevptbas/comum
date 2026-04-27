@@ -72,6 +72,7 @@ const ProductDetailPage = () => {
         productName: product.productName,
         imageUrl: product.imageUrl[0],
         size: selectedItem.size,
+        weight: selectedItem.weight,
         price: finalPrice,
         stock: selectedItem.stock,
         quantity: quantity,
