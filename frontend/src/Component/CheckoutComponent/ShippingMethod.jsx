@@ -2,7 +2,6 @@ import { Card, Radio } from "antd";
 import { formatRupiah } from "../../Util/CartUtils";
 
 const ShippingMethod = ({ options = [], value, onChange }) => {
-  console.log({ options });
   return (
     <Card className="checkout-card shipping-checkout-card">
       <div className="shipping-inner">
@@ -14,7 +13,7 @@ const ShippingMethod = ({ options = [], value, onChange }) => {
             value={value}
             onChange={(e) => onChange(e?.target?.value)}
           >
-            {options.map((item) => (
+            {options?.map((item) => (
               <Radio
                 key={item?.service}
                 value={item}
