@@ -150,3 +150,60 @@
 .ant-radio-checked::after {
   border: 1px solid #3267e3 !important;
 }
+
+@media (max-width: 1024px) {
+  .checkout-page-container {
+    padding: 30px;
+  }
+
+  .checkout-container {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .event-schedule-title {
+    margin: 30px 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .checkout-page-container {
+    padding: 2vh 0 30px 0;
+  }
+
+  .checkout-steps {
+    padding: 0 30px 0 30px;
+  }
+
+  .checkout-container {
+    flex-direction: column;
+  }
+
+  .checkout-cart-info {
+    align-items: start;
+  }
+
+  .checkout-cart-information-mobile {
+    width: 100%;
+  }
+
+  .checkout-cart-price-mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 0;
+    flex: 1;
+  }
+
+  .checkout-cart-name {
+    width: 90%;
+  }
+
+  .checkout-cart-discount {
+    justify-content: start;
+  }
+
+  .checkout-left {
+    gap: 12px;
+  }
+}

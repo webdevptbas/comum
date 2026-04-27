@@ -7,10 +7,12 @@ import { Steps } from "antd";
 import { useEffect, useState } from "react";
 import { setShippingPrice } from "../../Slices/cartSlice";
 import { useDispatch } from "react-redux";
+import useMediaQuery from "../../Util/useMediaQuery";
 
 const CheckoutPage = () => {
   const [shippingOptions, setShippingOptions] = useState([]);
   const [selectedShipping, setSelectedShipping] = useState(null);
+  const isMobile = useMediaQuery("(max-width: 1024px)");
 
   const dispatch = useDispatch();
 
@@ -35,6 +37,7 @@ const CheckoutPage = () => {
           variant="outlined"
           titlePlacement="vertical"
           size="medium"
+          orientation="horizontal"
         />
       </div>
 
