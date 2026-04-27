@@ -10,6 +10,11 @@ export const updateCart = (state) => {
     state.cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0),
   );
 
+  state.totalWeight = state.cartItems.reduce(
+    (acc, item) => acc + (item.weight || 0) * item.quantity,
+    0,
+  );
+
   //calculate shipping price
   state.shippingPrice = addDecimals(state.shippingPrice || 0);
 
