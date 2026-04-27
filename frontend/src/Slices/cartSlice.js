@@ -7,7 +7,7 @@ const initialState = localStorage.getItem("cart")
       cartItems: [],
       shippingAddress: {},
       paymentMethod: "",
-      totalWeight: 1000,
+      totalWeight: 0,
       itemsPrice: 0,
       shippingPrice: 0,
       totalPrice: 0,
