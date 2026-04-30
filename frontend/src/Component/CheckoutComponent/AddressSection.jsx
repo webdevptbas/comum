@@ -4,11 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import ChangeAddressModal from "./ChangeAddressModal";
 import { saveShippingAddress } from "../../Slices/cartSlice";
-import { districtCalculateCost } from "../../Util/apiService";
 
-const AddressSection = ({ setShippingOptions }) => {
+const AddressSection = () => {
   const cart = useSelector((state) => state.cart);
-  const { shippingAddress, totalWeight } = cart;
+  const { shippingAddress } = cart;
   const [form] = Form.useForm();
   const dispatch = useDispatch();
 
@@ -18,24 +17,8 @@ const AddressSection = ({ setShippingOptions }) => {
     setOpen(true);
   };
 
-  const handleFinish = async (values) => {
+  const handleFinish = (values) => {
     dispatch(saveShippingAddress(values));
-
-    try {
-      const payload = {
-        destination: values.district.value,
-        weight: totalWeight,
-      };
-
-      const res = await districtCalculateCost(payload);
-
-      const options = res?.data || [];
-
-      setShippingOptions(options);
-    } catch (err) {
-      message.error(err);
-    }
-
     setOpen(false);
   };
 
