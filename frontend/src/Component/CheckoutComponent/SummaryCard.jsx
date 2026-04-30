@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { formatRupiah } from "../../Util/CartUtils";
 
 const SummaryCard = () => {
-  const { itemsPrice, shippingPrice, totalPrice } = useSelector(
+  const { itemsPrice, shippingPrice, totalPrice, totalWeight } = useSelector(
     (state) => state.cart,
   );
 
@@ -19,6 +19,11 @@ const SummaryCard = () => {
       <div className="text-l-regular checkout-summary-row">
         <p>Shipping Cost</p>
         <p>{formatRupiah(shippingPrice)}</p>
+      </div>
+
+      <div className="text-l-regular checkout-summary-row">
+        <p>{`Shipping Weight(s)`}</p>
+        <p>{totalWeight / 1000} kg</p>
       </div>
 
       <div className="text-l-regular checkout-summary-total">
