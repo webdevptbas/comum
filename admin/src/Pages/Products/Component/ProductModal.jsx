@@ -428,7 +428,7 @@ const ProductModal = ({
                         <Form.Item
                           {...restField}
                           name={[name, "weight"]}
-                          label="Weight"
+                          label="Weight (grams)"
                           rules={[{ required: true }]}
                         >
                           <InputNumber min={1000} style={{ width: "100%" }} />
