@@ -98,6 +98,7 @@ const DesktopUtilities = ({ onCartOpen }) => {
           trigger={["click"]}
           placement="bottomRight"
           arrow
+          getPopupContainer={(triggerNode) => triggerNode.parentNode}
         >
           <MdSearch style={{ fontSize: "20px", cursor: "pointer" }} />
         </Dropdown>
@@ -108,6 +109,7 @@ const DesktopUtilities = ({ onCartOpen }) => {
             menu={{ items: dropdownItem }}
             trigger={["click"]}
             placement="bottomRight"
+            getPopupContainer={(triggerNode) => triggerNode.parentNode}
           >
             <FaRegUser style={{ fontSize: "20px", cursor: "pointer" }} />
           </Dropdown>
