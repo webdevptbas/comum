@@ -7,11 +7,13 @@ import { message, Steps } from "antd";
 import { useEffect, useState } from "react";
 import { saveShippingMethod, setShippingPrice } from "../../Slices/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 import useMediaQuery from "../../Util/useMediaQuery";
 import { districtCalculateCost } from "../../Util/apiService";
 
 const CheckoutPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { shippingAddress, totalWeight, shippingMethod } = useSelector(
     (state) => state.cart,
   );
@@ -92,7 +94,11 @@ const CheckoutPage = () => {
 
         {/* RIGHT */}
         <div className="checkout-right">
-          <SummaryCard />
+          <SummaryCard
+            onClick={() => {
+              navigate("/payment");
+            }}
+          />
         </div>
       </div>
     </div>
