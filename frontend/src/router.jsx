@@ -21,6 +21,7 @@ import ChangePasswordPage from "./Pages/ChangePassword/ChangePassword.jsx";
 import ShopLayout from "./Layout/ShopLayout/ShopLayout.jsx";
 import BrandShopPage from "./Pages/Shop/BrandShop.jsx";
 import CheckoutPage from "./Pages/Checkout/Checkout.jsx";
+import PrivateRoute from "../src/Util/PrivateRoute.jsx";
 
 const router = createBrowserRouter([
   {
@@ -91,24 +92,30 @@ const router = createBrowserRouter([
         element: <CartPage />,
       },
       {
-        path: "/checkout",
-        element: <CheckoutPage />,
-      },
-      {
-        path: "/profile",
-        element: <ProfileLayout />, // wrapper
+        path: "",
+        element: <PrivateRoute />,
         children: [
           {
-            index: true,
-            element: <ProfilePage />, // /profile
+            path: "/checkout",
+            element: <CheckoutPage />,
           },
           {
-            path: "orders",
-            element: <OrdersPage />,
-          },
-          {
-            path: "change-password",
-            element: <ChangePasswordPage />,
+            path: "/profile",
+            element: <ProfileLayout />, // wrapper
+            children: [
+              {
+                index: true,
+                element: <ProfilePage />, // /profile
+              },
+              {
+                path: "orders",
+                element: <OrdersPage />,
+              },
+              {
+                path: "change-password",
+                element: <ChangePasswordPage />,
+              },
+            ],
           },
         ],
       },
