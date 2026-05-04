@@ -2,7 +2,7 @@ import { Card, Button } from "antd";
 import { useSelector } from "react-redux";
 import { formatRupiah } from "../../Util/CartUtils";
 
-const SummaryCard = () => {
+const SummaryCard = ({ onClick }) => {
   const { itemsPrice, shippingPrice, totalPrice, totalWeight } = useSelector(
     (state) => state.cart,
   );
@@ -31,7 +31,11 @@ const SummaryCard = () => {
         <p>{formatRupiah(totalPrice)}</p>
       </div>
 
-      <Button className="text-button-regular button checkout-btn" block>
+      <Button
+        className="text-button-regular button checkout-btn"
+        block
+        onClick={onClick}
+      >
         Place Your Order
       </Button>
     </Card>

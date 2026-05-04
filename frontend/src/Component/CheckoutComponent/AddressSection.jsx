@@ -8,6 +8,7 @@ import { saveShippingAddress } from "../../Slices/cartSlice";
 const AddressSection = () => {
   const cart = useSelector((state) => state.cart);
   const { shippingAddress } = cart;
+  const hasAddress = Boolean(shippingAddress?.district);
   const [form] = Form.useForm();
   const dispatch = useDispatch();
 
@@ -34,10 +35,17 @@ const AddressSection = () => {
         </div>
 
         <p className="address-text text-l-regular">
-          {shippingAddress?.address?.toUpperCase()},{" "}
-          {shippingAddress?.subdistrict && shippingAddress?.subdistrict?.label},{" "}
-          {shippingAddress?.district?.label}, {shippingAddress?.city?.label},{" "}
-          {shippingAddress?.province?.label}
+          {hasAddress ? (
+            <>
+              {shippingAddress?.address?.toUpperCase()},{" "}
+              {shippingAddress?.subdistrict &&
+                shippingAddress?.subdistrict?.label}
+              , {shippingAddress?.district?.label},{" "}
+              {shippingAddress?.city?.label}, {shippingAddress?.province?.label}
+            </>
+          ) : (
+            <p>Set your shipment address</p>
+          )}
         </p>
       </Card>
       <ChangeAddressModal
