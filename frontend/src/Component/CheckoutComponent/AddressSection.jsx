@@ -1,4 +1,4 @@
-import { Button, Card, Form, message } from "antd";
+import { Button, Card, Form } from "antd";
 import { EditOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
@@ -37,11 +37,12 @@ const AddressSection = () => {
         <p className="address-text text-l-regular">
           {hasAddress ? (
             <>
-              {shippingAddress?.address?.toUpperCase()},{" "}
+              {shippingAddress?.address &&
+                `${shippingAddress?.address?.toUpperCase()}, `}
               {shippingAddress?.subdistrict &&
-                shippingAddress?.subdistrict?.label}
-              , {shippingAddress?.district?.label},{" "}
-              {shippingAddress?.city?.label}, {shippingAddress?.province?.label}
+                `${shippingAddress?.subdistrict?.label}, `}
+              {shippingAddress?.district?.label}, {shippingAddress?.city?.label}
+              , {shippingAddress?.province?.label}
             </>
           ) : (
             <p>Set your shipment address</p>

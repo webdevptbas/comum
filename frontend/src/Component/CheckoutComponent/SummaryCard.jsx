@@ -7,6 +7,8 @@ const SummaryCard = ({ onClick }) => {
     (state) => state.cart,
   );
 
+  const kilogramConvert = totalWeight / 1000;
+
   return (
     <Card className="checkout-summary-card">
       <h5 className="heading5 checkout-summary-title">Total Bill</h5>
@@ -23,7 +25,7 @@ const SummaryCard = ({ onClick }) => {
 
       <div className="text-l-regular checkout-summary-row">
         <p>{`Shipping Weight(s)`}</p>
-        <p>{totalWeight / 1000} kg</p>
+        <p>{Math.ceil(kilogramConvert)} kg</p>
       </div>
 
       <div className="text-l-regular checkout-summary-total">
