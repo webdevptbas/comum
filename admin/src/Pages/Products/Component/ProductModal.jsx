@@ -431,7 +431,7 @@ const ProductModal = ({
                           label="Weight (grams)"
                           rules={[{ required: true }]}
                         >
-                          <InputNumber min={1000} style={{ width: "100%" }} />
+                          <InputNumber min={10} style={{ width: "100%" }} />
                         </Form.Item>
 
                         <Form.Item
