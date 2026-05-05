@@ -239,13 +239,6 @@
 }
 
 /* submenu styling */
-/* Mega menu container (Shop dropdown) */
-.ant-menu-submenu-popup {
-  background-color: transparent !important;
-  transform: translateX(-70%);
-  min-width: 1000px;
-  max-width: 1200px;
-}
 
 /* Make dropdown menu layout horizontal */
 .ant-menu-submenu .ant-menu {
