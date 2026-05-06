@@ -22,6 +22,9 @@ import ShopLayout from "./Layout/ShopLayout/ShopLayout.jsx";
 import BrandShopPage from "./Pages/Shop/BrandShop.jsx";
 import CheckoutPage from "./Pages/Checkout/Checkout.jsx";
 import PrivateRoute from "../src/Util/PrivateRoute.jsx";
+import CheckoutLayout from "./Layout/CheckoutLayout/CheckoutLayout.jsx";
+import PaymentPage from "./Pages/Payment/Payment.jsx";
+import CompletedPage from "./Pages/Completed/Completed.jsx";
 
 const router = createBrowserRouter([
   {
@@ -97,15 +100,26 @@ const router = createBrowserRouter([
         children: [
           {
             path: "/checkout",
-            element: <CheckoutPage />,
+            element: <CheckoutLayout currentStep={0} />,
+            children: [{ index: true, element: <CheckoutPage /> }],
+          },
+          {
+            path: "/payment",
+            element: <CheckoutLayout currentStep={1} />,
+            children: [{ index: true, element: <PaymentPage /> }],
+          },
+          {
+            path: "/complete",
+            element: <CheckoutLayout currentStep={2} />,
+            children: [{ index: true, element: <CompletedPage /> }],
           },
           {
             path: "/profile",
-            element: <ProfileLayout />, // wrapper
+            element: <ProfileLayout />,
             children: [
               {
                 index: true,
-                element: <ProfilePage />, // /profile
+                element: <ProfilePage />,
               },
               {
                 path: "orders",
