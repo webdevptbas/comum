@@ -28,7 +28,7 @@ const SummaryCard = ({ onClick }) => {
         <p>{Math.ceil(kilogramConvert)} kg</p>
       </div>
 
-      <div className="text-l-regular checkout-summary-total">
+      <div className="text-l-medium checkout-summary-total">
         <p>Total Bill</p>
         <p>{formatRupiah(totalPrice)}</p>
       </div>
