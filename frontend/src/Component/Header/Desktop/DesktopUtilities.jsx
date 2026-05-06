@@ -94,12 +94,14 @@ const DesktopUtilities = ({ onCartOpen }) => {
         <Dropdown
           open={searchOpen}
           onOpenChange={setSearchOpen}
-          dropdownRender={() => dropdownContent}
+          popupRender={() => dropdownContent}
           trigger={["click"]}
           placement="bottomRight"
           arrow
         >
-          <MdSearch style={{ fontSize: "20px", cursor: "pointer" }} />
+          <span>
+            <MdSearch style={{ fontSize: "20px", cursor: "pointer" }} />
+          </span>
         </Dropdown>
 
         {/* user dropdown */}
@@ -109,7 +111,9 @@ const DesktopUtilities = ({ onCartOpen }) => {
             trigger={["click"]}
             placement="bottomRight"
           >
-            <FaRegUser style={{ fontSize: "20px", cursor: "pointer" }} />
+            <span>
+              <FaRegUser style={{ fontSize: "20px", cursor: "pointer" }} />
+            </span>
           </Dropdown>
         ) : (
           <FaRegUser
