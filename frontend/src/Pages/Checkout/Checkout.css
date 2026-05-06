@@ -1,12 +1,10 @@
 .checkout-page-container {
-  padding: 4vh 60px 60px 60px;
-  background-color: #f5f5f5;
+  margin-top: 6vh;
   font-family: "Clash Grotesk" !important;
 }
 
 .checkout-container {
   display: flex;
-  margin: 30px 0 0 0;
   gap: 12px;
 }
 
@@ -42,8 +40,9 @@
 
 .checkout-cart-name {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  width: 70%;
+  min-width: 70%;
   gap: 20px;
 }
 

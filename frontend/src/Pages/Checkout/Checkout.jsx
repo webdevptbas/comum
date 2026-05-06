@@ -22,7 +22,7 @@ const CheckoutPage = () => {
   const [selectedShipping, setSelectedShipping] = useState(
     shippingMethod || null,
   );
-  const isMobile = useMediaQuery("(max-width: 1024px)");
+  const isMobile = useMediaQuery("(max-width: 768px)");
 
   useEffect(() => {
     if (shippingMethod) {
@@ -63,23 +63,6 @@ const CheckoutPage = () => {
 
   return (
     <div className="checkout-page-container">
-      {/* STEP INDICATOR */}
-      <div className="checkout-steps">
-        <Steps
-          current={0}
-          items={[
-            { title: "Checkout" },
-            { title: "Payment" },
-            { title: "Complete" },
-          ]}
-          type="dot"
-          variant="outlined"
-          titlePlacement="vertical"
-          size="medium"
-          orientation="horizontal"
-        />
-      </div>
-
       <div className="checkout-container">
         {/* LEFT */}
         <div className="checkout-left">
