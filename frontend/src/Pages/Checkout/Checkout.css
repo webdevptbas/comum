@@ -1,5 +1,4 @@
 .checkout-page-container {
-  margin-top: 6vh;
   font-family: "Clash Grotesk" !important;
 }
 
@@ -61,7 +60,6 @@
 
 .checkout-cart-discount {
   display: flex;
-  justify-content: space-between;
   gap: 4px;
 }
 
@@ -151,10 +149,6 @@
 }
 
 @media (max-width: 1024px) {
-  .checkout-page-container {
-    padding: 30px;
-  }
-
   .checkout-container {
     flex-direction: column;
     gap: 24px;
@@ -163,11 +157,15 @@
   .event-schedule-title {
     margin: 30px 0;
   }
+
+  .checkout-cart-name {
+    justify-content: start;
+  }
 }
 
 @media (max-width: 768px) {
   .checkout-page-container {
-    padding: 2vh 0 30px 0;
+    padding: 0 0 30px 0;
   }
 
   .checkout-steps {
@@ -195,7 +193,7 @@
   }
 
   .checkout-cart-name {
-    width: 90%;
+    width: 80%;
   }
 
   .checkout-cart-discount {
