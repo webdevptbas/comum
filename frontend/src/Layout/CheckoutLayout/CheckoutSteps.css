@@ -36,6 +36,7 @@
 }
 
 .step-title {
+  margin-top: 20px;
   margin-bottom: 0;
 }
 
@@ -48,6 +49,15 @@
 }
 
 @media (max-width: 768px) {
+  .step-circle {
+    width: 16px;
+    height: 16px;
+  }
+
+  .step-title {
+    margin-top: 10px;
+  }
+
   .custom-steps {
     padding: 24px;
   }
