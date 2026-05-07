@@ -16,8 +16,18 @@ const CheckoutSteps = ({ currentStep }) => {
                 : ""
           }`}
         >
-          <div className="step-circle">{index + 1}</div>
-          <span>{step}</span>
+          <div className="step-circle"></div>
+          <h4
+            className={`heading4 step-title ${
+              index === currentStep
+                ? "active"
+                : index < currentStep
+                  ? "completed"
+                  : ""
+            }`}
+          >
+            {step}
+          </h4>
         </div>
       ))}
     </div>

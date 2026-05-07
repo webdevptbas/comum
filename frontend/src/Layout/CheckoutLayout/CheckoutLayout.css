@@ -3,3 +3,15 @@
   background-color: #f5f5f5;
   font-family: "Clash Grotesk" !important;
 }
+
+@media (max-width: 1024) {
+  .checkout-layout {
+    padding: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .checkout-layout {
+    padding: 0;
+  }
+}
