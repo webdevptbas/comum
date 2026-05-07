@@ -48,7 +48,10 @@ const CartOverview = () => {
                       </div>
                     </div>
                   </div>
-                  <p className="text-l-regular"> x {item.quantity}</p>
+                  <p className="checkout-cart-quantity text-l-regular">
+                    {" "}
+                    x {item.quantity}
+                  </p>
                 </>
               ) : (
                 <>
