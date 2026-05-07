@@ -39,7 +39,7 @@
 
 .checkout-cart-name {
   display: flex;
-  justify-content: space-between;
+  justify-content: start;
   align-items: center;
   min-width: 70%;
   gap: 20px;
@@ -161,6 +161,12 @@
   .checkout-cart-name {
     justify-content: start;
   }
+
+  .checkout-cart-quantity {
+    display: flex;
+    width: 20%;
+    justify-content: end;
+  }
 }
 
 @media (max-width: 768px) {
@@ -190,10 +196,6 @@
     gap: 8px;
     margin: 0;
     flex: 1;
-  }
-
-  .checkout-cart-name {
-    width: 80%;
   }
 
   .checkout-cart-discount {

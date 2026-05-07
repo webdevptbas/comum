@@ -3,12 +3,11 @@ import ShippingMethod from "../../Component/CheckoutComponent/ShippingMethod";
 import CartOverview from "../../Component/CheckoutComponent/CartOverview";
 import SummaryCard from "../../Component/CheckoutComponent/SummaryCard";
 import "./Checkout.css";
-import { message, Steps } from "antd";
+import { message } from "antd";
 import { useEffect, useState } from "react";
 import { saveShippingMethod, setShippingPrice } from "../../Slices/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import useMediaQuery from "../../Util/useMediaQuery";
 import { districtCalculateCost } from "../../Util/apiService";
 
 const CheckoutPage = () => {
@@ -22,7 +21,6 @@ const CheckoutPage = () => {
   const [selectedShipping, setSelectedShipping] = useState(
     shippingMethod || null,
   );
-  const isMobile = useMediaQuery("(max-width: 768px)");
 
   useEffect(() => {
     if (shippingMethod) {
