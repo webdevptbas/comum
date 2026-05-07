@@ -94,7 +94,7 @@ const DesktopUtilities = ({ onCartOpen }) => {
         <Dropdown
           open={searchOpen}
           onOpenChange={setSearchOpen}
-          popupRender={() => dropdownContent}
+          dropdownRender={() => dropdownContent}
           trigger={["click"]}
           placement="bottomRight"
           arrow
