@@ -9,6 +9,11 @@ const orderSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
+    orderId: {
+      type: String,
+      required: true,
+      unique: true,
+    },
     orderItems: [
       {
         product: {
@@ -23,9 +28,7 @@ const orderSchema = new mongoose.Schema(
         weight: { type: Number, required: true, min: 10 },
         quantity: { type: Number, required: true },
         price: { type: Number, required: true }, //finalPrice
-        stock: { type: Number, required: true },
         originalPrice: { type: Number, required: true },
-        price: { type: Number, required: true },
         discount: { type: Number },
         discountPrice: { type: Number },
         isDiscount: { type: Boolean },
@@ -63,14 +66,14 @@ const orderSchema = new mongoose.Schema(
       required: true,
     },
     paymentResult: {
-      transactionId: { type: String, required: true },
-      orderId: { type: String, required: true },
-      transactionStatus: { type: String, required: true },
-      fraudStatus: { type: String, required: true },
-      grossAmount: { type: String, required: true },
-      currency: { type: String, required: true },
-      update_time: { type: String },
-      email_address: { type: String, required: true },
+      transactionId: { type: String },
+      orderId: { type: String },
+      transactionStatus: { type: String },
+      fraudStatus: { type: String },
+      grossAmount: { type: String },
+      currency: { type: String },
+      updateTime: { type: String },
+      emailAddress: { type: String },
     },
     totalWeight: { type: Number, required: true },
     itemsPrice: { type: Number, required: true },
@@ -89,6 +92,7 @@ const orderSchema = new mongoose.Schema(
       ],
       default: "pending",
     },
+
     isPaid: {
       type: Boolean,
       required: true,
@@ -96,6 +100,8 @@ const orderSchema = new mongoose.Schema(
     },
 
     paidAt: Date,
+
+    snapToken: { type: String },
 
     isDelivered: {
       type: Boolean,
@@ -107,5 +113,25 @@ const orderSchema = new mongoose.Schema(
   },
   { timestamps: true },
 );
+
+orderSchema.pre("save", function (next) {
+  if (!this.isNew) {
+    return next();
+  }
+
+  const now = new Date();
+
+  const year = now.getFullYear();
+
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+
+  const day = String(now.getDate()).padStart(2, "0");
+
+  const formattedDate = `${year}${month}${day}`;
+
+  this.orderId = `${formattedDate}-${this._id}`;
+
+  next();
+});
 
 module.exports = mongoose.model("Order", orderSchema);
