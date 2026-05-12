@@ -85,11 +85,36 @@ exports.districtCalculateCost = async (req, res) => {
     const response = await axios.post(
       `${BASE_URL}/calculate/district/domestic-cost`,
       new URLSearchParams({
-        origin: "6160",
+        origin: "6160", //id district for our warehouse
         destination,
         weight,
         courier: "jne",
         price: "lowest",
+      }),
+      {
+        headers: {
+          key: process.env.RAJAONGKIR_API_KEY,
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      },
+    );
+
+    res.json(response.data);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+exports.trackingAirwayBill = async (req, res) => {
+  try {
+    const { airwaybill, last_phone_number, courier = "jne" } = req.body;
+
+    const response = await axios.post(
+      `${BASE_URL}/track/waybill?awb=${airwaybill}&courier=${courier}`,
+      new URLSearchParams({
+        airwaybill,
+        courier,
+        last_phone_number,
       }),
       {
         headers: {
