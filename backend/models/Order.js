@@ -27,7 +27,7 @@ const orderSchema = new mongoose.Schema(
         size: { type: String, required: true },
         weight: { type: Number, required: true, min: 10 },
         quantity: { type: Number, required: true },
-        price: { type: Number, required: true }, //finalPrice
+        price: { type: Number, required: true }, //finalPrice per item
         originalPrice: { type: Number, required: true },
         discount: { type: Number },
         discountPrice: { type: Number },
@@ -61,14 +61,9 @@ const orderSchema = new mongoose.Schema(
       cost: { type: Number, required: true },
       etd: { type: String, required: true },
     },
-    paymentMethod: {
-      type: String,
-      required: true,
-    },
     paymentResult: {
-      transactionId: { type: String },
-      orderId: { type: String },
-      transactionStatus: { type: String },
+      id: { type: String },
+      status: { type: String },
       fraudStatus: { type: String },
       grossAmount: { type: String },
       currency: { type: String },
