@@ -16,6 +16,7 @@ const brandRoutes = require("./routes/brandRoutes");
 const brandTypeRoutes = require("./routes/brandTypeRoutes");
 const categoryRoutes = require("./routes/categoryRoutes");
 const rajaOngkirRoutes = require("./routes/rajaOngkirRoutes");
+const orderRoutes = require("./routes/orderRoutes");
 
 const app = express();
 connectDB();
@@ -61,5 +62,6 @@ app.use("/api/brands", brandRoutes);
 app.use("/api/brand-types", brandTypeRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/rajaongkir", rajaOngkirRoutes);
+app.use("/api/orders", orderRoutes);
 
 module.exports = app;
