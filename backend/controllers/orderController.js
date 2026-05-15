@@ -14,3 +14,18 @@ exports.getMyOrders = async (req, res) => {};
 // @route GET /api/orders/my-orders/:id
 // @access private route
 exports.getMyOrderById = async (req, res) => {};
+
+// @desc update order to paid
+// @route GET /api/orders/my-orders/:id/pay
+// @access private route
+exports.updateMyOrderToPaid = async (req, res) => {};
+
+// @desc update order to delivered
+// @route GET /api/orders/my-orders/:id/deliver
+// @access private/admin route
+exports.updateMyOrderToDelivered = async (req, res) => {};
+
+// @desc get all orders
+// @route GET /api/orders
+// @access private/admin route
+exports.getAllOrders = async (req, res) => {};
