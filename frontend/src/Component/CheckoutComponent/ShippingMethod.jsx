@@ -3,7 +3,7 @@ import { formatRupiah } from "../../Util/CartUtils";
 import { useSelector } from "react-redux";
 
 const ShippingMethod = ({ options = [], value, onChange }) => {
-  const { shippingAddress, ShippingMethod } = useSelector(
+  const { shippingAddress, shippingMethod } = useSelector(
     (state) => state.cart,
   );
   const hasAddress = Boolean(shippingAddress?.district);
@@ -17,7 +17,11 @@ const ShippingMethod = ({ options = [], value, onChange }) => {
           {hasAddress ? (
             <Radio.Group
               className="shipping-radio-group"
-              value={value}
+              value={
+                options.find(
+                  (item) => item?.service === shippingMethod?.service,
+                ) || null
+              }
               onChange={(e) => onChange(e?.target?.value)}
             >
               {options?.map((item) => (
