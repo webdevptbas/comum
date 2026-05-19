@@ -53,15 +53,18 @@ app.use(cookieParser());
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.use("/api/auth", authRoutes);
+
 app.use("/api/products", productRoutes);
+app.use("/api/orders", orderRoutes);
 app.use("/api/articles", articleRoutes);
 app.use("/api/events", eventRoutes);
 app.use("/api/past-events", pastEvent);
 app.use("/api/subscribe", subscriptionRoutes);
+
 app.use("/api/brands", brandRoutes);
 app.use("/api/brand-types", brandTypeRoutes);
 app.use("/api/categories", categoryRoutes);
+
 app.use("/api/rajaongkir", rajaOngkirRoutes);
-app.use("/api/orders", orderRoutes);
 
 module.exports = app;
