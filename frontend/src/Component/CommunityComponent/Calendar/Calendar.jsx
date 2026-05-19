@@ -129,28 +129,41 @@ const CommunityCalendar = () => {
     setCalendarRange({ start, end });
   };
 
+  // DAY VIEW RENDER
   const renderEventContent = (eventInfo) => {
-    const viewType = eventInfo.view.type; // "dayGridDay", "dayGridWeek", etc.
+    const viewType = eventInfo?.view?.type; // "dayGridDay", "dayGridWeek", etc.
 
+    console.log({ eventInfo });
     if (viewType === "dayGridDay") {
       return (
         <div className="custom-calendar-event">
           <div className="calendar-event-time heading6">
-            {new Date(eventInfo.event.start).toLocaleDateString("en-GB", {
+            {new Date(eventInfo?.event?.start).toLocaleDateString("en-GB", {
               hour: "numeric",
               minute: "2-digit",
             })}
           </div>
           <div className="calendar-event-title heading6">
-            {eventInfo.event.title}
+            {eventInfo?.event?.title}
           </div>
-          <div className="calendar-event-location heading6">
-            {eventInfo.event.extendedProps.location}
-          </div>
+          {/* <div className="calendar-event-location heading6">
+            {eventInfo?.event?.extendedProps?.location}
+          </div> */}
+          {eventInfo?.event?.extendedProps?.padel ? (
+            <div className="calendar-event-location heading6">
+              {eventInfo?.event?.extendedProps?.padel?.location}
+            </div>
+          ) : eventInfo?.event?.extendedProps?.cycling ? (
+            <div className="calendar-event-location heading6">
+              {eventInfo?.event?.extendedProps?.cyclng?.location}
+            </div>
+          ) : (
+            <div className="calendar-event-location heading6">
+              {eventInfo?.event?.extendedProps?.location}
+            </div>
+          )}
           <div className="calendar-event-link heading6">
-            <a href="#" className="read-details">
-              Read Details
-            </a>
+            <p className="read-details">Read Details</p>
           </div>
         </div>
       );
@@ -275,6 +288,7 @@ const CommunityCalendar = () => {
     </div>
   );
 
+  // WEEK VIEW RENDER
   const renderWeekEvents = () => {
     const weekEvents = getCurrentWeekEvents();
 
@@ -296,29 +310,36 @@ const CommunityCalendar = () => {
     };
 
     return weekEvents.map((event) => (
-      <div key={event.id} className="custom-calendar-week-event">
+      <div key={event?.id} className="custom-calendar-week-event">
         <div className="calendar-event-date heading5">
-          {new Date(event.start).toLocaleDateString("en-GB", {
+          {new Date(event?.start).toLocaleDateString("en-GB", {
             weekday: "short",
             day: "numeric",
             month: "short",
             year: "numeric",
           })}
         </div>
-
         <div className="calendar-event-time heading6">
-          {new Date(event.start).toLocaleTimeString("en-GB", {
-            hour: "numeric",
-            minute: "2-digit",
-          })}
+          {event?.extendedProps?.startTime}
         </div>
 
-        <div className="calendar-event-title heading6">{event.title}</div>
-        <div className="calendar-event-location heading6">{event.location}</div>
-
+        {/* dibuat banyak if case karena data lama belum terbarukan */}
+        <div className="calendar-event-title heading6">{event?.title}</div>
+        {event?.extendedProps?.padel ? (
+          <div className="calendar-event-location heading6">
+            {event?.extendedProps?.padel?.location}
+          </div>
+        ) : event?.extendedProps?.cycling ? (
+          <div className="calendar-event-location heading6">
+            {event?.extendedProps?.cyclng?.location}
+          </div>
+        ) : (
+          <div className="calendar-event-location heading6">
+            {event?.location}
+          </div>
+        )}
         <div className="calendar-event-link heading6">
-          <a
-            href="#"
+          <p
             className="read-details"
             onClick={(e) => {
               e.preventDefault();
@@ -326,7 +347,7 @@ const CommunityCalendar = () => {
             }}
           >
             Read Details
-          </a>
+          </p>
         </div>
       </div>
     ));
