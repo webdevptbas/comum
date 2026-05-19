@@ -5,8 +5,9 @@ const {
   getMyOrderById,
   getMyOrders,
   updateMyOrderToPaid,
-  updateMyOrderToDelivered,
+  updateOrderToDelivered,
   getAllOrders,
+  getOrderById,
 } = require("../controllers/orderController");
 const { protect, roleCheck } = require("../middleware/authMiddleware");
 
@@ -14,10 +15,16 @@ const { protect, roleCheck } = require("../middleware/authMiddleware");
 router.post("/", protect, createOrder);
 router.get("/my-orders", protect, getMyOrders);
 router.get("/my-orders/:id", protect, getMyOrderById);
-router.get("/my-orders/:id/pay", protect, updateMyOrderToPaid);
-router.get("/my-orders/:id/deliver", protect, updateMyOrderToDelivered);
+router.put("/my-orders/:id/pay", protect, updateMyOrderToPaid);
 
 //admin routes
 router.get("/", protect, roleCheck("AdminProduct"), getAllOrders);
+router.get("/:id", protect, roleCheck("AdminProduct"), getOrderById);
+router.put(
+  "/:id/deliver",
+  protect,
+  roleCheck("AdminProduct"),
+  updateOrderToDelivered,
+);
 
 module.exports = router;

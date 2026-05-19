@@ -3,7 +3,9 @@ const Order = require("../models/Order");
 // @desc create Order
 // @route POST /api/orders
 // @access private route
-exports.createOrder = async (req, res) => {};
+exports.createOrder = async (req, res) => {
+  res.send("create new order");
+};
 
 // @desc get logged in user's orders
 // @route GET /api/orders/my-orders
@@ -20,12 +22,19 @@ exports.getMyOrderById = async (req, res) => {};
 // @access private route
 exports.updateMyOrderToPaid = async (req, res) => {};
 
-// @desc update order to delivered
-// @route GET /api/orders/my-orders/:id/deliver
-// @access private/admin route
-exports.updateMyOrderToDelivered = async (req, res) => {};
+// ----------ADMIN CONTROLLER----------
 
 // @desc get all orders
 // @route GET /api/orders
 // @access private/admin route
 exports.getAllOrders = async (req, res) => {};
+
+// @desc get order by id
+// @route GET /api/orders/:id
+// @access private/admin route
+exports.getOrderById = async (req, res) => {};
+
+// @desc update order to delivered
+// @route GET /api/orders/:id/deliver
+// @access private/admin route
+exports.updateOrderToDelivered = async (req, res) => {};
