@@ -28,8 +28,8 @@ const CommunityCalendar = () => {
       if (!calendarRange.start || !calendarRange.end) return;
 
       try {
-        const startISO = calendarRange.start.toISOString();
-        const endISO = calendarRange.end.toISOString();
+        const startISO = calendarRange.start;
+        const endISO = calendarRange.end;
 
         const data = await fetchAllEvent(startISO, endISO);
 
@@ -70,8 +70,8 @@ const CommunityCalendar = () => {
               id: event._id,
               title: event.title,
               location: event.location,
-              start: startDateTime.toISOString(),
-              end: endDateTime.toISOString(),
+              start: startDateTime,
+              end: endDateTime,
               extendedProps: event,
             };
           })
