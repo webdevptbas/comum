@@ -377,6 +377,7 @@ const CommunityCalendar = () => {
           eventDisplay="block"
           showNonCurrentDates={false}
           fixedWeekCount={false}
+          timeZone="Asia/Jakarta"
         />
       </div>
 
