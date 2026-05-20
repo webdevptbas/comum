@@ -331,7 +331,7 @@ const CommunityCalendar = () => {
           </div>
         ) : event?.extendedProps?.cycling ? (
           <div className="calendar-event-location heading6">
-            {event?.extendedProps?.cyclng?.location}
+            {event?.extendedProps?.cycling?.start}
           </div>
         ) : (
           <div className="calendar-event-location heading6">
