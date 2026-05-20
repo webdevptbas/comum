@@ -4,7 +4,7 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
-import "./Calendar.css"; // You can style this to match your mockup
+import "./Calendar.css";
 import { fetchAllEvent, fetchEventById } from "../../../Util/apiService";
 import useMediaQuery from "../../../Util/useMediaQuery";
 import CalendarModal from "./CalendarModal";
@@ -15,7 +15,7 @@ const CommunityCalendar = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [eventDetails, setEventDetails] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [forceRefresh, setForceRefresh] = useState(0); // NEW STATE
+  const [forceRefresh, setForceRefresh] = useState(0);
   const [calendarRange, setCalendarRange] = useState({
     start: null,
     end: null,
@@ -133,22 +133,15 @@ const CommunityCalendar = () => {
   const renderEventContent = (eventInfo) => {
     const viewType = eventInfo?.view?.type; // "dayGridDay", "dayGridWeek", etc.
 
-    console.log({ eventInfo });
     if (viewType === "dayGridDay") {
       return (
         <div className="custom-calendar-event">
           <div className="calendar-event-time heading6">
-            {new Date(eventInfo?.event?.start).toLocaleDateString("en-GB", {
-              hour: "numeric",
-              minute: "2-digit",
-            })}
+            {eventInfo?.event?.extendedProps?.startTime}
           </div>
           <div className="calendar-event-title heading6">
             {eventInfo?.event?.title}
           </div>
-          {/* <div className="calendar-event-location heading6">
-            {eventInfo?.event?.extendedProps?.location}
-          </div> */}
           {eventInfo?.event?.extendedProps?.padel ? (
             <div className="calendar-event-location heading6">
               {eventInfo?.event?.extendedProps?.padel?.location}
@@ -170,7 +163,7 @@ const CommunityCalendar = () => {
     }
 
     // For other views, just default render
-    return <div>{eventInfo.event.title}</div>;
+    return <div>{eventInfo?.event?.title}</div>;
   };
 
   const getCurrentWeekEvents = () => {
