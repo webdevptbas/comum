@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Home.css";
 import "../../index.css";
-import { Button, Carousel, ConfigProvider } from "antd";
+import { Carousel, ConfigProvider } from "antd";
 import Tag from "../../Component/Tag/Tag";
 import { brands, categories, slides, slidesMobile } from "./item";
 import { ProductCard } from "../../Component/Card/Card";
