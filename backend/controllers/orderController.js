@@ -4,21 +4,68 @@ const Order = require("../models/Order");
 // @route POST /api/orders
 // @access private route
 exports.createOrder = async (req, res) => {
-  res.send("create new order");
+  const {
+    orderItems,
+    shippingAddress,
+    shippingMethod,
+    totalWeight,
+    itemsPrice,
+    shippingPrice,
+    totalPrice,
+  } = req.body;
+
+  if (orderItems && orderItems.length === 0) {
+    res.status(400).json({
+      message: "There are no order items",
+      status: 400,
+    });
+  } else {
+    const order = new Order({
+      user: req.user._id,
+      orderItems: orderItems.map((x) => ({
+        ...x,
+        product: x._id,
+        _id: undefined,
+      })),
+      shippingAddress,
+      shippingMethod,
+      totalWeight,
+      itemsPrice,
+      shippingPrice,
+      totalPrice,
+    });
+
+    const createOrder = await order.save();
+
+    res.status(201).json(createOrder);
+  }
 };
 
 // @desc get logged in user's orders
 // @route GET /api/orders/my-orders
 // @access private route
 exports.getMyOrders = async (req, res) => {
-  res.send("list of all my order(s)");
+  const orders = await Order.find({ user: req.user._id });
+  res.status(200).json(orders);
 };
 
 // @desc get logged in user's order by ID
 // @route GET /api/orders/my-orders/:id
 // @access private route
 exports.getMyOrderById = async (req, res) => {
-  res.send(`get my order by ID of => ${req.id}`);
+  const order = await Order.findById(req.params.id).populate(
+    "user",
+    "username name email",
+  );
+
+  if (order) {
+    res.status(200).json(order);
+  } else {
+    res.status(404).json({
+      message: "Order not found",
+      status: 404,
+    });
+  }
 };
 
 // @desc update order to paid
@@ -41,10 +88,19 @@ exports.getAllOrders = async (req, res) => {
 // @route GET /api/orders/:id
 // @access private/admin route
 exports.getOrderById = async (req, res) => {
-  res.status(200).json({
-    whatTheDawgDoin: `get my order by ID of => ${req.id}`,
-    whatTheBodyRequesting: req.body,
-  });
+  const order = await Order.findById(req.params.id).populate(
+    "user",
+    "username name email",
+  );
+
+  if (order) {
+    res.status(200).json(order);
+  } else {
+    res.status(404).json({
+      message: "Order not found",
+      status: 404,
+    });
+  }
 };
 
 // @desc update order to delivered
