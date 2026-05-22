@@ -5,17 +5,29 @@ import SummaryCard from "../../Component/CheckoutComponent/SummaryCard";
 import "./Checkout.css";
 import { message } from "antd";
 import { useEffect, useState } from "react";
-import { saveShippingMethod, setShippingPrice } from "../../Slices/cartSlice";
+import {
+  saveShippingMethod,
+  setShippingPrice,
+  clearCartItems,
+} from "../../Slices/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { districtCalculateCost } from "../../Util/apiService";
+import { useCreateOrderMutation } from "../../Slices/ordersApiSlice";
 
 const CheckoutPage = () => {
   const dispatch = useDispatch();
+  const [createOrder, { isLoading, error }] = useCreateOrderMutation();
   const navigate = useNavigate();
-  const { shippingAddress, totalWeight, shippingMethod } = useSelector(
-    (state) => state.cart,
-  );
+  const {
+    shippingAddress,
+    totalWeight,
+    shippingMethod,
+    cartItems,
+    itemsPrice,
+    shippingPrice,
+    totalPrice,
+  } = useSelector((state) => state.cart);
 
   const [shippingOptions, setShippingOptions] = useState([]);
   const [selectedShipping, setSelectedShipping] = useState(
@@ -59,6 +71,24 @@ const CheckoutPage = () => {
     dispatch(saveShippingMethod(value));
   };
 
+  const handleCheckout = async () => {
+    try {
+      const res = await createOrder({
+        orderItems: cartItems,
+        shippingAddress: shippingAddress,
+        shippingMethod: shippingMethod,
+        totalWeight: totalWeight,
+        itemsPrice: itemsPrice,
+        shippingPrice: shippingPrice,
+        totalPrice: totalPrice,
+      }).unwrap();
+      dispatch(clearCartItems());
+      navigate(`/order/${res._id}`);
+    } catch (err) {
+      message.error(err);
+    }
+  };
+
   return (
     <div className="checkout-page-container">
       <div className="checkout-container">
@@ -76,9 +106,9 @@ const CheckoutPage = () => {
         {/* RIGHT */}
         <div className="checkout-right">
           <SummaryCard
-            onClick={() => {
-              navigate("/payment");
-            }}
+            onClick={handleCheckout}
+            isLoading={isLoading}
+            error={error}
           />
         </div>
       </div>
