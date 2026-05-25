@@ -72,7 +72,26 @@ exports.getMyOrderById = async (req, res) => {
 // @route PUT /api/orders/my-orders/:id/pay
 // @access private route
 exports.updateMyOrderToPaid = async (req, res) => {
-  res.send(`update my order status to paid by ID of => ${req.id}`);
+  const order = await Order.findById(req.params.id);
+
+  if (order) {
+    order.isPaid = true;
+    order.paidAt = Date.now();
+    order.paymentResult = {
+      id: req.body.id,
+      status: req.body.status,
+      updateTime: req.body.updateTime,
+      emailAddress: req.body.emailAddress,
+    };
+    const updatedOrder = await order.save();
+
+    res.status(200).json(updatedOrder);
+  } else {
+    res.status(404).json({
+      message: "Order not found",
+      status: 404,
+    });
+  }
 };
 
 // ----------ADMIN CONTROLLER----------
