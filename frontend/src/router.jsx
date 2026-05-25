@@ -25,6 +25,7 @@ import PrivateRoute from "../src/Util/PrivateRoute.jsx";
 import CheckoutLayout from "./Layout/CheckoutLayout/CheckoutLayout.jsx";
 import PaymentPage from "./Pages/Payment/Payment.jsx";
 import CompletedPage from "./Pages/Completed/Completed.jsx";
+import OrderDetailsPage from "./Pages/Orders/OrderDetails/OrderDetails.jsx";
 
 const router = createBrowserRouter([
   {
@@ -122,14 +123,28 @@ const router = createBrowserRouter([
                 element: <ProfilePage />,
               },
               {
-                path: "orders",
+                path: "my-orders",
                 element: <OrdersPage />,
+                children: [
+                  {
+                    index: true,
+                    element: <OrdersPage />,
+                  },
+                  {
+                    path: "orders/:id",
+                    element: <OrderDetailsPage />,
+                  },
+                ],
               },
               {
                 path: "change-password",
                 element: <ChangePasswordPage />,
               },
             ],
+          },
+          {
+            path: "orders/:id",
+            element: <OrderDetailsPage />,
           },
         ],
       },
