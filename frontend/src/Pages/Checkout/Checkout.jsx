@@ -83,7 +83,7 @@ const CheckoutPage = () => {
         totalPrice: totalPrice,
       }).unwrap();
       dispatch(clearCartItems());
-      navigate(`/order/${res._id}`);
+      navigate(`/orders/${res._id}`);
     } catch (err) {
       message.error(err);
     }
