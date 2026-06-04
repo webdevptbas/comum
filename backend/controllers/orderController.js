@@ -1,3 +1,4 @@
+const { snap } = require("../config/midtrans");
 const Order = require("../models/Order");
 
 // @desc create Order
@@ -37,7 +38,26 @@ exports.createOrder = async (req, res) => {
 
     const createOrder = await order.save();
 
-    res.status(201).json(createOrder);
+    //get SNAP token
+    const transaction = await snap.createTransaction({
+      transaction_details: {
+        order_id: createOrder?.orderId,
+        gross_amount: createOrder?.totalPrice,
+      },
+      customer_details: {
+        first_name: req?.user?.name,
+        email: req?.user?.email,
+        phone: req?.user?.phone,
+      },
+    });
+
+    //saving snap token on Order model
+    createOrder.snapToken = transaction.token;
+    await createOrder.save();
+
+    res
+      .status(201)
+      .json({ ...createOrder.toObject(), snapToken: transaction.token });
   }
 };
 
