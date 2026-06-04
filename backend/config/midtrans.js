@@ -1,15 +1,17 @@
 const midtransClient = require("midtrans-client");
 
+const isProduction = process.env.MIDTRANS_IS_PRODUCTION === "true";
+
 //core API instance
 const coreApi = new midtransClient.CoreApi({
-  isProduction: process.env.MIDTRANS_IS_PRODUCTION,
+  isProduction,
   serverKey: process.env.MIDTRANS_SERVER_KEY,
   clientKey: process.env.MIDTRANS_CLIENT_KEY,
 });
 
 //SNAP API Instance
 const snap = new midtransClient.Snap({
-  isProduction: process.env.MIDTRANS_IS_PRODUCTION,
+  isProduction,
   serverKey: process.env.MIDTRANS_SERVER_KEY,
   clientKey: process.env.MIDTRANS_CLIENT_KEY,
 });
