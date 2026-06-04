@@ -259,8 +259,6 @@ exports.deleteProduct = async (req, res) => {
   }
 };
 
-// const upload = multer({ dest: "uploads/csv/" });
-
 exports.importCsv = async (req, res) => {
   const results = [];
   try {
