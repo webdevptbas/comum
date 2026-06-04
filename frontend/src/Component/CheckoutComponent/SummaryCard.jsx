@@ -2,12 +2,12 @@ import { Card, Button } from "antd";
 import { useSelector } from "react-redux";
 import { formatRupiah } from "../../Util/CartUtils";
 
-const SummaryCard = ({ onClick, isLoading, error }) => {
-  const { itemsPrice, shippingPrice, totalPrice, totalWeight } = useSelector(
-    (state) => state.cart,
-  );
+const SummaryCard = ({ onClick, isLoading, error, buttonText }) => {
+  const { cartItems, itemsPrice, shippingPrice, totalPrice, totalWeight } =
+    useSelector((state) => state.cart);
 
   const kilogramConvert = totalWeight / 1000;
+  const isDisabled = cartItems.length === 0 ? true : false;
 
   return (
     <Card className="checkout-summary-card">
@@ -38,8 +38,9 @@ const SummaryCard = ({ onClick, isLoading, error }) => {
         block
         onClick={onClick}
         loading={isLoading}
+        disabled={isDisabled}
       >
-        Place Your Order
+        {buttonText}
       </Button>
       {error && (
         <div className="text-l-medium checkout-error">
