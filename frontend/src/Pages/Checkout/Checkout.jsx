@@ -35,6 +35,12 @@ const CheckoutPage = () => {
   );
 
   useEffect(() => {
+    if (cartItems.length === 0) {
+      navigate("/shop");
+    }
+  }, []);
+
+  useEffect(() => {
     if (shippingMethod) {
       setSelectedShipping(shippingMethod);
     }
@@ -83,7 +89,7 @@ const CheckoutPage = () => {
         totalPrice: totalPrice,
       }).unwrap();
       dispatch(clearCartItems());
-      navigate(`/orders/${res._id}`);
+      navigate(`/payment/${res._id}`);
     } catch (err) {
       message.error(err);
     }
@@ -109,6 +115,7 @@ const CheckoutPage = () => {
             onClick={handleCheckout}
             isLoading={isLoading}
             error={error}
+            buttonText={"Place Your Order"}
           />
         </div>
       </div>
