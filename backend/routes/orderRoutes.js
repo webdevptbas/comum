@@ -15,7 +15,7 @@ const { protect, roleCheck } = require("../middleware/authMiddleware");
 router.post("/", protect, createOrder);
 router.get("/my-orders", protect, getMyOrders);
 router.get("/my-orders/:id", protect, getMyOrderById);
-router.put("/my-orders/:id/pay", protect, updateMyOrderToPaid);
+// router.put("/my-orders/:id/pay", protect, updateMyOrderToPaid); ON HOLD
 
 //admin routes
 router.get("/", protect, roleCheck("AdminProduct"), getAllOrders);
