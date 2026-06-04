@@ -71,6 +71,11 @@ const cartSlice = createSlice({
     },
     clearCartItems: (state, action) => {
       state.cartItems = [];
+      state.shippingMethod = "";
+      state.totalWeight = 0;
+      state.itemsPrice = 0;
+      state.shippingPrice = 0;
+      state.totalPrice = 0;
       return updateCart(state);
     },
   },
