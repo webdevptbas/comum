@@ -105,7 +105,7 @@ const router = createBrowserRouter([
             children: [{ index: true, element: <CheckoutPage /> }],
           },
           {
-            path: "/payment",
+            path: "/payment/:id",
             element: <CheckoutLayout currentStep={1} />,
             children: [{ index: true, element: <PaymentPage /> }],
           },
