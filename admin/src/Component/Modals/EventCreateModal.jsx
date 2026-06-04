@@ -41,21 +41,21 @@ const CreateEventModal = ({ open, onCancel, onCreate, form }) => {
           label="Event Title"
           rules={[{ required: true }]}
         >
-          <Input />
+          <Input placeholder="Gowes Seru!" />
         </Form.Item>
         <Form.Item
           name="contactPerson"
           label="Contact Person"
           rules={[{ required: true }]}
         >
-          <Input />
+          <Input placeholder="Aris" />
         </Form.Item>
         <Form.Item
           name="contactInfo"
           label="Contact Number (Phone)"
           rules={[{ required: true }]}
         >
-          <Input />
+          <Input placeholder="621234567890" type="number" />
         </Form.Item>
         <Form.Item name="date" label="Date" rules={[{ required: true }]}>
           <DatePicker style={{ width: "100%" }} />
@@ -72,10 +72,10 @@ const CreateEventModal = ({ open, onCancel, onCreate, form }) => {
           label="Short Description"
           rules={[{ required: true }]}
         >
-          <Input.TextArea rows={2} />
+          <Input.TextArea rows={6} />
         </Form.Item>
         <Form.Item name="description" label="Full Description">
-          <Input.TextArea rows={4} />
+          <Input.TextArea rows={6} />
         </Form.Item>
 
         {/* cycling event type */}
@@ -86,21 +86,21 @@ const CreateEventModal = ({ open, onCancel, onCreate, form }) => {
               label="Start Point"
               rules={[{ required: true }]}
             >
-              <Input />
+              <Input placeholder="Comum Bike and Coffee" />
             </Form.Item>
             <Form.Item
               name="finish"
               label="Finish Point"
               rules={[{ required: true }]}
             >
-              <Input />
+              <Input placeholder="Comum Bike and Coffee" />
             </Form.Item>
             <Form.Item
               name="durationMinutes"
               label="Duration (minutes)"
               rules={[{ required: true }]}
             >
-              <Input type="number" />
+              <Input type="number" placeholder="60 / 90 / 120 / 180 / ..." />
             </Form.Item>
             <Form.Item
               name="paceMin"
@@ -120,14 +120,14 @@ const CreateEventModal = ({ open, onCancel, onCreate, form }) => {
                 },
               ]}
             >
-              <Input type="number" />
+              <Input type="number" placeholder="20" />
             </Form.Item>
             <Form.Item
               name="paceMax"
               label="Maximum Pace (km/h)"
               rules={[({ getFieldValue }) => paceValidators(getFieldValue)]}
             >
-              <Input type="number" />
+              <Input type="number" placeholder="24" />
             </Form.Item>
           </>
         )}
