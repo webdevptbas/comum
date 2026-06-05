@@ -110,8 +110,18 @@ const router = createBrowserRouter([
             children: [{ index: true, element: <PaymentPage /> }],
           },
           {
-            path: "/complete",
+            path: "/complete", //after payment page, payment confirmed by Midtrans
             element: <CheckoutLayout currentStep={2} />,
+            children: [{ index: true, element: <CompletedPage /> }],
+          },
+          {
+            path: "/pending", //after payment page, waiting for Midtrans confirmation
+            element: <CheckoutLayout currentStep={1} />,
+            children: [{ index: true, element: <CompletedPage /> }],
+          },
+          {
+            path: "/error", //after payment page, payment not accepted
+            element: <CheckoutLayout currentStep={1} />,
             children: [{ index: true, element: <CompletedPage /> }],
           },
           {
