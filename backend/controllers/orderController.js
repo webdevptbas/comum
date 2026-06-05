@@ -88,6 +88,29 @@ exports.getMyOrderById = async (req, res) => {
   }
 };
 
+// @desc Get payment status from Midtrans
+// @route GET /api/orders/my-orders/:orderId/payment-status
+// @access Private
+exports.getPaymentStatus = async (req, res) => {
+  try {
+    const order = await Order.findOne({ orderId: req.params.orderId });
+
+    if (!order) {
+      return res.status(404).json({
+        message: "Order not found",
+      });
+    }
+
+    const status = await snap.transaction.status(order.orderId);
+
+    res.status(200).json(status);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
 // @desc update order to paid
 // @route PUT /api/orders/my-orders/:id/pay
 // @access private route
