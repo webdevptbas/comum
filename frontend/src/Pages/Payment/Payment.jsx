@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useParams } from "react-router";
-import { useGetOrderDetailsQuery } from "../../Slices/ordersApiSlice";
+import { useGetMyOrderDetailsQuery } from "../../Slices/ordersApiSlice";
 import { Card } from "antd";
 import PaymentSummary from "../Checkout/PaymentSummary";
 import "./Payment.css";
@@ -12,7 +12,7 @@ const PaymentPage = () => {
     refetch,
     isLoading,
     error,
-  } = useGetOrderDetailsQuery(orderId);
+  } = useGetMyOrderDetailsQuery(orderId);
   const snapToken = order?.snapToken;
 
   useEffect(() => {
