@@ -24,8 +24,8 @@ import CheckoutPage from "./Pages/Checkout/Checkout.jsx";
 import PrivateRoute from "../src/Util/PrivateRoute.jsx";
 import CheckoutLayout from "./Layout/CheckoutLayout/CheckoutLayout.jsx";
 import PaymentPage from "./Pages/Payment/Payment.jsx";
-import CompletedPage from "./Pages/Completed/Completed.jsx";
 import OrderDetailsPage from "./Pages/Orders/OrderDetails/OrderDetails.jsx";
+import PaymentStatusPage from "./Pages/PaymentStatus/PaymentStatus.jsx";
 
 const router = createBrowserRouter([
   {
@@ -112,17 +112,17 @@ const router = createBrowserRouter([
           {
             path: "/complete", //after payment page, payment confirmed by Midtrans
             element: <CheckoutLayout currentStep={2} />,
-            children: [{ index: true, element: <CompletedPage /> }],
+            children: [{ index: true, element: <PaymentStatusPage /> }],
           },
           {
             path: "/pending", //after payment page, waiting for Midtrans confirmation
             element: <CheckoutLayout currentStep={1} />,
-            children: [{ index: true, element: <CompletedPage /> }],
+            children: [{ index: true, element: <PaymentStatusPage /> }],
           },
           {
             path: "/error", //after payment page, payment not accepted
             element: <CheckoutLayout currentStep={1} />,
-            children: [{ index: true, element: <CompletedPage /> }],
+            children: [{ index: true, element: <PaymentStatusPage /> }],
           },
           {
             path: "/profile",
