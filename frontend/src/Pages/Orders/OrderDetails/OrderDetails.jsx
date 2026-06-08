@@ -1,5 +1,5 @@
 import { useParams } from "react-router";
-import { useGetOrderDetailsQuery } from "../../../Slices/ordersApiSlice";
+import { useGetMyOrderDetailsQuery } from "../../../Slices/ordersApiSlice";
 import "./OrderDetails.css";
 import { message, Skeleton } from "antd";
 
@@ -11,7 +11,7 @@ const OrderDetailsPage = () => {
     refetch,
     isLoading,
     error,
-  } = useGetOrderDetailsQuery(orderId);
+  } = useGetMyOrderDetailsQuery(orderId);
 
   console.log({ order });
 
