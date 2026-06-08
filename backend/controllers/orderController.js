@@ -111,6 +111,74 @@ exports.getPaymentStatus = async (req, res) => {
   }
 };
 
+// @desc Sync payment status from Midtrans on FE
+// @route PUT /api/orders/my-orders/:orderId/sync-payment
+// @access Private
+exports.syncPaymentStatus = async (req, res) => {
+  try {
+    const order = await Order.findOne({
+      orderId: req.params.orderId,
+    });
+
+    if (!order) {
+      return res.status(404).json({
+        message: "Order not found",
+      });
+    }
+
+    const status = await snap.transaction.status(order.orderId);
+
+    const transactionStatus = status.transaction_status;
+
+    order.paymentResult = {
+      id: status.transaction_id,
+      status: transactionStatus,
+      fraudStatus: status.fraud_status,
+      grossAmount: status.gross_amount,
+      currency: status.currency,
+      paymentType: status.payment_type,
+      issuer: status.issuer,
+      acquirer: status.acquirer,
+      transactionTime: status.transaction_time,
+      settlementTime: status.settlement_time,
+    };
+
+    switch (transactionStatus) {
+      case "settlement":
+      case "capture":
+        order.isPaid = true;
+        order.paidAt = new Date(status.settlement_time);
+
+        order.orderStatus = "paid";
+        break;
+
+      case "pending":
+        order.isPaid = false;
+        order.orderStatus = "pending";
+        break;
+
+      case "deny":
+      case "cancel":
+      case "expire":
+      case "failure":
+        order.isPaid = false;
+        order.orderStatus = "cancelled";
+        break;
+
+      default:
+        break;
+    }
+
+    await order.save();
+
+    res.status(200).json(order);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
 // @desc update order to paid
 // @route PUT /api/orders/my-orders/:id/pay
 // @access private route
