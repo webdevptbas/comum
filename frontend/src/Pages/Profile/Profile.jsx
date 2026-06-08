@@ -9,11 +9,11 @@ const ProfilePage = () => {
   return (
     <div className="profile-page">
       <div className="profile-header">
-        <img
-          //   src="https://i.pravatar.cc/150"
+        {/* <img
+            src="https://i.pravatar.cc/150"
           alt={userInfo?.user?.name}
           className="profile-avatar"
-        />
+        /> */}
       </div>
 
       <div className="profile-section">
