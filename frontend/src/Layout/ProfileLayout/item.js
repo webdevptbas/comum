@@ -9,7 +9,7 @@ const menu = [
   {
     label: "Orders",
     icon: <FaBox />,
-    path: "/profile/orders",
+    path: "/profile/my-orders",
   },
   {
     label: "Change Password",
