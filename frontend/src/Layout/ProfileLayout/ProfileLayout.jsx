@@ -6,15 +6,15 @@ import "./ProfileLayout.css";
 import { clearCredentials } from "../../Slices/authSlice";
 import { useLogoutMutation } from "../../Slices/usersApiSlice";
 import { FaSignOutAlt } from "react-icons/fa";
-import { menu } from "./item";
 import { message, Modal } from "antd";
+import { profileMenu } from "../../Component/Header/dekstopMenuItems";
 
 const ProfileLayout = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
 
-  const [pageTitle, setPageTitle] = useState(menu[0].label);
+  const [pageTitle, setPageTitle] = useState(profileMenu[0].label);
   const [logoutModal, setLogoutModal] = useState(false);
 
   const [logoutApiCall] = useLogoutMutation();
@@ -38,14 +38,30 @@ const ProfileLayout = () => {
     setLogoutModal(true);
   };
 
+  const getPageTitle = () => {
+    const menuItem = profileMenu.find(
+      (item) => location.pathname === item.path,
+    );
+
+    if (menuItem) {
+      return menuItem.label;
+    }
+
+    if (location.pathname.startsWith("/profile/my-orders/")) {
+      return "Order Details";
+    }
+
+    return "Profile";
+  };
+
   return (
     <>
       <div className="profile-container">
-        <h2 className="heading2 profile-title">{pageTitle}</h2>
+        <h2 className="heading2 profile-title">{getPageTitle()}</h2>
         <div className="profile-page-content">
           {/* Sidebar */}
           <div className="profile-sidebar">
-            {menu.map((item) => (
+            {profileMenu.map((item) => (
               <div
                 key={item.path}
                 className={`profile-menu-item ${
@@ -53,7 +69,6 @@ const ProfileLayout = () => {
                 }`}
                 onClick={() => {
                   navigate(item.path);
-                  setPageTitle(item.label);
                 }}
               >
                 {item.icon}
