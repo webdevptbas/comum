@@ -1,4 +1,4 @@
-import { useNavigate, useSearchParams } from "react-router";
+import { useSearchParams } from "react-router";
 import StatusCard from "./StatusCard/StatusCard";
 import { useSyncPaymentStatusMutation } from "../../Slices/ordersApiSlice";
 import { useEffect, useState } from "react";
