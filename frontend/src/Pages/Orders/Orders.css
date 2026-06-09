@@ -27,7 +27,7 @@
 
 .orders-list {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   gap: 20px;
 }
 
@@ -88,12 +88,7 @@
 
 .order-product h3 {
   margin: 0;
-
   max-width: 400px;
-
-  font-size: 18px;
-
-  font-weight: 600;
 }
 
 .order-product p {
@@ -101,39 +96,21 @@
 }
 
 .order-summary {
+  display: flex;
+  flex-direction: column;
   text-align: right;
 }
 
 .order-summary p {
   margin: 0;
-
-  color: #999;
+  color: #b5b4b4;
 }
 
-.order-summary h2 {
-  margin: 8px 0 16px;
-
-  font-size: 28px;
+.order-summary-price {
+  margin: 10px 0;
 }
 
-.order-summary button {
-  background: #1d4ed8;
-
-  color: white;
-
-  border: none;
-
-  padding: 10px 20px;
-
-  cursor: pointer;
-}
-
-.order-card-footer {
-  padding: 0 20px 20px;
-
-  color: #1d4ed8;
-
-  cursor: pointer;
-
-  font-weight: 500;
+.order-summary-button {
+  display: unset;
+  background: #3267e3;
 }
