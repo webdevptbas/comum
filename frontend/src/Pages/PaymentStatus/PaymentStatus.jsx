@@ -1,4 +1,4 @@
-import { useSearchParams } from "react-router";
+import { useNavigate, useSearchParams } from "react-router";
 import StatusCard from "./StatusCard/StatusCard";
 import { useSyncPaymentStatusMutation } from "../../Slices/ordersApiSlice";
 import { useEffect, useState } from "react";
@@ -6,11 +6,8 @@ import { message, Spin } from "antd";
 
 const PaymentStatusPage = () => {
   const [searchParams] = useSearchParams();
-
   const [order, setOrder] = useState(null);
-
   const orderId = searchParams.get("order_id");
-
   const [syncPaymentStatus, { isLoading }] = useSyncPaymentStatusMutation();
 
   useEffect(() => {
