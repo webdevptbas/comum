@@ -1,10 +1,12 @@
 import { Button, Card, Space, Typography } from "antd";
 import statusConfig from "./config";
+import { useNavigate } from "react-router";
 
 const { Title, Text } = Typography;
 
-const StatusCard = ({ status, orderId, onPrimaryClick, onSecondaryClick }) => {
+const StatusCard = ({ status, orderId }) => {
   const current = statusConfig[status];
+  const navigate = useNavigate();
 
   return (
     <Card>
@@ -18,11 +20,16 @@ const StatusCard = ({ status, orderId, onPrimaryClick, onSecondaryClick }) => {
         <Text>{current.description}</Text>
 
         <Space>
-          <Button type="primary" onClick={onPrimaryClick}>
+          <Button
+            type="primary"
+            onClick={() => navigate(`${current.primaryLink}`)}
+          >
             {current.primaryText}
           </Button>
 
-          <Button onClick={onSecondaryClick}>{current.secondaryText}</Button>
+          <Button onClick={() => navigate(`${current.secondaryLink}`)}>
+            {current.secondaryText}
+          </Button>
         </Space>
       </Space>
     </Card>

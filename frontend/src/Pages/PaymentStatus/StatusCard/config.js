@@ -5,7 +5,9 @@ const statusConfig = {
     description:
       "Your payment has been received successfully. We are preparing your order.",
     primaryText: "View Order",
+    primaryLink: "/profile/my-orders",
     secondaryText: "Continue Shopping",
+    secondaryLink: "/shop",
   },
 
   pending: {
@@ -13,15 +15,19 @@ const statusConfig = {
     title: "Payment Pending",
     description: "We're waiting for your payment confirmation.",
     primaryText: "Pay Again",
+    primaryLink: "/checkout/:id",
     secondaryText: "View Order",
+    secondaryLink: "/profile/my-orders",
   },
 
   failed: {
     icon: "✕",
     title: "Payment Failed",
     description: "Unfortunately we couldn't process your payment.",
-    primaryText: "Try Again",
+    primaryText: "Back to Shop",
+    primaryLink: "/shop",
     secondaryText: "View Order",
+    secondaryLink: "/profile/my-orders",
   },
 };
 
