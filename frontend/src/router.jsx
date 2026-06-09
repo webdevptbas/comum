@@ -134,14 +134,13 @@ const router = createBrowserRouter([
               },
               {
                 path: "my-orders",
-                element: <OrdersPage />,
                 children: [
                   {
                     index: true,
                     element: <OrdersPage />,
                   },
                   {
-                    path: "orders/:id",
+                    path: ":id",
                     element: <OrderDetailsPage />,
                   },
                 ],
