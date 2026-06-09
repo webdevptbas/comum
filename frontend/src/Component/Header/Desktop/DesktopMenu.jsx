@@ -1,8 +1,8 @@
 import React from "react";
 import { Menu } from "antd";
 import { useLocation, useNavigate } from "react-router";
-import menuItems from "../headerItem";
 import { ComumHomeBlue } from "../../../Icons";
+import { menuItems } from "../dekstopMenuItems";
 
 const DesktopMenu = () => {
   const location = useLocation();

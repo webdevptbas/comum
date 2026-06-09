@@ -8,7 +8,7 @@ import { useNavigate, useLocation } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { useLogoutMutation } from "../../../Slices/usersApiSlice";
 import { clearCredentials } from "../../../Slices/authSlice";
-import getDropdownItem from "../userDropdownItem";
+import { getDropdownItem } from "../dekstopMenuItems";
 import SearchBar from "../SearchBar/SearchBar";
 
 const DesktopUtilities = ({ onCartOpen }) => {
