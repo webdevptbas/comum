@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Outlet, useNavigate, useLocation } from "react-router";
 import { useDispatch } from "react-redux";
-
 import "./ProfileLayout.css";
 import { clearCredentials } from "../../Slices/authSlice";
 import { useLogoutMutation } from "../../Slices/usersApiSlice";
@@ -14,7 +13,6 @@ const ProfileLayout = () => {
   const location = useLocation();
   const dispatch = useDispatch();
 
-  const [pageTitle, setPageTitle] = useState(profileMenu[0].label);
   const [logoutModal, setLogoutModal] = useState(false);
 
   const [logoutApiCall] = useLogoutMutation();
