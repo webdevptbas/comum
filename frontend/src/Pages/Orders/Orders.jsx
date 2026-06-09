@@ -2,11 +2,14 @@ import { Empty, Input, Select, Spin } from "antd";
 import { useGetMyOrdersQuery } from "../../Slices/ordersApiSlice";
 import { useState } from "react";
 import { CiSearch } from "react-icons/ci";
+import "./Orders.css";
+import { useNavigate } from "react-router";
 
 const OrdersPage = () => {
   const [searchKeyword, setSearchKeyword] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const { data: orders, isLoading, error } = useGetMyOrdersQuery();
+  const navigate = useNavigate();
 
   if (isLoading) {
     return (
@@ -143,7 +146,7 @@ const OrdersPage = () => {
                     />
 
                     <div>
-                      <h3>{firstProduct.productName}</h3>
+                      <h6 className="heading6">{firstProduct.productName}</h6>
 
                       {otherProducts > 0 && (
                         <p>+{otherProducts} Other Product</p>
@@ -154,16 +157,21 @@ const OrdersPage = () => {
                   <div className="order-summary">
                     <p>Total Spending</p>
 
-                    <h2>
+                    <h5 className="heading5 order-summary-price">
                       Rp
                       {order.totalPrice.toLocaleString("id-ID")}
-                    </h2>
+                    </h5>
 
-                    <button>Track Order</button>
+                    <button
+                      className="button text-button-regular order-summary-button"
+                      onClick={() =>
+                        navigate(`/profile/my-orders/${order._id}`)
+                      }
+                    >
+                      Order Details
+                    </button>
                   </div>
                 </div>
-
-                <div className="order-card-footer">+ Show More</div>
               </div>
             );
           })}
