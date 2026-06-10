@@ -147,7 +147,7 @@ exports.syncPaymentStatus = async (req, res) => {
       case "settlement":
       case "capture":
         order.isPaid = true;
-        order.paidAt = new Date(status.settlement_time);
+        order.paidAt = status.settlement_time;
 
         order.orderStatus = "paid";
         break;
@@ -211,7 +211,12 @@ exports.updateMyOrderToPaid = async (req, res) => {
 // @route GET /api/orders
 // @access private/admin route
 exports.getAllOrders = async (req, res) => {
-  res.send("list of all users order(s)");
+  try {
+    const orders = await Order.find().populate("user", "username name email");
+    res.status(200).json(orders);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 };
 
 // @desc get order by id
