@@ -86,6 +86,19 @@ export const importProductsFromCsv = async (formData) => {
   }
 };
 
+//----------------------
+//-----ORDERS API-------
+//----------------------
+export const fetchAllOrders = async () => {
+  try {
+    const response = await api.get("/orders");
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    throw error;
+  }
+};
+
 //------------------------
 //-----EVENT LIST API-----
 //------------------------
