@@ -19,23 +19,16 @@
   border: 1px solid #ececec;
   padding: 24px;
   margin-bottom: 24px;
-}
 
-.order-section h4 {
-  margin: 0;
-  font-size: 18px;
-  font-weight: 600;
+  .heading4 {
+    margin-top: 0;
+  }
 }
 
 .order-section-title-row {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 24px;
-}
-
-.order-shipping-section {
-  display: flex;
+  align-items: start;
 }
 
 .order-status-badge {
@@ -44,7 +37,6 @@
   justify-content: center;
 
   padding: 8px 16px;
-
   font-size: 13px;
   font-weight: 600;
 }
@@ -81,20 +73,21 @@
 
 .detail-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 24px;
 }
 
-.detail-grid label {
+.detail-grid label,
+.shipping-card label,
+.order-product-row label {
   display: block;
   color: #8c8c8c;
-  font-size: 13px;
   margin-bottom: 6px;
 }
 
-.detail-grid p {
+.detail-grid p,
+.shipping-card p {
   margin: 0;
-  font-weight: 500;
   word-break: break-word;
 }
 
@@ -102,9 +95,7 @@
   display: flex;
   align-items: center;
   gap: 20px;
-
   padding: 20px 0;
-
   border-bottom: 1px solid #f0f0f0;
 }
 
@@ -116,9 +107,7 @@
 .order-product-row img {
   width: 90px;
   height: 90px;
-
   object-fit: contain;
-
   background: #fafafa;
 }
 
@@ -137,9 +126,10 @@
   color: #595959;
 }
 
-.product-price {
-  font-size: 18px;
-  font-weight: 700;
+.shipping-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .shipping-card strong {
@@ -154,6 +144,7 @@
 
 .order-summary-card {
   background: #fafafa;
+  margin-bottom: 0;
 }
 
 .summary-row {
@@ -179,10 +170,24 @@
 }
 
 /* Responsive */
+@media (max-width: 768px) {
+  .order-section {
+    margin-bottom: 20px;
 
-@media screen and (max-width: 768px) {
+    .heading4 {
+      margin: 0 0 20px;
+    }
+  }
+
+  .order-section-title-row {
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
   .detail-grid {
     grid-template-columns: 1fr;
+    gap: 20px;
   }
 
   .order-product-row {
@@ -190,13 +195,23 @@
     align-items: flex-start;
   }
 
-  .product-price {
+  .order-product-row-title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
     width: 100%;
+
+    .heading5 {
+      margin: 0;
+      text-align: right;
+    }
   }
 
-  .order-section-title-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
+  .order-product-row-body {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
   }
 }
