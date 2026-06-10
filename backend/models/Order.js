@@ -97,7 +97,7 @@ const orderSchema = new mongoose.Schema(
       default: false,
     },
 
-    paidAt: Date,
+    paidAt: { type: String },
 
     snapToken: { type: String },
 
@@ -117,7 +117,11 @@ orderSchema.pre("save", function (next) {
     return next();
   }
 
-  const now = new Date();
+  const jakartaDate = new Date().toLocaleString("en-US", {
+    timeZone: "Asia/Jakarta",
+  });
+
+  const now = new Date(jakartaDate);
 
   const year = now.getFullYear();
 
