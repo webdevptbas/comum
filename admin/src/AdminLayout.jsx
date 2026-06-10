@@ -50,6 +50,10 @@ const AdminLayout = () => {
             label: "Manage Products",
           },
           {
+            key: "/orders",
+            label: "Manage Orders",
+          },
+          {
             key: "/brands",
             label: "Manage Brands",
           },
