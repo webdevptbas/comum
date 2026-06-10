@@ -1,4 +1,4 @@
-import { Empty, Input, Select, Spin } from "antd";
+import { Empty, Input, Select, Skeleton } from "antd";
 import { useGetMyOrdersQuery } from "../../Slices/ordersApiSlice";
 import { useState } from "react";
 import { CiSearch } from "react-icons/ci";
@@ -12,11 +12,7 @@ const OrdersPage = () => {
   const navigate = useNavigate();
 
   if (isLoading) {
-    return (
-      <div className="orders-page-loading">
-        <Spin size="large" />
-      </div>
-    );
+    return <Skeleton />;
   }
 
   if (error) {
@@ -104,19 +100,19 @@ const OrdersPage = () => {
       ) : (
         <div className="orders-list">
           {orders?.map((order) => {
-            const firstProduct = order.orderItems[0];
+            const firstProduct = order?.orderItems[0];
 
-            const otherProducts = order.orderItems.length - 1;
+            const otherProducts = order?.orderItems?.length - 1;
 
-            const status = getOrderStatus(order.orderStatus);
+            const status = getOrderStatus(order?.orderStatus);
 
             return (
-              <div className="order-card" key={order._id}>
+              <div className="order-card" key={order?._id}>
                 {/* Header */}
 
                 <div className="order-card-header">
-                  <span>
-                    {new Date(order.createdAt).toLocaleDateString("en-GB", {
+                  <span className="text-m-regular">
+                    {new Date(order?.createdAt)?.toLocaleDateString("en-GB", {
                       day: "numeric",
                       month: "short",
                       year: "numeric",
@@ -124,16 +120,16 @@ const OrdersPage = () => {
                   </span>
 
                   <span
-                    className="status-badge"
+                    className="text-m-medium status-badge"
                     style={{
-                      backgroundColor: status.color,
-                      color: status.textColor,
+                      backgroundColor: status?.color,
+                      color: status?.textColor,
                     }}
                   >
-                    {status.label}
+                    {status?.label}
                   </span>
 
-                  <span>{order.orderId}</span>
+                  <span className="text-m-regular">{order?.orderId}</span>
                 </div>
 
                 {/* Body */}
@@ -141,31 +137,34 @@ const OrdersPage = () => {
                 <div className="order-card-body">
                   <div className="order-product">
                     <img
-                      src={firstProduct.imageUrl}
-                      alt={firstProduct.productName}
+                      src={firstProduct?.imageUrl}
+                      alt={firstProduct?.productName}
                     />
 
                     <div>
-                      <h6 className="heading6">{firstProduct.productName}</h6>
+                      <h6 className="heading6">{firstProduct?.productName}</h6>
 
                       {otherProducts > 0 && (
-                        <p>+{otherProducts} Other Product</p>
+                        <p className="text-m-regular">
+                          +{otherProducts} Other Product
+                        </p>
                       )}
                     </div>
                   </div>
 
                   <div className="order-summary">
-                    <p>Total Spending</p>
-
-                    <h5 className="heading5 order-summary-price">
-                      Rp
-                      {order.totalPrice.toLocaleString("id-ID")}
-                    </h5>
+                    <div>
+                      <p className="text-m-regular">Total Spending</p>
+                      <h5 className="heading5 order-summary-price">
+                        Rp
+                        {order?.totalPrice?.toLocaleString("id-ID")}
+                      </h5>
+                    </div>
 
                     <button
                       className="button text-button-regular order-summary-button"
                       onClick={() =>
-                        navigate(`/profile/my-orders/${order._id}`)
+                        navigate(`/profile/my-orders/${order?._id}`)
                       }
                     >
                       Order Details
