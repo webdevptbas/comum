@@ -2,7 +2,7 @@ import { useSearchParams } from "react-router";
 import StatusCard from "./StatusCard/StatusCard";
 import { useSyncPaymentStatusMutation } from "../../Slices/ordersApiSlice";
 import { useEffect, useState } from "react";
-import { message, Spin } from "antd";
+import { message, Skeleton } from "antd";
 
 const PaymentStatusPage = () => {
   const [searchParams] = useSearchParams();
@@ -10,21 +10,21 @@ const PaymentStatusPage = () => {
   const orderId = searchParams.get("order_id");
   const [syncPaymentStatus, { isLoading }] = useSyncPaymentStatusMutation();
 
-  useEffect(() => {
-    const syncPayment = async () => {
-      try {
-        if (!orderId) return;
+  // useEffect(() => {
+  //   const syncPayment = async () => {
+  //     try {
+  //       if (!orderId) return;
 
-        const updatedOrder = await syncPaymentStatus(orderId).unwrap();
+  //       const updatedOrder = await syncPaymentStatus(orderId).unwrap();
 
-        setOrder(updatedOrder);
-      } catch (err) {
-        message.error(err?.data?.message || "Failed to sync payment status");
-      }
-    };
+  //       setOrder(updatedOrder);
+  //     } catch (err) {
+  //       message.error(err?.data?.message || "Failed to sync payment status");
+  //     }
+  //   };
 
-    syncPayment();
-  }, [orderId, syncPaymentStatus]);
+  //   syncPayment();
+  // }, [orderId, syncPaymentStatus]);
 
   const getStatusType = () => {
     const transactionStatus = order?.paymentResult?.status;
@@ -59,7 +59,7 @@ const PaymentStatusPage = () => {
           alignItems: "center",
         }}
       >
-        <Spin size="large" />
+        <Skeleton />
       </div>
     );
   }
