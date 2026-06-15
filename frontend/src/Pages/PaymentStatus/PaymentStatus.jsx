@@ -10,21 +10,21 @@ const PaymentStatusPage = () => {
   const orderId = searchParams.get("order_id");
   const [syncPaymentStatus, { isLoading }] = useSyncPaymentStatusMutation();
 
-  // useEffect(() => {
-  //   const syncPayment = async () => {
-  //     try {
-  //       if (!orderId) return;
+  useEffect(() => {
+    const syncPayment = async () => {
+      try {
+        if (!orderId) return;
 
-  //       const updatedOrder = await syncPaymentStatus(orderId).unwrap();
+        const updatedOrder = await syncPaymentStatus(orderId).unwrap();
 
-  //       setOrder(updatedOrder);
-  //     } catch (err) {
-  //       message.error(err?.data?.message || "Failed to sync payment status");
-  //     }
-  //   };
+        setOrder(updatedOrder);
+      } catch (err) {
+        message.error(err?.data?.message || "Failed to sync payment status");
+      }
+    };
 
-  //   syncPayment();
-  // }, [orderId, syncPaymentStatus]);
+    syncPayment();
+  }, [orderId, syncPaymentStatus]);
 
   const getStatusType = () => {
     const transactionStatus = order?.paymentResult?.status;

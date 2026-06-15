@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useParams } from "react-router";
 import { useGetMyOrderDetailsQuery } from "../../Slices/ordersApiSlice";
 import { Card } from "antd";
-import PaymentSummary from "../Checkout/PaymentSummary";
+import PaymentSummary from "./PaymentSummary";
 import "./Payment.css";
 
 const PaymentPage = () => {

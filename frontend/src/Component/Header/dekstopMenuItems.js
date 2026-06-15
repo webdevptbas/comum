@@ -77,11 +77,6 @@ const getDropdownItem = (userInfo, onLogout) => [
     label: <a href="/profile/my-orders">Orders</a>,
   },
   {
-    key: "wishlist",
-    icon: <FaHeart />,
-    label: "Wishlist",
-  },
-  {
     key: "password",
     icon: <FaLock />,
     label: <a href="/profile/change-password">Change Password</a>,
