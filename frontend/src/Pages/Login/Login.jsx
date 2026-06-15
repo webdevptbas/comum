@@ -21,6 +21,16 @@ const LoginPage = () => {
   const redirect = sp.get("redirect") || "/";
 
   useEffect(() => {
+    const expiredMessage = sessionStorage.getItem("sessionExpired");
+
+    if (expiredMessage) {
+      message.warning(expiredMessage, 5);
+
+      sessionStorage.removeItem("sessionExpired");
+    }
+  }, []);
+
+  useEffect(() => {
     if (userInfo) {
       navigate(redirect);
     }
