@@ -33,6 +33,7 @@ const CheckoutPage = () => {
   const [selectedShipping, setSelectedShipping] = useState(
     shippingMethod || null,
   );
+  const [isLoadingShipping, setIsLoadingShipping] = useState(false);
 
   useEffect(() => {
     if (cartItems.length === 0) {
@@ -57,6 +58,8 @@ const CheckoutPage = () => {
       try {
         if (!shippingAddress?.district?.value || !totalWeight) return;
 
+        setIsLoadingShipping(true);
+
         const payload = {
           destination: shippingAddress.district.value,
           weight: totalWeight,
@@ -66,6 +69,8 @@ const CheckoutPage = () => {
         setShippingOptions(res?.data || []);
       } catch (err) {
         message.error(err);
+      } finally {
+        setIsLoadingShipping(false);
       }
     };
 
@@ -105,6 +110,7 @@ const CheckoutPage = () => {
             onChange={handleShippingMethod}
             options={shippingOptions}
             value={selectedShipping}
+            isLoadingShipping={isLoadingShipping}
           />
           <CartOverview />
         </div>
