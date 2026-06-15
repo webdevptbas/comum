@@ -10,7 +10,7 @@ const StatusCard = ({ status, orderId }) => {
 
   return (
     <Card>
-      <Space direction="vertical" align="center" style={{ width: "100%" }}>
+      <Space orientation="vertical" align="center" style={{ width: "100%" }}>
         <Title level={1}>{current.icon}</Title>
 
         <Title level={3}>{current.title}</Title>
