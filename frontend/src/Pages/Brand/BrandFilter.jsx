@@ -3,7 +3,6 @@ import "./BrandFilter.css";
 
 const BrandFilter = ({ activeType }) => {
   const [searchParams, setSearchParams] = useSearchParams();
-  console.log({ activeType });
 
   const setType = (type) => {
     setSearchParams({ type });

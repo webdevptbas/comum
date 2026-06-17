@@ -80,6 +80,10 @@
   width: 7dvw;
 }
 
+.utilities .ant-dropdown-trigger {
+  line-height: 0;
+}
+
 .cart-popup-wrapper {
   display: flex;
   flex-direction: column;
