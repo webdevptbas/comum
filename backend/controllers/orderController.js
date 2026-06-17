@@ -48,6 +48,13 @@ exports.createOrder = async (req, res) => {
         first_name: req?.user?.name,
         email: req?.user?.email,
         phone: req?.user?.phone,
+        shipping_address: {
+          first_name: req?.user?.name,
+          email: req?.user?.email,
+          phone: req?.user?.phone,
+          address: shippingAddress?.address,
+          city: shippingAddress?.city?.label,
+        },
       },
     });
 
@@ -223,17 +230,22 @@ exports.getAllOrders = async (req, res) => {
 // @route GET /api/orders/:id
 // @access private/admin route
 exports.getOrderById = async (req, res) => {
-  const order = await Order.findById(req.params.id).populate(
-    "user",
-    "username name email",
-  );
+  try {
+    const order = await Order.findById(req.params.id).populate(
+      "user",
+      "username name email",
+    );
 
-  if (order) {
+    if (!order) {
+      return res.status(404).json({
+        message: "Order not found",
+      });
+    }
+
     res.status(200).json(order);
-  } else {
-    res.status(404).json({
-      message: "Order not found",
-      status: 404,
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
     });
   }
 };
