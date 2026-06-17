@@ -1,4 +1,4 @@
-import { FaUser, FaBox, FaLock, FaHeart, FaSignOutAlt } from "react-icons/fa";
+import { FaUser, FaBox, FaLock, FaSignOutAlt } from "react-icons/fa";
 
 //menu for Desktop Header
 const menuItems = [
