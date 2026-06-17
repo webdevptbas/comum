@@ -9,6 +9,7 @@ import Products from "./Pages/Products/Products";
 import Brands from "./Pages/Brands/Brands";
 import Categories from "./Pages/Categories/Categories";
 import Orders from "./Pages/Orders/Orders";
+import OrderDetails from "./Pages/Orders/OrderDetails";
 
 const router = createBrowserRouter([
   {
@@ -37,11 +38,17 @@ const router = createBrowserRouter([
           },
           {
             path: "orders",
-            element: (
-              <PrivateRoute allowedRoles={["AdminProduct"]}>
-                <Orders />
-              </PrivateRoute>
-            ),
+            element: <PrivateRoute allowedRoles={["AdminProduct"]} />,
+            children: [
+              {
+                index: true,
+                element: <Orders />,
+              },
+              {
+                index: ":id",
+                element: <OrderDetails />,
+              },
+            ],
           },
           {
             path: "brands",
