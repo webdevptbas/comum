@@ -74,12 +74,9 @@ const columns = [
   {
     title: "Action",
     render: (_, record) => (
-      <Button
-        type="primary"
-        onClick={() => Link(`/admin/orders/${record._id}`)}
-      >
-        View
-      </Button>
+      <Link to={`/orders/${record._id}`}>
+        <Button type="primary">View</Button>
+      </Link>
     ),
   },
 ];

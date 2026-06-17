@@ -1,9 +1,11 @@
+import { IoWalletOutline, IoCloseCircleOutline } from "react-icons/io5";
+import { LiaShippingFastSolid } from "react-icons/lia";
+
 const statusConfig = {
   success: {
-    icon: "✓",
-    title: "Payment Successful",
-    description:
-      "Your payment has been received successfully. We are preparing your order.",
+    icon: <LiaShippingFastSolid />,
+    title: "Thank You!",
+    description: "Your order has been successfully placed.",
     primaryText: "View Order",
     primaryLink: "/profile/my-orders",
     secondaryText: "Continue Shopping",
@@ -11,9 +13,9 @@ const statusConfig = {
   },
 
   pending: {
-    icon: "⏳",
-    title: "Payment Pending",
-    description: "We're waiting for your payment confirmation.",
+    icon: <IoWalletOutline />,
+    title: "Waiting For Payment",
+    description: "Please complete your payment to process your order",
     primaryText: "Pay Again",
     primaryLink: "/checkout/:id",
     secondaryText: "View Order",
@@ -21,7 +23,7 @@ const statusConfig = {
   },
 
   failed: {
-    icon: "✕",
+    icon: <IoCloseCircleOutline />,
     title: "Payment Failed",
     description: "Unfortunately we couldn't process your payment.",
     primaryText: "Back to Shop",
