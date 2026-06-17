@@ -94,7 +94,17 @@ export const fetchAllOrders = async () => {
     const response = await api.get("/orders");
     return response.data;
   } catch (error) {
-    console.error("Error fetching products:", error);
+    console.error("Error fetching orders:", error);
+    throw error;
+  }
+};
+
+export const fetchOrderById = async (id) => {
+  try {
+    const response = await api.get(`/orders/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error(`Error fetching order with ID: ${id}`, error);
     throw error;
   }
 };
