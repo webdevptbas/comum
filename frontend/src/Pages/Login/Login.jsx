@@ -24,7 +24,7 @@ const LoginPage = () => {
     const expiredMessage = sessionStorage.getItem("sessionExpired");
 
     if (expiredMessage) {
-      message.warning(expiredMessage, 5);
+      message.warning(expiredMessage, 7);
 
       sessionStorage.removeItem("sessionExpired");
     }
