@@ -11,9 +11,6 @@ import {
 } from "antd";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { useState } from "react";
-
-import { useGetOrderByIdAdminQuery } from "../../Slices/ordersApiSlice";
-
 import "./OrderDetails.css";
 import { fetchOrderById } from "../../Util/apiService";
 
