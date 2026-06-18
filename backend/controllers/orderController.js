@@ -100,7 +100,9 @@ exports.getMyOrderById = async (req, res) => {
 // @access Private
 exports.getPaymentStatus = async (req, res) => {
   try {
-    const order = await Order.findOne({ orderId: req.params.orderId });
+    const order = await Order.findOne({
+      orderId: req.params.orderId,
+    });
 
     if (!order) {
       return res.status(404).json({
@@ -108,9 +110,78 @@ exports.getPaymentStatus = async (req, res) => {
       });
     }
 
-    const status = await snap.transaction.status(order.orderId);
+    const lookupId = order.paymentResult?.id || order.orderId;
+
+    const status = await snap.transaction.status(lookupId);
 
     res.status(200).json(status);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
+// @desc Sync payment status from Midtrans on BE
+// @route POST /api/orders/my-orders/payment-notification
+// @access public by Midtrans
+exports.paymentNotification = async (req, res) => {
+  try {
+    const rawOrderId = req.body.order_id;
+
+    const notification = await snap.transaction.notification(req.body);
+
+    const order = await Order.findOne({
+      orderId: rawOrderId,
+    });
+
+    if (!order) {
+      return res.status(404).json({
+        message: "Order not found",
+      });
+    }
+
+    order.paymentResult = {
+      id: notification.transaction_id,
+      status: notification.transaction_status,
+      fraudStatus: notification.fraud_status,
+      grossAmount: notification.gross_amount,
+      currency: notification.currency,
+      orderId: rawOrderId,
+      paymentType: notification.payment_type,
+      issuer: notification.issuer,
+      acquirer: notification.acquirer,
+      transactionTime: notification.transaction_time,
+      settlementTime: notification.settlement_time,
+    };
+
+    switch (notification.transaction_status) {
+      case "settlement":
+      case "capture":
+        order.isPaid = true;
+        order.paidAt = notification.settlement_time;
+        order.orderStatus = "paid";
+        break;
+
+      case "pending":
+        order.isPaid = false;
+        order.orderStatus = "pending";
+        break;
+
+      case "cancel":
+      case "deny":
+      case "expire":
+      case "failure":
+        order.isPaid = false;
+        order.orderStatus = "cancelled";
+        break;
+    }
+
+    await order.save();
+
+    res.status(200).json({
+      message: "Notification processed",
+    });
   } catch (error) {
     res.status(500).json({
       message: error.message,
@@ -133,7 +204,9 @@ exports.syncPaymentStatus = async (req, res) => {
       });
     }
 
-    const status = await snap.transaction.status(order.orderId);
+    const lookupId = order.paymentResult?.id || order.orderId;
+
+    const status = await snap.transaction.status(lookupId);
 
     const transactionStatus = status.transaction_status;
 

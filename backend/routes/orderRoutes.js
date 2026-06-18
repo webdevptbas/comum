@@ -10,8 +10,12 @@ const {
   getOrderById,
   getPaymentStatus,
   syncPaymentStatus,
+  paymentNotification,
 } = require("../controllers/orderController");
 const { protect, roleCheck } = require("../middleware/authMiddleware");
+
+//Public routes
+router.post("/my-orders/payment-notification", paymentNotification);
 
 //Private routes
 router.post("/", protect, createOrder);
