@@ -1,7 +1,7 @@
 import { useSearchParams } from "react-router";
 import StatusCard from "./StatusCard/StatusCard";
 import { useSyncPaymentStatusMutation } from "../../Slices/ordersApiSlice";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Skeleton } from "antd";
 
 const PaymentStatusPage = () => {
@@ -9,6 +9,21 @@ const PaymentStatusPage = () => {
   const [order, setOrder] = useState(null);
   const orderId = searchParams.get("order_id");
   const [syncPaymentStatus, { isLoading }] = useSyncPaymentStatusMutation();
+
+   useEffect(() => {
+    const fetchStatus = async () => {
+      try {
+        const res = await syncPaymentStatus(orderId).unwrap();
+        setOrder(res);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    if (orderId){
+      fetchStatus();
+    }
+  }, [orderId]);
 
   const getStatusType = () => {
     const transactionStatus = order?.paymentResult?.status;
