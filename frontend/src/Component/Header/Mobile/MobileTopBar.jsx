@@ -37,19 +37,21 @@ const MobileTopBar = ({ onMenuOpen, onCartOpen }) => {
           />
         )}
 
-        {cartItems.length > 0 ? (
-          <Badge
-            count={cartItems.reduce((a, c) => a + c.quantity, 0)}
-            onClick={onCartOpen}
-          >
-            <MdOutlineShoppingCart style={{ fontSize: "20px" }} />
-          </Badge>
-        ) : (
-          <MdOutlineShoppingCart
-            style={{ fontSize: "20px" }}
-            onClick={onCartOpen}
-          />
-        )}
+        <div id="cart-icon-target">
+          {cartItems.length > 0 ? (
+            <Badge
+              count={cartItems.reduce((a, c) => a + c.quantity, 0)}
+              onClick={onCartOpen}
+            >
+              <MdOutlineShoppingCart style={{ fontSize: "20px" }} />
+            </Badge>
+          ) : (
+            <MdOutlineShoppingCart
+              style={{ fontSize: "20px" }}
+              onClick={onCartOpen}
+            />
+          )}
+        </div>
       </div>
     </>
   );

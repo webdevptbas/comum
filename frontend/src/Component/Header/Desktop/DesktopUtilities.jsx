@@ -123,22 +123,24 @@ const DesktopUtilities = ({ onCartOpen }) => {
         )}
 
         {/* cart trigger */}
-        {cartItems.length > 0 ? (
-          <Badge
-            count={cartItems.reduce((a, c) => a + c.quantity, 0)}
-            onClick={onCartOpen}
-            style={{ cursor: "pointer" }}
-          >
+        <div id="cart-icon-target">
+          {cartItems.length > 0 ? (
+            <Badge
+              count={cartItems.reduce((a, c) => a + c.quantity, 0)}
+              onClick={onCartOpen}
+              style={{ cursor: "pointer" }}
+            >
+              <MdOutlineShoppingCart
+                style={{ fontSize: "20px", cursor: "pointer" }}
+              />
+            </Badge>
+          ) : (
             <MdOutlineShoppingCart
               style={{ fontSize: "20px", cursor: "pointer" }}
+              onClick={onCartOpen}
             />
-          </Badge>
-        ) : (
-          <MdOutlineShoppingCart
-            style={{ fontSize: "20px", cursor: "pointer" }}
-            onClick={onCartOpen}
-          />
-        )}
+          )}
+        </div>
       </div>
 
       <Modal

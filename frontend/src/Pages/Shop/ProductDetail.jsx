@@ -1,3 +1,4 @@
+import { flyToCart } from "../../Util/flyToCart";
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router";
 import { Button, Select, InputNumber, Breadcrumb, Skeleton } from "antd";
@@ -61,8 +62,11 @@ const ProductDetailPage = () => {
       : finalItem?.price
     : product?.displayDiscountPrice;
 
-  const addToCartHandler = () => {
+  const addToCartHandler = (e) => {
     if (!selectedItem) return;
+
+    const mainImageE1 = document.querySelector(".main-image img");
+    flyToCart(mainImageE1?.src, e.currentTarget);
 
     dispatch(
       addToCart({
@@ -238,7 +242,7 @@ const ProductDetailPage = () => {
 
               <Button
                 className="add-to-cart-button"
-                onClick={() => addToCartHandler()}
+                onClick={(e) => addToCartHandler(e)}
                 disabled={!selectedItem}
               >
                 Add To Cart
