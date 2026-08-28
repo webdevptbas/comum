@@ -102,6 +102,32 @@
   max-width: 100%;
 }
 
+.product-detail-card {
+  background: #ffffff;
+  border: 1px solid #ececec;
+  border-radius: 12px;
+  padding: 32px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+.product-detail-card-title {
+  margin: 0 0 16px 0;
+}
+
+.product-detail-description {
+  white-space: pre-line;
+  line-height: 1.7;
+  color: #333;
+  text-align: left;
+  margin: 0;
+}
+
+.product-detail-divider {
+  height: 1px;
+  background: #ececec;
+  margin: 24px 0;
+}
+
 .read-more {
   font-weight: bold;
   color: #344ead;
@@ -171,5 +197,18 @@
 
   .detail-section {
     padding: 0;
+  }
+
+  .product-detail-card {
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: none;
+    border: none;
+    border-top: 1px solid #ececec;
+  }
+
+  .product-detail-description {
+    font-size: 14px;
+    line-height: 1.6;
   }
 }

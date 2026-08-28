@@ -8,6 +8,7 @@ import Tag from "../../Component/Tag/Tag";
 import { useGetProductDetailsQuery } from "../../Slices/productsApiSlice";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../Slices/cartSlice";
+import ProductSpecification from "../../Component/ProductSpecification/ProductSpecification";
 
 const ProductDetailPage = () => {
   const { id } = useParams();
@@ -252,19 +253,20 @@ const ProductDetailPage = () => {
 
           {product.details ? (
             <div className="detail-section">
-              <h2>Product Details</h2>
-              <p
-                className="text-m-regular"
-                style={{ textAlign: "justify", whiteSpace: "pre-line" }}
-              >
-                {product.details}
-              </p>
-              <p className="text-m-regular" style={{ whiteSpace: "pre-line" }}>
-                {product.specification}
-              </p>
-              {/* <a href="#more" className="read-more">
-            Read More
-          </a> */}
+              <div className="product-detail-card">
+                <h2 className="product-detail-card-title">Product Details</h2>
+                <p className="product-detail-description">{product.details}</p>
+
+                {product.specification && (
+                  <>
+                    <div className="product-detail-divider" />
+                    <h2 className="product-detail-card-title">Specification</h2>
+                    <ProductSpecification
+                      specification={product.specification}
+                    />
+                  </>
+                )}
+              </div>
             </div>
           ) : (
             <div className="detail-section"></div>
