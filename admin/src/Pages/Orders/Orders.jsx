@@ -15,10 +15,15 @@ const Orders = () => {
 
   const loadOrders = async () => {
     try {
+      setLoading(true);
       const response = await fetchAllOrders();
       setOrders(response);
     } catch (err) {
-      message.error(err);
+      message.error(
+        err?.response?.data?.message || err?.message || "Failed to load orders",
+      );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -30,7 +35,7 @@ const Orders = () => {
     const keyword = searchKeyword.toLowerCase();
 
     const matchesSearch =
-      order.orderId.toLowerCase().includes(keyword) ||
+      order.orderId?.toLowerCase().includes(keyword) ||
       order.user?.name?.toLowerCase().includes(keyword) ||
       order.user?.email?.toLowerCase().includes(keyword);
 

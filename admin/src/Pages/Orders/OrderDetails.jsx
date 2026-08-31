@@ -10,40 +10,70 @@ import {
   message,
 } from "antd";
 import { FaArrowLeftLong } from "react-icons/fa6";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./OrderDetails.css";
-import { fetchOrderById } from "../../Util/apiService";
+import { fetchOrderById, updateOrderStatus } from "../../Util/apiService";
+
+const statusColors = {
+  pending: "orange",
+  paid: "blue",
+  processing: "geekblue",
+  shipped: "purple",
+  completed: "green",
+  cancelled: "red",
+};
+
+const getStatusColor = (status) => statusColors[status] || "default";
 
 const OrderDetails = () => {
   const { id } = useParams();
-  const [order, setOrder] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
+  const [order, setOrder] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isUpdating, setIsUpdating] = useState(false);
   const [status, setStatus] = useState();
-
-  console.log(order);
 
   const navigate = useNavigate();
 
-  const loadOrderById = async (id) => {
+  const loadOrderById = async (orderId) => {
     try {
       setIsLoading(true);
-      const res = await fetchOrderById(id);
+      const res = await fetchOrderById(orderId);
       setOrder(res);
+      setStatus(res.orderStatus || "pending");
     } catch (error) {
-      console.error("Failed to fetch products:", error);
-      message.error("Failed to load products");
+      console.error("Failed to fetch order:", error);
+      message.error("Failed to load order");
     } finally {
       setIsLoading(false);
     }
   };
 
-  if (isLoading) {
+  useEffect(() => {
+    if (id) {
+      loadOrderById(id);
+    }
+  }, [id]);
+
+  const handleUpdateStatus = async () => {
+    if (!status || status === order.orderStatus) return;
+
+    try {
+      setIsUpdating(true);
+      const updated = await updateOrderStatus(id, status);
+      setOrder(updated);
+      setStatus(updated.orderStatus);
+      message.success("Order status updated");
+    } catch (error) {
+      console.error("Failed to update order status:", error);
+      message.error("Failed to update order status");
+    } finally {
+      setIsUpdating(false);
+    }
+  };
+
+  if (isLoading || !order) {
     return <Skeleton active />;
   }
-
-  //   if (error) {
-  //     return <div>Failed to load order.</div>;
-  //   }
 
   return (
     <div className="admin-order-details-container">
@@ -51,7 +81,7 @@ const OrderDetails = () => {
         <Button
           icon={<FaArrowLeftLong />}
           type="text"
-          onClick={() => navigate("/admin/orders")}
+          onClick={() => navigate("/orders")}
         >
           Back to Orders
         </Button>
@@ -62,12 +92,14 @@ const OrderDetails = () => {
       <Card className="admin-status-card">
         <div className="status-header">
           <div>
-            <Tag color="green">{order.orderStatus.toUpperCase()}</Tag>
+            <Tag color={getStatusColor(order.orderStatus || "pending")}>
+              {(order.orderStatus || "pending").toUpperCase()}
+            </Tag>
           </div>
 
           <div className="status-actions">
             <Select
-              value={status || order.orderStatus}
+              value={status || order.orderStatus || "pending"}
               onChange={setStatus}
               style={{
                 width: 180,
@@ -100,7 +132,14 @@ const OrderDetails = () => {
               ]}
             />
 
-            <Button type="primary">Update Status</Button>
+            <Button
+              type="primary"
+              loading={isUpdating}
+              disabled={!status || status === order.orderStatus}
+              onClick={handleUpdateStatus}
+            >
+              Update Status
+            </Button>
           </div>
         </div>
       </Card>

@@ -5,7 +5,7 @@ const {
   getMyOrderById,
   getMyOrders,
   updateMyOrderToPaid,
-  updateOrderToDelivered,
+  updateOrderStatus,
   getAllOrders,
   getOrderById,
   getPaymentStatus,
@@ -29,10 +29,10 @@ router.put("/my-orders/:orderId/sync-payment", protect, syncPaymentStatus);
 router.get("/", protect, roleCheck("AdminProduct"), getAllOrders);
 router.get("/:id", protect, roleCheck("AdminProduct"), getOrderById);
 router.put(
-  "/:id/deliver",
+  "/:id/status",
   protect,
   roleCheck("AdminProduct"),
-  updateOrderToDelivered,
+  updateOrderStatus,
 );
 
 module.exports = router;

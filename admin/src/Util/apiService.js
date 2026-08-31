@@ -109,6 +109,16 @@ export const fetchOrderById = async (id) => {
   }
 };
 
+export const updateOrderStatus = async (id, orderStatus) => {
+  try {
+    const response = await api.put(`/orders/${id}/status`, { orderStatus });
+    return response.data;
+  } catch (error) {
+    console.error(`Error updating order status for ID: ${id}`, error);
+    throw error;
+  }
+};
+
 //------------------------
 //-----EVENT LIST API-----
 //------------------------

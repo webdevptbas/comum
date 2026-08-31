@@ -45,7 +45,7 @@ const router = createBrowserRouter([
                 element: <Orders />,
               },
               {
-                index: ":id",
+                path: ":id",
                 element: <OrderDetails />,
               },
             ],

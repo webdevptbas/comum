@@ -326,8 +326,45 @@ exports.getOrderById = async (req, res) => {
 // @desc update order to delivered
 // @route PUT /api/orders/:id/deliver
 // @access private/admin route
-exports.updateOrderToDelivered = async (req, res) => {
-  res.send(
-    `update customer delivery status to delivered by ID of => ${req.id}`,
-  );
+exports.updateOrderStatus = async (req, res) => {
+  try {
+    const { orderStatus } = req.body;
+
+    const allowedStatus = [
+      "pending",
+      "paid",
+      "processing",
+      "shipped",
+      "completed",
+      "cancelled",
+    ];
+
+    if (!allowedStatus.includes(orderStatus)) {
+      return res.status(400).json({ message: "Invalid order status" });
+    }
+
+    const order = await Order.findById(req.params.id);
+
+    if (!order) {
+      return res.status(404).json({ message: "Order not found" });
+    }
+
+    order.orderStatus = orderStatus;
+
+    if (
+      (orderStatus === "shipped" || orderStatus === "completed") &&
+      !order.isDelivered
+    ) {
+      order.isDelivered = true;
+      order.deliveredAt = Date.now();
+    }
+
+    const updatedOrder = await order.save();
+
+    res.status(200).json(updatedOrder);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
 };
