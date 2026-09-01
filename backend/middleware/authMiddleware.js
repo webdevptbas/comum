@@ -2,8 +2,24 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
 const protect = async (req, res, next) => {
-  //read the JWT from the cookie
   const token = req.cookies.jwt;
+
+  if (token) {
+    try {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      req.user = await User.findById(decoded._id).select("-password");
+      next();
+    } catch (error) {
+      console.log(error);
+      res.status(401).json({ message: "Not authorized, token failed" });
+    }
+  } else {
+    res.status(401).json({ message: "Not authorized, no token" });
+  }
+};
+
+const protectAdmin = async (req, res, next) => {
+  const token = req.cookies.admin_jwt;
 
   if (token) {
     try {
@@ -29,4 +45,4 @@ const roleCheck = (role) => {
   };
 };
 
-module.exports = { protect, roleCheck };
+module.exports = { protect, protectAdmin, roleCheck };

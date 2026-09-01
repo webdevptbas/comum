@@ -164,7 +164,16 @@ const ChangeAddressModal = ({
               labelInValue
             />
           </Form.Item>
-          <Form.Item label="Kelurahan/Sub District" name="subdistrict">
+          <Form.Item
+            label="Kelurahan/Sub District"
+            name="subdistrict"
+            rules={[
+              {
+                required: true,
+                message: "Please select your Kelurahan/Sub District",
+              },
+            ]}
+          >
             <Select
               options={subDistricts}
               showSearch={{ optionFilterProp: "label" }}

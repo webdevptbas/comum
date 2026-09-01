@@ -3,7 +3,9 @@ const jwt = require("jsonwebtoken");
 exports.generateToken = (res, user) => {
   let expiresIn = "7d";
 
-  if (user.role === "AdminEvent" || user.role === "AdminProduct") {
+  const isAdmin = user.role === "AdminEvent" || user.role === "AdminProduct";
+
+  if (isAdmin) {
     expiresIn = "12h";
   }
 
@@ -17,13 +19,11 @@ exports.generateToken = (res, user) => {
   );
 
   const maxAge =
-    user.role === "Buyer"
-      ? // days * hrs * mins * secs * milsecs
-        7 * 24 * 60 * 60 * 1000
-      : 1 * 12 * 60 * 60 * 1000;
+    user.role === "Buyer" ? 7 * 24 * 60 * 60 * 1000 : 1 * 12 * 60 * 60 * 1000;
 
-  // st JWT as  HTTP-Only cookie
-  res.cookie("jwt", token, {
+  const cookieName = isAdmin ? "admin_jwt" : "jwt";
+
+  res.cookie(cookieName, token, {
     httpOnly: true,
     secure: process.env.NODE_ENV !== "development",
     sameSite: "strict",

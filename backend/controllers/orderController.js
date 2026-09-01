@@ -85,14 +85,21 @@ exports.getMyOrderById = async (req, res) => {
     "username name email",
   );
 
-  if (order) {
-    res.status(200).json(order);
-  } else {
-    res.status(404).json({
+  if (!order) {
+    return res.status(404).json({
       message: "Order not found",
       status: 404,
     });
   }
+
+  if (order.user._id.toString() !== req.user._id.toString()) {
+    return res.status(403).json({
+      message: "You are not authorized to view this order",
+      status: 403,
+    });
+  }
+
+  res.status(200).json(order);
 };
 
 // @desc Get payment status from Midtrans
@@ -107,6 +114,12 @@ exports.getPaymentStatus = async (req, res) => {
     if (!order) {
       return res.status(404).json({
         message: "Order not found",
+      });
+    }
+
+    if (order.user.toString() !== req.user._id.toString()) {
+      return res.status(403).json({
+        message: "You are not authorized to view this order",
       });
     }
 
@@ -201,6 +214,12 @@ exports.syncPaymentStatus = async (req, res) => {
     if (!order) {
       return res.status(404).json({
         message: "Order not found",
+      });
+    }
+
+    if (order.user.toString() !== req.user._id.toString()) {
+      return res.status(403).json({
+        message: "You are not authorized to view this order",
       });
     }
 

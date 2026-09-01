@@ -8,6 +8,7 @@ import "./Login.css";
 import FormContainer from "../../Component/FormContainer/FormContainer";
 import { useLoginMutation } from "../../Slices/usersApiSlice";
 import { setCredentials } from "../../Slices/authSlice";
+import { apiSlice } from "../../Slices/apiSlice";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -40,6 +41,7 @@ const LoginPage = () => {
     try {
       const res = await login(values).unwrap();
 
+      dispatch(apiSlice.util.resetApiState());
       dispatch(setCredentials(res));
 
       message.success("Login success");

@@ -13,19 +13,23 @@ const {
   deleteSubCategory,
 } = require("../controllers/subCategoryController");
 
-const { protect, roleCheck } = require("../middleware/authMiddleware");
+const {
+  protect,
+  protectAdmin,
+  roleCheck,
+} = require("../middleware/authMiddleware");
 
 // CATEGORY
 router.get("/", getCategories);
-router.post("/", protect, roleCheck("AdminProduct"), createCategory);
-router.delete("/:id", protect, roleCheck("AdminProduct"), deleteCategory);
+router.post("/", protectAdmin, roleCheck("AdminProduct"), createCategory);
+router.delete("/:id", protectAdmin, roleCheck("AdminProduct"), deleteCategory);
 
 // SUBCATEGORY
 router.get("/:categoryId/sub", getSubCategoriesByCategory);
-router.post("/sub", protect, roleCheck("AdminProduct"), createSubCategory);
+router.post("/sub", protectAdmin, roleCheck("AdminProduct"), createSubCategory);
 router.delete(
   "/sub/:id",
-  protect,
+  protectAdmin,
   roleCheck("AdminProduct"),
   deleteSubCategory,
 );

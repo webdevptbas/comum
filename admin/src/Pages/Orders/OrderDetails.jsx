@@ -207,25 +207,25 @@ const OrderDetails = () => {
 
       <div className="details-grid">
         <Card title="Shipping Address">
-          <p>{order.shippingAddress.address}</p>
+          <p>{order.shippingAddress?.address || "-"}</p>
 
           <p>
-            {order.shippingAddress.subdistrict.label},{" "}
-            {order.shippingAddress.district.label}
+            {order.shippingAddress?.subdistrict?.label || "-"},{" "}
+            {order.shippingAddress?.district?.label || "-"}
           </p>
 
           <p>
-            {order.shippingAddress.city.label},{" "}
-            {order.shippingAddress.province.label}
+            {order.shippingAddress?.city?.label || "-"},{" "}
+            {order.shippingAddress?.province?.label || "-"}
           </p>
         </Card>
 
         <Card title="Shipping Method">
-          <p>{order.shippingMethod.name}</p>
+          <p>{order.shippingMethod?.name || "-"}</p>
 
-          <p>{order.shippingMethod.service}</p>
+          <p>{order.shippingMethod?.service || "-"}</p>
 
-          <p>ETA: {order.shippingMethod.etd}</p>
+          <p>ETA: {order.shippingMethod?.etd || "-"}</p>
         </Card>
       </div>
 

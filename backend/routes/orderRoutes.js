@@ -12,7 +12,11 @@ const {
   syncPaymentStatus,
   paymentNotification,
 } = require("../controllers/orderController");
-const { protect, roleCheck } = require("../middleware/authMiddleware");
+const {
+  protect,
+  protectAdmin,
+  roleCheck,
+} = require("../middleware/authMiddleware");
 
 //Public routes
 router.post("/my-orders/payment-notification", paymentNotification);
@@ -26,11 +30,11 @@ router.put("/my-orders/:orderId/sync-payment", protect, syncPaymentStatus);
 // router.put("/my-orders/:id/pay", protect, updateMyOrderToPaid); ON HOLD
 
 //admin routes
-router.get("/", protect, roleCheck("AdminProduct"), getAllOrders);
-router.get("/:id", protect, roleCheck("AdminProduct"), getOrderById);
+router.get("/", protectAdmin, roleCheck("AdminProduct"), getAllOrders);
+router.get("/:id", protectAdmin, roleCheck("AdminProduct"), getOrderById);
 router.put(
   "/:id/status",
-  protect,
+  protectAdmin,
   roleCheck("AdminProduct"),
   updateOrderStatus,
 );

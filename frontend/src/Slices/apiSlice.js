@@ -13,6 +13,7 @@ const baseQueryWithAuth = async (args, api, extraOptions) => {
       "Your session has ended, please login again",
     );
     api.dispatch(clearCredentials());
+    api.dispatch(apiSlice.util.resetApiState());
   }
 
   return result;

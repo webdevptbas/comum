@@ -134,7 +134,7 @@ exports.logoutUser = async (req, res) => {
 // @route POST /api/auth/logout
 // @access Private route
 exports.logoutAdmin = async (req, res) => {
-  res.cookie("jwt", "", {
+  res.cookie("admin_jwt", "", {
     httpOnly: true,
     expires: new Date(0),
   });

@@ -8,7 +8,13 @@ import { saveShippingAddress } from "../../Slices/cartSlice";
 const AddressSection = () => {
   const cart = useSelector((state) => state.cart);
   const { shippingAddress } = cart;
-  const hasAddress = Boolean(shippingAddress?.district);
+  const hasAddress = Boolean(
+    shippingAddress?.province &&
+    shippingAddress?.city &&
+    shippingAddress?.district &&
+    shippingAddress?.subdistrict &&
+    shippingAddress?.address,
+  );
   const [form] = Form.useForm();
   const dispatch = useDispatch();
 

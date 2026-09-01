@@ -10,6 +10,7 @@ import { useLogoutMutation } from "../../../Slices/usersApiSlice";
 import { clearCredentials } from "../../../Slices/authSlice";
 import { getDropdownItem } from "../dekstopMenuItems";
 import SearchBar from "../SearchBar/SearchBar";
+import { apiSlice } from "../../../Slices/apiSlice";
 
 const DesktopUtilities = ({ onCartOpen }) => {
   const navigate = useNavigate();
@@ -39,6 +40,7 @@ const DesktopUtilities = ({ onCartOpen }) => {
     try {
       await logoutApiCall().unwrap();
       dispatch(clearCredentials());
+      dispatch(apiSlice.util.resetApiState());
       setLogoutModal(false);
       navigate("/login");
     } catch (error) {

@@ -7,7 +7,11 @@ const {
   getEventById,
   updateEvent,
 } = require("../controllers/eventController");
-const { protect, roleCheck } = require("../middleware/authMiddleware");
+const {
+  protect,
+  protectAdmin,
+  roleCheck,
+} = require("../middleware/authMiddleware");
 const { uploadThumbnail } = require("../middleware/uploadMiddleware");
 
 //public routes
@@ -19,21 +23,21 @@ router.get("/:id", getEventById);
 router.post(
   "/",
   uploadThumbnail,
-  protect,
+  protectAdmin,
   roleCheck("AdminEvent"),
-  createEvent
+  createEvent,
 );
 
 //update an event
 router.put(
   "/:id",
   uploadThumbnail,
-  protect,
+  protectAdmin,
   roleCheck("AdminEvent"),
-  updateEvent
+  updateEvent,
 );
 
 //delete an event
-router.delete("/:id", protect, roleCheck("AdminEvent"), deleteEvent);
+router.delete("/:id", protectAdmin, roleCheck("AdminEvent"), deleteEvent);
 
 module.exports = router;

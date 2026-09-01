@@ -7,6 +7,7 @@ import { useLogoutMutation } from "../../Slices/usersApiSlice";
 import { FaSignOutAlt } from "react-icons/fa";
 import { message, Modal } from "antd";
 import { profileMenu } from "../../Component/Header/dekstopMenuItems";
+import { apiSlice } from "../../Slices/apiSlice";
 
 const ProfileLayout = () => {
   const navigate = useNavigate();
