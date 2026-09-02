@@ -8,7 +8,6 @@ import "./Register.css";
 import FormContainer from "../../Component/FormContainer/FormContainer";
 
 import { useRegisterMutation } from "../../Slices/usersApiSlice";
-import { setCredentials } from "../../Slices/authSlice";
 
 const { Option } = Select;
 
@@ -38,12 +37,12 @@ const RegisterPage = () => {
     const { confirmPassword, ...user } = values;
 
     try {
-      const res = await register(user).unwrap();
+      await register(user).unwrap();
 
-      dispatch(setCredentials(res));
-
-      message.success("Successfully registered");
-      navigate(redirect);
+      message.success(
+        "Registration successful! Please check your email to verify your account.",
+      );
+      navigate(`/check-email?email=${encodeURIComponent(user.email)}`);
     } catch (err) {
       message.error(err?.data?.message || "Register failed");
     }

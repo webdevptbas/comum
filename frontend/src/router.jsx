@@ -14,6 +14,8 @@ import CartPage from "./Pages/Cart/Cart.jsx";
 import ShopPage from "./Pages/Shop/Shop";
 import LoginPage from "./Pages/Login/Login.jsx";
 import RegisterPage from "./Pages/Register/Register.jsx";
+import CheckEmailPage from "./Pages/CheckEmail/CheckEmail.jsx";
+import VerifyEmailPage from "./Pages/VerifyEmail/VerifyEmail.jsx";
 import ProfileLayout from "./Layout/ProfileLayout/ProfileLayout.jsx";
 import ProfilePage from "./Pages/Profile/Profile.jsx";
 import OrdersPage from "./Pages/Orders/Orders.jsx";
@@ -44,6 +46,14 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <RegisterPage />,
+      },
+      {
+        path: "/check-email",
+        element: <CheckEmailPage />,
+      },
+      {
+        path: "/verify-email",
+        element: <VerifyEmailPage />,
       },
       {
         path: "/shop",
