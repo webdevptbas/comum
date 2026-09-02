@@ -33,10 +33,16 @@ const userSchema = new mongoose.Schema(
       enum: ["Buyer", "AdminProduct", "AdminEvent"],
       default: "Buyer", // when registering via frontend
     },
+    isVerified: {
+      type: Boolean,
+      default: false,
+    },
+    verificationToken: String,
+    verificationTokenExpires: Date,
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 // Hash password before saving

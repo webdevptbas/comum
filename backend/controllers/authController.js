@@ -1,6 +1,8 @@
 const bcrypt = require("bcryptjs");
+const crypto = require("crypto");
 const User = require("../models/User");
 const { generateToken } = require("../utils/generateToken");
+const { sendVerificationEmail } = require("../utils/sendEmail");
 
 // @desc Register Buyer
 // @route POST api/auth/register
@@ -16,6 +18,15 @@ exports.registerUser = async (req, res) => {
     if (existingUser)
       return res.status(400).json({ message: "User already exists." });
 
+    const existingEmail = await User.findOne({
+      email: email.toLowerCase(),
+    });
+    if (existingEmail)
+      return res.status(400).json({ message: "Email already registered." });
+
+    const verificationToken = crypto.randomBytes(32).toString("hex");
+    const verificationTokenExpires = Date.now() + 24 * 60 * 60 * 1000; // 24 jam
+
     const buyer = await User.create({
       username,
       password, // <-- plain password, let Mongoose hash it
@@ -25,21 +36,111 @@ exports.registerUser = async (req, res) => {
       gender,
       dateOfBirth,
       role,
+      isVerified: false,
+      verificationToken,
+      verificationTokenExpires,
     });
 
-    generateToken(res, buyer);
+    try {
+      await sendVerificationEmail(buyer.email, buyer.name, verificationToken);
+    } catch (emailError) {
+      console.error("Failed to send verification email:", emailError);
+      // Akun tetap dibuat walau email gagal terkirim, supaya user bisa
+      // minta kirim ulang lewat endpoint resend-verification.
+    }
 
     res.status(201).json({
-      message: "Account successfully registered!",
+      message:
+        "Account created! Please check your email to verify your account before logging in.",
       user: {
         _id: buyer._id,
         username: buyer.username,
         name: buyer.name,
         email: buyer.email,
-        phone: buyer.phone,
-        gender: buyer.gender,
-        dateOfBirth: buyer.dateOfBirth,
       },
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+// @desc Verify email using token sent to user's email
+// @route POST /api/auth/verify-email
+// @access Public
+exports.verifyEmail = async (req, res) => {
+  try {
+    const { token } = req.body;
+
+    if (!token) {
+      return res
+        .status(400)
+        .json({ message: "Verification token is required" });
+    }
+
+    const user = await User.findOne({
+      verificationToken: token,
+      verificationTokenExpires: { $gt: Date.now() },
+    });
+
+    if (!user) {
+      return res.status(400).json({
+        message: "Invalid or expired verification link.",
+      });
+    }
+
+    user.isVerified = true;
+    user.verificationToken = undefined;
+    user.verificationTokenExpires = undefined;
+    await user.save();
+
+    res
+      .status(200)
+      .json({ message: "Email verified successfully! You can now log in." });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+// @desc Resend verification email
+// @route POST /api/auth/resend-verification
+// @access Public
+exports.resendVerificationEmail = async (req, res) => {
+  try {
+    const { identifier } = req.body;
+
+    if (!identifier) {
+      return res.status(400).json({ message: "Email or username is required" });
+    }
+
+    const user = await User.findOne({
+      $or: [
+        { email: identifier.toLowerCase() },
+        { username: identifier.toLowerCase() },
+      ],
+    });
+
+    if (!user) {
+      // Jangan bocorkan apakah email/username terdaftar atau tidak
+      return res.status(200).json({
+        message: "If the account exists, a verification link has been sent.",
+      });
+    }
+
+    if (user.isVerified) {
+      return res
+        .status(400)
+        .json({ message: "This account is already verified." });
+    }
+
+    const verificationToken = crypto.randomBytes(32).toString("hex");
+    user.verificationToken = verificationToken;
+    user.verificationTokenExpires = Date.now() + 24 * 60 * 60 * 1000;
+    await user.save();
+
+    await sendVerificationEmail(user.email, user.name, verificationToken);
+
+    res.status(200).json({
+      message: "If the account exists, a verification link has been sent.",
     });
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -62,6 +163,14 @@ exports.loginUser = async (req, res) => {
 
     if (!isMatch)
       return res.status(401).json({ message: "Invalid email or password" });
+
+    if (!user.isVerified) {
+      return res.status(403).json({
+        message:
+          "Please verify your email before logging in. Check your inbox or request a new verification link.",
+        needsVerification: true,
+      });
+    }
 
     generateToken(res, user);
 
