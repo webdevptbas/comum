@@ -37,7 +37,7 @@ const MobileTopBar = ({ onMenuOpen, onCartOpen }) => {
           />
         )}
 
-        <div id="cart-icon-target">
+        {/* <div id="cart-icon-target">
           {cartItems.length > 0 ? (
             <Badge
               count={cartItems.reduce((a, c) => a + c.quantity, 0)}
@@ -51,7 +51,7 @@ const MobileTopBar = ({ onMenuOpen, onCartOpen }) => {
               onClick={onCartOpen}
             />
           )}
-        </div>
+        </div> */}
       </div>
     </>
   );

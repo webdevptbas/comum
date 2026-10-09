@@ -101,10 +101,10 @@ const router = createBrowserRouter([
         path: "/service",
         element: <ServicePage />,
       },
-      {
-        path: "/cart",
-        element: <CartPage />,
-      },
+      // {
+      //   path: "/cart",
+      //   element: <CartPage />,
+      // },
       {
         path: "",
         element: <PrivateRoute />,
