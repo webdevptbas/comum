@@ -12,6 +12,8 @@ const {
   updateUserProfile,
   loginAdmin,
   logoutAdmin,
+  verifyEmail,
+  resendVerificationEmail,
 } = require("../controllers/authController");
 const {
   protect,
