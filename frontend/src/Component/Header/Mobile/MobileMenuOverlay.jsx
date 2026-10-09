@@ -34,7 +34,13 @@ const MobileMenuOverlay = ({ closeMenu }) => {
       </div> */}
       <div
         className="mobile-menu-item text-menu"
-        onClick={() => handleNavigate("/shop")}
+        onClick={() =>
+          window.open(
+            "https://shop.comumspace.com",
+            "_blank",
+            "noopener,noreferrer",
+          )
+        }
       >
         Shop
       </div>

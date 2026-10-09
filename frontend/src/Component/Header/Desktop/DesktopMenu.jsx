@@ -28,7 +28,15 @@ const DesktopMenu = () => {
           ]}
           items={menuItems}
           onClick={({ key }) => {
-            navigate(key);
+            if (key === "/shop") {
+              window.open(
+                "https://shop.comumspace.com",
+                "_blank",
+                "noopener,noreferrer",
+              );
+            } else {
+              navigate(key);
+            }
           }}
         />
       </div>

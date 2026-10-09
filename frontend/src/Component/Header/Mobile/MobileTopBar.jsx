@@ -20,7 +20,7 @@ const MobileTopBar = ({ onMenuOpen, onCartOpen }) => {
         <ComumHomeBlue height="31" width="auto" />
       </div>
 
-      <div className="utilities">
+      {/* <div className="utilities">
         {userInfo ? (
           <FaRegUser
             style={{ fontSize: "20px" }}
@@ -37,7 +37,7 @@ const MobileTopBar = ({ onMenuOpen, onCartOpen }) => {
           />
         )}
 
-        {/* <div id="cart-icon-target">
+        <div id="cart-icon-target">
           {cartItems.length > 0 ? (
             <Badge
               count={cartItems.reduce((a, c) => a + c.quantity, 0)}
@@ -51,8 +51,8 @@ const MobileTopBar = ({ onMenuOpen, onCartOpen }) => {
               onClick={onCartOpen}
             />
           )}
-        </div> */}
-      </div>
+        </div>
+      </div> */}
     </>
   );
 };

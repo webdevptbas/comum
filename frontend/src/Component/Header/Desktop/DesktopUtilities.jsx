@@ -106,7 +106,7 @@ const DesktopUtilities = ({ onCartOpen }) => {
           </span>
         </Dropdown>
 
-        {/* user dropdown */}
+        {/* user dropdown
         {userInfo ? (
           <Dropdown
             menu={{ items: dropdownItem }}
@@ -122,7 +122,7 @@ const DesktopUtilities = ({ onCartOpen }) => {
             style={{ fontSize: "20px", cursor: "pointer" }}
             onClick={handleUserClick}
           />
-        )}
+        )} */}
 
         {/* cart trigger */}
         {/* <div id="cart-icon-target">

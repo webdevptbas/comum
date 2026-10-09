@@ -75,11 +75,6 @@
   color: #3267e3;
 }
 
-.utilities {
-  justify-content: space-between;
-  width: 7dvw;
-}
-
 .utilities .ant-dropdown-trigger {
   line-height: 0;
 }

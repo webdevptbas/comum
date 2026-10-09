@@ -31,7 +31,7 @@ const MobileHeader = () => {
       >
         <MobileTopBar
           onMenuOpen={() => setDrawerVisible(true)}
-          onCartOpen={openCart}
+          // onCartOpen={openCart}
         />
       </Header>
 
@@ -46,7 +46,7 @@ const MobileHeader = () => {
         <MobileMenuOverlay closeMenu={() => setDrawerVisible(false)} />
       </Drawer>
 
-      <CartDrawer open={isCartVisible} onClose={closeCart} />
+      {/* <CartDrawer open={isCartVisible} onClose={closeCart} /> */}
     </>
   );
 };
