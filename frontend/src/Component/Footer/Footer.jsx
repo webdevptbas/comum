@@ -3,7 +3,9 @@ import { Dropdown, Layout } from "antd";
 import "./Footer.css";
 import ComumFooter from "../../Icons/img/comumFooter.svg";
 import { InstagramIcon, WhatsappIcon } from "../../Icons";
+import TokopediaLogo from "../../Icons/Socmed/tokopedia.svg";
 import { subscribeEmail } from "../../Util/apiService";
+import ShopeeLogo from "../../Icons/Socmed/shopee.svg";
 
 const { Footer } = Layout;
 
@@ -31,6 +33,17 @@ const MainFooter = () => {
     },
   ];
 
+  const tokopediaStores = [
+    {
+      name: "Comum Bike & Padel Jakarta",
+      url: "https://tk.tokopedia.com/ZSpjbwoBN/",
+    },
+    {
+      name: "Comum Bike & Padel Tangerang",
+      url: "https://tk.tokopedia.com/ZSpjgNkY9/",
+    },
+  ];
+
   const menuItems = whatsappNumbers.map((item, index) => ({
     key: index,
     label: (
@@ -52,6 +65,15 @@ const MainFooter = () => {
         target="_blank"
         rel="noopener noreferrer"
       >
+        {item.name}
+      </a>
+    ),
+  }));
+
+  const tokopediaMenuItems = tokopediaStores.map((item, index) => ({
+    key: index,
+    label: (
+      <a href={item.url} target="_blank" rel="noopener noreferrer">
         {item.name}
       </a>
     ),
@@ -177,6 +199,26 @@ const MainFooter = () => {
                     />
                   </div>
                 </Dropdown>
+                <Dropdown
+                  menu={{ items: tokopediaMenuItems }}
+                  placement="bottomLeft"
+                  trigger={["click"]}
+                >
+                  <div style={{ cursor: "pointer" }}>
+                    <div className="socmed-box clickable">
+                      <img src={TokopediaLogo} alt="Tokopedia" />
+                    </div>
+                  </div>
+                </Dropdown>
+                <a
+                  href="https://shopee.co.id/comumbikeandpadel?entryPoint=ShopBySearch&searchKeyword=comumbike%20and%20padel"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <div className="socmed-box clickable">
+                    <img className = "shopee" src={ShopeeLogo} alt="Shopee" />
+                  </div>
+                </a>
               </div>
             </div>
           </div>
