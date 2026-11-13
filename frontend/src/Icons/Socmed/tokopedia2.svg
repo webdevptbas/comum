@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 580" width="100%" height="100%">
+  <defs>
+    <!-- Gradasi Utama Badan Tas (Nuansa Putih & Abu Terang) -->
+    <linearGradient id="whiteBodyLeft" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#DCDCDC" />
+    </linearGradient>
+    <linearGradient id="whiteBodyRight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EBEBEB" />
+      <stop offset="100%" stop-color="#C8C8C8" />
+    </linearGradient>
+
+    <!-- Gradasi Perut Putih -->
+    <linearGradient id="whiteBellyLeft" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F5F5F5" />
+      <stop offset="100%" stop-color="#D8D8D8" />
+    </linearGradient>
+    <linearGradient id="whiteBellyRight" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#EAEAEA" />
+      <stop offset="100%" stop-color="#C2C2C2" />
+    </linearGradient>
+
+    <!-- Gradasi Paruh -->
+    <linearGradient id="beakTopLeft" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E0E0E0" />
+      <stop offset="100%" stop-color="#FFFFFF" />
+    </linearGradient>
+    <linearGradient id="beakTopRight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#CFCFCF" />
+    </linearGradient>
+    <linearGradient id="beakBottom" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#C2C2C2" />
+      <stop offset="100%" stop-color="#EFEFEF" />
+    </linearGradient>
+
+    <!-- Highlight Atas -->
+    <linearGradient id="topGloss" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.0" />
+    </linearGradient>
+
+    <!-- Clip Path untuk Badan Utama -->
+    <clipPath id="bagClip">
+      <path d="M 65 175 
+               Q 65 160 80 160 
+               Q 185 155 256 183 
+               Q 328 155 433 160 
+               Q 448 160 448 175 
+               L 448 370 
+               C 448 455 385 505 295 505 
+               L 80 505 
+               Q 65 505 65 490 
+               Z" />
+    </clipPath>
+  </defs>
+
+  <!-- Pegangan Tas (Handle) - Warna Putih/Abu Terang -->
+  <path d="M 155 170 
+           C 155 45, 360 45, 360 170 
+           L 332 170 
+           C 332 82, 183 82, 183 170 
+           Z" fill="#E5E5E5" />
+
+  <!-- Grup Badan Tas -->
+  <g clip-path="url(#bagClip)">
+    <!-- Dasar Badan Kiri -->
+    <rect x="60" y="150" width="196" height="360" fill="url(#whiteBodyLeft)" />
+    <!-- Dasar Badan Kanan -->
+    <rect x="256" y="150" width="196" height="360" fill="url(#whiteBodyRight)" />
+
+    <!-- Bagian Perut Melengkung -->
+    <path d="M 105 505 C 125 365, 385 365, 405 505 Z" fill="url(#whiteBellyLeft)" />
+    <!-- Bayangan Lipatan Tengah pada Perut -->
+    <path d="M 256 398 C 325 398, 392 435, 405 505 L 256 505 Z" fill="url(#whiteBellyRight)" />
+
+    <!-- Kilau/Gloss pada Bagian Atas Tas -->
+    <path d="M 72 178 Q 72 167 85 167 Q 182 163 250 186 Q 175 175 72 186 Z" fill="url(#topGloss)" />
+    <path d="M 441 178 Q 441 167 428 167 Q 332 163 262 186 Q 338 175 441 186 Z" fill="url(#topGloss)" />
+  </g>
+
+  <!-- Mata Kiri -->
+  <g transform="translate(166, 295)">
+    <!-- Bola Mata Putih -->
+    <circle cx="0" cy="0" r="76" fill="#FFFFFF" />
+    <!-- Bayangan Halus Bawah Bola Mata -->
+    <path d="M -73 20 A 76 76 0 0 0 73 20 A 82 70 0 0 1 -73 20 Z" fill="#EAEAEA" />
+    <!-- Pupil Hitam/Abu Gelap -->
+    <circle cx="-1" cy="3" r="41" fill="#404040" />
+    <!-- Kilau Mata Putih -->
+    <circle cx="-17" cy="-16" r="21" fill="#FFFFFF" />
+  </g>
+
+  <!-- Mata Kanan -->
+  <g transform="translate(347, 295)">
+    <!-- Bola Mata Putih -->
+    <circle cx="0" cy="0" r="76" fill="#FFFFFF" />
+    <!-- Bayangan Halus Bawah Bola Mata -->
+    <path d="M -73 20 A 76 76 0 0 0 73 20 A 82 70 0 0 1 -73 20 Z" fill="#EAEAEA" />
+    <!-- Pupil Hitam/Abu Gelap -->
+    <circle cx="-3" cy="3" r="41" fill="#404040" />
+    <!-- Kilau Mata Putih -->
+    <circle cx="-19" cy="-16" r="21" fill="#FFFFFF" />
+  </g>
+
+  <!-- Paruh (Disesuaikan dengan nuansa cerah/putih) -->
+  <g>
+    <!-- Bagian Bawah Paruh -->
+    <path d="M 213 388 
+             Q 256 458 299 388 
+             Z" fill="url(#beakBottom)" stroke="#A0A0A0" stroke-width="1.5" stroke-linejoin="round" />
+    
+    <!-- Bayangan di Bawah Paruh Atas -->
+    <path d="M 213 388 Q 256 435 299 388 Q 256 418 213 388 Z" fill="#C8C8C8" opacity="0.6" />
+
+    <!-- Bagian Atas Paruh (Sisi Kiri) -->
+    <path d="M 207 390 
+             C 208 355, 238 345, 256 345 
+             L 256 418 
+             C 242 405, 222 394, 207 390 Z" fill="url(#beakTopLeft)" />
+
+    <!-- Bagian Atas Paruh (Sisi Kanan) -->
+    <path d="M 305 390 
+             C 304 355, 274 345, 256 345 
+             L 256 418 
+             C 270 405, 290 394, 305 390 Z" fill="url(#beakTopRight)" />
+
+    <!-- Kilau Tengah Paruh -->
+    <path d="M 256 345 L 265 347 L 256 418 Z" fill="#FFFFFF" opacity="0.6" />
+  </g>
+</svg>

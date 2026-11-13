@@ -3,7 +3,7 @@ import { Dropdown, Layout } from "antd";
 import "./Footer.css";
 import ComumFooter from "../../Icons/img/comumFooter.svg";
 import { InstagramIcon, WhatsappIcon } from "../../Icons";
-import TokopediaLogo from "../../Icons/Socmed/tokopedia.svg";
+import TokopediaLogo from "../../Icons/Socmed/tokopedia2.svg";
 import { subscribeEmail } from "../../Util/apiService";
 import ShopeeLogo from "../../Icons/Socmed/shopee.svg";
 
